@@ -1,4 +1,3 @@
-
 # Use single quotes in the shell for words that have anything besides
 # [A-Za-z0-9._] in them.
 
@@ -53,6 +52,8 @@ HISTFILE=~/.zsh_history
 #### Aliases
 
 alias l=less
+alias ll='ls -l'
+alias la='ls -la'
 
 alias -g L="| less"
 alias -g LL="2>&1 | less"
@@ -112,6 +113,3 @@ setopt hist_no_functions
 # - bindkey -A my-map main # alias my map to main
 # - "\e-return" multi line input
 # - zsh -f # no init
-
-
-
