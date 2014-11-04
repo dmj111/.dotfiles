@@ -83,6 +83,15 @@ setopt hist_no_functions
 
 ## Autoloaded files, start with _, and are located on fpath.
 
+# Set up a prompt.
+RPS1="%B%~%b"
+PS1="%B%n@%m
+$%b "
+
+function restart() {
+    exec zsh
+}
+
 [ -f ${ZSH}/local/local.zsh ] && \
     source ${ZSH}/local/local.zsh || print "no file"
 
