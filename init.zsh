@@ -1,3 +1,6 @@
+# TODO:
+# - hash -d to hash directory shortcuts
+
 # Use single quotes in the shell for words that have anything besides
 # [A-Za-z0-9._] in them.
 
