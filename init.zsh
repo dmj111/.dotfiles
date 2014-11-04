@@ -14,10 +14,7 @@
     source ${ZSH}/local/local-pre.zsh || print "no file"
 
 setopt emacs
-
-
 setopt no_beep
-
 
 # TODO: Not sure if this is needed any more?
 # bindkey -me
@@ -38,19 +35,13 @@ bindkey "\eq" push-line-or-edit
 unalias run-help
 autoload -U run-help
 
-
-
 #### History
 HISTSIZE=1000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 
-
-
-
 #### Aliases
-
 alias l=less
 alias ll='ls -l'
 alias la='ls -la'
@@ -60,15 +51,11 @@ alias -g LL="2>&1 | less"
 
 
 #### Completion
-
 autoload -U compinit
 compinit -i -D
 
-
-
 # Globbing
 setopt extended_glob
-
 
 # Change to a directory, if it is named on the command line.
 setopt auto_cd
