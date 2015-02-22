@@ -36,8 +36,9 @@ bindkey "\en" history-beginning-search-forward
 bindkey "\eq" push-line-or-edit
 
 # make run-help nicer.  M-h brings up help for what you are doing
-unalias run-help
+# unalias run-help
 autoload -U run-help
+autoload -U run-help-git
 
 #### History file
 HISTSIZE=1000
