@@ -119,7 +119,9 @@ function gmp () {
     compdef _gnu_generic $fcn
 }
 
-
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TERM=xterm-256color
 
 # Useful information
 
