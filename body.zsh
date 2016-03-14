@@ -13,9 +13,8 @@
 
 # Get emacs keybindings
 
-# X
-# [ -f ${ZSH}/local/local-pre.zsh ] && \
-#     source ${ZSH}/local/local-pre.zsh || print "no file"
+[ -f ${ZSH}/local/local-pre.zsh ] && \
+    source ${ZSH}/local/local-pre.zsh || print "no file"
 
 setopt emacs
 setopt no_beep
