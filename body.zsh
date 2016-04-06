@@ -105,7 +105,7 @@ setopt hist_no_functions
 
 # Set up a prompt.
 RPS1="%B%~%b"
-PS1="%B%n@%m
+PS1="%B%n@%m %~
 $%b "
 
 function restart() {
