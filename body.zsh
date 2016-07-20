@@ -16,6 +16,12 @@
 [ -f ${ZSH}/local/local-pre.zsh ] && \
     source ${ZSH}/local/local-pre.zsh || print "no file"
 
+mac_git_prompt_dir=/Applications/Xcode.app/Contents/Developer/usr/share/git-core/
+[ -e $mac_git_prompt_dir ] && path=($mac_git_prompt_dir $path)
+
+
+source git-prompt.sh
+
 setopt emacs
 setopt no_beep
 
@@ -106,11 +112,12 @@ setopt hist_no_functions
 # Set up a prompt.
 RPS1="%B%~%b"
 PS1="%B%n@%m %~
-$%b "
+$(__git_ps1)$ %b "
 
-function restart() {
-    exec zsh -l
-}
+
+function bash { NO_SWITCH="yes" command bash "$@" ; }
+
+function restart { exec $SHELL $SHELL_ARGS "$@" ; }
 
 function gmp () {
     fcn=$1
