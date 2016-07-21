@@ -105,14 +105,26 @@ setopt hist_ignore_space
 setopt hist_no_functions
 
 
+#### Git prompt stuff
+function prompt_char {
+    git branch >/dev/null 2>/dev/null && echo '±' && return
+    hg root >/dev/null 2>/dev/null && echo '☿' && return
+    echo '○'
+}
+
+git_prompt_info() {
+    __git_ps1
+    echo " "
+}
+setopt prompt_subst
 
 
 ## Autoloaded files, start with _, and are located on fpath.
 
 # Set up a prompt.
 RPS1="%B%~%b"
-PS1="%B%n@%m %~
-$(__git_ps1)$ %b "
+PROMPT='%B%~ $(git_prompt_info) %n@%m 
+$%b '
 
 
 function bash { NO_SWITCH="yes" command bash "$@" ; }
