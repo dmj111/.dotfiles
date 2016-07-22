@@ -16,12 +16,6 @@
 [ -f ${ZSH}/local/local-pre.zsh ] && \
     source ${ZSH}/local/local-pre.zsh || print "no file"
 
-mac_git_prompt_dir=/Applications/Xcode.app/Contents/Developer/usr/share/git-core/
-[ -e $mac_git_prompt_dir ] && path=($mac_git_prompt_dir $path)
-
-
-source git-prompt.sh
-
 setopt emacs
 setopt no_beep
 
@@ -106,16 +100,42 @@ setopt hist_no_functions
 
 
 #### Git prompt stuff
+
+function git_branch() {
+    (git symbolic-ref -q HEAD || 
+            git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
+}
+
+
 function prompt_char {
     git branch >/dev/null 2>/dev/null && echo '±' && return
     hg root >/dev/null 2>/dev/null && echo '☿' && return
     echo '○'
 }
 
-git_prompt_info() {
-    __git_ps1
-    echo " "
+function git_state() {
+    local RESULT=""
+
+
+
+    local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
+    if [ "$NUM_AHEAD" -gt 0 ]; then
+        RESULT=$RESULT${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
+    fi
+
+    local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
+    if [ "$NUM_BEHIND" -gt 0 ]; then
+        RESULT=$RESULT${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
+    fi
+
+    [ -n $RESULT ] && echo $RESULT    
 }
+
+function git_prompt() {
+    local branch="$(git_branch)"
+    [ -n $branch ] && echo " $(prompt_char) (${branch#(refs/heads/|tags/)})"
+}
+
 setopt prompt_subst
 
 
@@ -123,7 +143,7 @@ setopt prompt_subst
 
 # Set up a prompt.
 RPS1="%B%~%b"
-PROMPT='%B%~ $(git_prompt_info) %n@%m 
+PROMPT='%B%~$(git_prompt) %n@%m 
 $%b '
 
 
