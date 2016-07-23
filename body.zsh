@@ -67,7 +67,7 @@ alias d='dirs -v'
 setopt no_flow_control # C-s
 
 function runbash() {
-    NO_SWITCH=1 bash
+    NO_SWITCH=1 command bash "$@" 
 }
 
 
@@ -192,8 +192,6 @@ PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
 %# '
 
 
-# Shell functions
-function bash { NO_SWITCH="yes" command bash "$@" ; }
 
 function restart { exec $SHELL $SHELL_ARGS "$@" ; }
 
