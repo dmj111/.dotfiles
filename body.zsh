@@ -100,57 +100,104 @@ setopt hist_no_functions
 
 
 #### Git prompt stuff
-
-function git_branch() {
-    (git symbolic-ref -q HEAD || 
-            git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
-}
-
-
-function prompt_char {
-    git branch >/dev/null 2>/dev/null && echo '±' && return
-    hg root >/dev/null 2>/dev/null && echo '☿' && return
-    echo '○'
-}
-
-function git_state() {
-    local RESULT=""
-
-
-
-    local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
-    if [ "$NUM_AHEAD" -gt 0 ]; then
-        RESULT=$RESULT${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
-    fi
-
-    local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
-    if [ "$NUM_BEHIND" -gt 0 ]; then
-        RESULT=$RESULT${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
-    fi
-
-    [ -n $RESULT ] && echo $RESULT    
-}
-
-function git_prompt() {
-    local branch="$(git_branch)"
-    [ -n $branch ] && echo " $(prompt_char) (${branch#(refs/heads/|tags/)})"
-}
-
 setopt prompt_subst
 
 
-## Autoloaded files, start with _, and are located on fpath.
-
-# Set up a prompt.
-RPS1="%B%~%b"
-PROMPT='%B%~$(git_prompt) %n@%m 
-$%b '
+# function git_branch() {
+#     (git symbolic-ref -q HEAD || 
+#             git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
+# }
 
 
+# function prompt_char {
+#     git branch >/dev/null 2>/dev/null && echo '±' && return
+#     hg root >/dev/null 2>/dev/null && echo '☿' && return
+#     echo '○'
+# }
+
+# function git_state() {
+#     local RESULT=""
+
+
+
+#     local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
+#     if [ "$NUM_AHEAD" -gt 0 ]; then
+#         RESULT=$RESULT${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
+#     fi
+
+#     local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
+#     if [ "$NUM_BEHIND" -gt 0 ]; then
+#         RESULT=$RESULT${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
+#     fi
+
+#     [ -n $RESULT ] && echo $RESULT    
+# }
+
+# function git_prompt() {
+#     local branch="$(git_branch)"
+#     [ -n $branch ] && echo " $(prompt_char) (${branch#(refs/heads/|tags/)})"
+# }
+
+
+# ## Autoloaded files, start with _, and are located on fpath.
+
+# # Set up a prompt.
+# RPS1="%B%~%b"
+# PROMPT='%B%~$(git_prompt) %n@%m 
+# $%b '
+
+# Example from man zshcontrib
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:(hg*|git*):*' get-revision true
+zstyle ':vcs_info:(hg*|git*):*' check-for-changes true
+
+zstyle ':vcs_info:(hg*|git*):*' stagedstr "${green}S${gray}"
+zstyle ':vcs_info:(hg*|git*):*' unstagedstr "${red}U${gray}"
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' actionformats \
+       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats       \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+
+zstyle ':vcs_info:git*+set-message:*' hooks git-st
+# Show remote ref name and number of commits ahead-of or behind
+function +vi-git-st() {
+    local ahead behind remote
+    local -a gitstatus
+
+    # Are we on a remote-tracking branch?
+    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
+        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+
+    if [[ -n ${remote} ]] ; then
+        # for git prior to 1.7
+        # ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
+        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+        (( $ahead )) && gitstatus+=( "${c3}+${ahead}${c2}" )
+
+        # for git prior to 1.7
+        # behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
+        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+        (( $behind )) && gitstatus+=( "${c4}-${behind}${c2}" )
+
+        hook_com[branch]="${hook_com[branch]} [${remote} ${(j:/:)gitstatus}]"
+    fi
+}
+
+precmd () { vcs_info }
+PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
+%# '
+
+
+# Shell functions
 function bash { NO_SWITCH="yes" command bash "$@" ; }
 
 function restart { exec $SHELL $SHELL_ARGS "$@" ; }
 
+# Add GNU completion to a function.
 function gmp () {
     fcn=$1
     print "adding gnu completion to $fcn"
