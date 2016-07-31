@@ -57,6 +57,9 @@ alias -g LL="2>&1 | less"
 alias en='emacsclient -n'
 alias ec='emacsclient'
 
+alias gl='git log --oneline --graph'
+
+
 #### Completion
 autoload -U compinit
 compinit -i -D
@@ -205,6 +208,8 @@ function gmp () {
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
+
+[[ -n $EMACS ]] && export VISUAL=emacsclient
 
 # Useful information
 
