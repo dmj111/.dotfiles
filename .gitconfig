@@ -54,6 +54,9 @@
 	unstage = reset HEAD --
 
 	last =  !git --no-pager log -1 HEAD --
+	qm = !git checkout $1 ; git merge @{-1}
+
+	
 [push]
 	default=current
 
