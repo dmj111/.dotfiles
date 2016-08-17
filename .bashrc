@@ -63,27 +63,8 @@ shopt -s histappend
 
 function readfile { [ -f $1 ] &&  . $1 ; }
 
-case $(uname) in
-    FreeBSD)
-        alias duck="du -ck -d 1 ./ | sort -rn | head -n 16"
-        alias mwget='wget -p --convert-links'
-        alias dh="ssh -2 $DH"
-        case "$-" in
-            *i*)
-                readfile ~/.agent-info
-                ;;
-        esac
-        ;;
-esac
 
 export PATH=$HOME/bin:$PATH
-export PYTHONSTARTUP=~/.pythonstartup.py
-export PYTHONPATH=$HOME/lib/python:$HOME/lib/python/site-python
-
-readfile ~/rc/functions
-
-
-alias clj=clj-env-dir
 
 [[ -r ~/config/local/.bashrc ]] && source ~/config/local/.bashrc
 # Local Variables:
