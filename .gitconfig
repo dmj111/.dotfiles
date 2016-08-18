@@ -43,6 +43,7 @@
 	--abbrev-commit --date=relative
 	ci = commit --verbose
 	pick = cherry-pick --sign-off
+    sl = !git --no-pager log --oneline -n 10
 	sb = status --short --branch
 	st = status --short --branch
 	log1 = log --pretty=oneline --abbrev-commit
