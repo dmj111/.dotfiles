@@ -63,6 +63,26 @@ shopt -s histappend
 
 function readfile { [ -f $1 ] &&  . $1 ; }
 
+#
+# Git stuff
+#
+
+# Copy git-prompt.sh and git-completion.bash from the git
+# contrib/completion directory here.
+
+# [[ -f git-completion.bash ]] && . git-completion.bash
+# [[ -f git-prompt.sh ]] && . git-prompt.sh
+
+. ~/git-completion.bash
+
+if [ -f ~/git-prompt.sh ]; then
+    . ~/git-prompt.sh
+    export GIT_PS1_SHOWDIRTYSTATE=1
+    export PS1='\w$(__git_ps1 " (%s)")\$ '
+else
+    echo "git-prompt.sh not found"
+fi
+    
 
 export PATH=$HOME/bin:$PATH
 
