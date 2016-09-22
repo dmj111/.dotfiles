@@ -11,6 +11,7 @@
 
 [core]
 	excludesfile = ~/.gitignore
+	pager = less -F -X -R
 
 [color]
 	ui = auto
