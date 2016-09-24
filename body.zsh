@@ -58,11 +58,14 @@ alias en='emacsclient -n'
 alias ec='emacsclient'
 
 alias gl='git log --oneline --graph'
-
+alias awake='caffeinate -d '
 
 #### Completion
 autoload -U compinit
 compinit -i -D
+
+
+zstyle ':completion:*' menu select=5
 
 setopt auto_cd
 alias d='dirs -v'
@@ -162,10 +165,11 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' actionformats \
        '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
 zstyle ':vcs_info:*' formats       \
-    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f'
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}-%r-'
 
 zstyle ':vcs_info:git*+set-message:*' hooks git-st
+
 # Show remote ref name and number of commits ahead-of or behind
 function +vi-git-st() {
     local ahead behind remote
