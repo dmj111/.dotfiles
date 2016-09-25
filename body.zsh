@@ -213,6 +213,15 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
+# For emacs ansi-term
+# TODO: evaluate only in ansi-term
+if [ "$EMACS" ]; then 
+    ansi_term_chpwd() { print -P "\033AnSiTc %d" }
+    chpwd_functions=(${chpwd_functions[@]} ansi_term_chpwd)
+    print -P "\033AnSiTu %n"
+    print -P "\033AnSiTc %d"
+fi
+
 [[ -n $EMACS ]] && export VISUAL=emacsclient
 
 # Useful information
