@@ -9,7 +9,6 @@ export SHELL=$(which bash)
 export LESS="-Ri"
 export PAGER="less"
 
-export PYTHONSTARTUP=~/.pythonstartup.py
 PATH=/usr/local/bin:$PATH
 
 # export PYTHONPATH=$HOME/lib/python
