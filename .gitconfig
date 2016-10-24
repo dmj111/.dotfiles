@@ -13,6 +13,9 @@
 	excludesfile = ~/.gitignore
 	pager = less -F -X -R
 
+[rerere]
+	enabled = true
+
 [color]
 	ui = auto
 
