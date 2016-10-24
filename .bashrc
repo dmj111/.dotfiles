@@ -50,7 +50,7 @@ simple_prompt () {
     PS1="[\$(date +%H:%M)] \w [\u@\h"$screenw"]\n--\! \$ "
 }
 
-PROMPT_COMMAND='history -a'
+PROMPT_COMMAND='history -a; history -n'
 shopt -s histappend
 
 # function xterm { command xterm $COL +sb -cm -vb -title $HOSTNAME "$@" & }
