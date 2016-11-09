@@ -45,6 +45,7 @@
 	lg = log --graph --pretty=format:'%Cred%h%Creset \
 	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative
+    lgs = !git lg -n 10
 	ci = commit --verbose
 	pick = cherry-pick --sign-off
     sl = !git --no-pager log --oneline -n 10
