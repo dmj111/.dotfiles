@@ -79,3 +79,5 @@
 [credential]
 	helper = osxkeychain
 
+[diff]
+	submodule = log
