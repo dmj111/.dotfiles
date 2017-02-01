@@ -25,7 +25,8 @@
 	remote = green
 
 [color "diff"]
-	meta = yellow bold
+    # meta = yellow bold
+    meta = blue bold
 	frag = magenta bold
 	old = red bold
 	new = green bold
@@ -70,12 +71,16 @@
 	
 	qm = "!git checkout $1; git merge @{-1}"
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
+    # Create a new branch off of origin/master
+    nb = "!f() { git co --no-track -b ${1} origin/master ; } ; f "
 
+    # show the merge merge result between two branches without
+    # actually doing the merge.
+    obdiff="!f() { git merge-tree `git merge-base ${1} ${2}` ${1} ${2} ; } ; f "
 	
 [push]
 	# only push branches that are tracking a remote.
 	default=current
-
 
 [credential]
 	helper = osxkeychain

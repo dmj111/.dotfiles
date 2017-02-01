@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-PATH=/usr/local/bin:$PATH
+PATH=$HOME/bin:/usr/local/bin:$PATH
