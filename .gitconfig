@@ -1,13 +1,13 @@
 # In ~/.gitignore, use:
 # [include]
 # 	path = /path/to/this/file
-# 
+#
 # [user]
-# 	name = 
-# 	email = 
-	
+# 	name =
+# 	email =
+
 # [github]
-# 	user = 
+# 	user =
 
 [core]
 	excludesfile = ~/.gitignore
@@ -34,22 +34,22 @@
 
 [apply]
 	whitespace = warn
-	
+
 [color "status"]
 	added = yellow
 	changed = green
 	untracked = cyan
 
 [alias]
-    pushup = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+	pushup = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
 	a = add
 	lg = log --graph --pretty=format:'%Cred%h%Creset \
 	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative
-    lgs = !git lg -n 10
+	lgs = !git lg -n 10
 	ci = commit --verbose
 	pick = cherry-pick --sign-off
-    sl = !git --no-pager log --oneline -n 10
+	sl = !git --no-pager log --oneline -n 10
 	sb = status --short --branch
 	st = status --short --branch
 	log1 = log --pretty=oneline --abbrev-commit
@@ -59,25 +59,39 @@
 	prune-all = !git remote | xargs -n 1 git remote prune
 
 	co = checkout
-	cb = checkout -b  
+	cb = checkout -b
 	ci = commit
-	
+
 	unstage = reset HEAD --
 
 	last =  !git --no-pager log -1 HEAD --
 
 	l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset \
 	%s %C(white) %an, %ar%Creset'
-	
+
 	qm = "!git checkout $1; git merge @{-1}"
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
-    # Create a new branch off of origin/master
-    nb = "!f() { git co --no-track -b ${1} origin/master ; } ; f "
 
-    # show the merge merge result between two branches without
-    # actually doing the merge.
-    obdiff="!f() { git merge-tree `git merge-base ${1} ${2}` ${1} ${2} ; } ; f "
-	
+	# Create a new branch off of origin/master
+	nb = "!f() { if [[ -z $1 ]]; then \
+	echo 'need a branch name.'; \
+	exit 1 ; \
+	else\
+	git co --no-track -b ${1} origin/master ; \
+	fi } ; f "
+
+	# show the merge merge result between two branches without
+	# actually doing the merge.
+	obdiff="!f() { git merge-tree `git merge-base ${1} ${2}` ${1} ${2} ; } ; f "
+
+	# Different from upstream
+	inc=log ..@{u} --decorate
+	out=log @{u}.. --decorate
+
+	# Different from upstream master
+	incm=log ..master@{u} --decorate
+	outm=log master@{u}.. --decorate
+
 [push]
 	# only push branches that are tracking a remote.
 	default=current
