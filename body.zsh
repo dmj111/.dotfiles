@@ -59,6 +59,7 @@ alias ec='emacsclient'
 
 alias gl='git log --oneline --graph'
 alias awake='caffeinate -d '
+alias g='git'
 
 #### Completion
 autoload -U compinit
