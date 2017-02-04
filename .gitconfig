@@ -1,103 +1,103 @@
 # In ~/.gitignore, use:
 # [include]
-# 	path = /path/to/this/file
+#   path = /path/to/this/file
 #
 # [user]
-# 	name =
-# 	email =
+#   name =
+#   email =
 
 # [github]
-# 	user =
+#   user =
 
 [core]
-	excludesfile = ~/.gitignore
-	pager = less -F -X -R
+    excludesfile = ~/.gitignore
+    pager = less -F -X -R
 
 [rerere]
-	enabled = true
+    enabled = true
 
 [color]
-	ui = auto
+    ui = auto
 
 [color "branch"]
-	current = yellow reverse
-	local = yellow
-	remote = green
+    current = yellow reverse
+    local = yellow
+    remote = green
 
 [color "diff"]
     # meta = yellow bold
     meta = blue bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
 
 [apply]
-	whitespace = warn
+    whitespace = warn
 
 [color "status"]
-	added = yellow
-	changed = green
-	untracked = cyan
+    added = yellow
+    changed = green
+    untracked = cyan
 
 [alias]
-	pushup = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
-	a = add
-	lg = log --graph --pretty=format:'%Cred%h%Creset \
-	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-	--abbrev-commit --date=relative
-	lgs = !git lg -n 10
-	ci = commit --verbose
-	pick = cherry-pick --sign-off
-	sl = !git --no-pager log --oneline -n 10
-	sb = status --short --branch
-	st = status --short --branch
-	log1 = log --pretty=oneline --abbrev-commit
-	serve = daemon --reuseaddr --base-path=. --export-all --verbose
-	top-commits = shortlog --summary --numbered --no-merges
-	gdiff = difftool --gui --no-prompt
-	prune-all = !git remote | xargs -n 1 git remote prune
+    pushup = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+    a = add
+    lgl = log --graph --pretty=format:'%Cred%h%Creset \
+    -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+    --abbrev-commit --date=relative
+        lg = !git lgl -n 20
+    ci = commit --verbose
+    pick = cherry-pick --sign-off
+    sl = !git --no-pager log --oneline -n 10
+    sb = status --short --branch
+    st = status --short --branch
+    log1 = log --pretty=oneline --abbrev-commit
+    serve = daemon --reuseaddr --base-path=. --export-all --verbose
+    top-commits = shortlog --summary --numbered --no-merges
+    gdiff = difftool --gui --no-prompt
+    prune-all = !git remote | xargs -n 1 git remote prune
 
-	co = checkout
-	cb = checkout -b
-	ci = commit
+    co = checkout
+    cb = checkout -b
+    ci = commit
 
-	unstage = reset HEAD --
+    unstage = reset HEAD --
 
-	last =  !git --no-pager log -1 HEAD --
+    last =  !git --no-pager log -1 HEAD --
 
-	l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset \
-	%s %C(white) %an, %ar%Creset'
+    l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset \
+    %s %C(white) %an, %ar%Creset'
 
-	qm = "!git checkout $1; git merge @{-1}"
-	lol = log --pretty=oneline --abbrev-commit --graph --decorate
+    qm = "!git checkout $1; git merge @{-1}"
+    lol = log --pretty=oneline --abbrev-commit --graph --decorate
 
-	# Create a new branch off of origin/master
-	nb = "!f() { if [[ -z $1 ]]; then \
-	echo 'need a branch name.'; \
-	exit 1 ; \
-	else\
-	git co --no-track -b ${1} origin/master ; \
-	fi } ; f "
+    # Create a new branch off of origin/master
+    nb = "!f() { if [[ -z $1 ]]; then \
+    echo 'need a branch name.'; \
+    exit 1 ; \
+    else\
+    git co --no-track -b ${1} origin/master ; \
+    fi } ; f "
 
-	# show the merge merge result between two branches without
-	# actually doing the merge.
-	obdiff="!f() { git merge-tree `git merge-base ${1} ${2}` ${1} ${2} ; } ; f "
+    # show the merge merge result between two branches without
+    # actually doing the merge.
+    obdiff="!f() { git merge-tree `git merge-base ${1} ${2}` ${1} ${2} ; } ; f "
 
-	# Different from upstream
-	inc=log ..@{u} --decorate
-	out=log @{u}.. --decorate
+    # Different from upstream
+    inc=log ..@{u} --decorate
+    out=log @{u}.. --decorate
 
-	# Different from upstream master
-	incm=log ..master@{u} --decorate
-	outm=log master@{u}.. --decorate
+    # Different from upstream master
+    incm=log ..master@{u} --decorate
+    outm=log master@{u}.. --decorate
 
 [push]
-	# only push branches that are tracking a remote.
-	default=current
+    # only push branches that are tracking a remote.
+    default=current
 
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
 
 [diff]
-	submodule = log
+    submodule = log
