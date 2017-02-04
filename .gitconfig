@@ -101,3 +101,5 @@
 
 [diff]
     submodule = log
+    renames = copies
+    mnemonicprefix = true
