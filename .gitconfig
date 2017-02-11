@@ -92,6 +92,8 @@
     incm=log ..master@{u} --decorate
     outm=log master@{u}.. --decorate
 
+    trash=stash save TRASH
+
 [push]
     # only push branches that are tracking a remote.
     default=current
