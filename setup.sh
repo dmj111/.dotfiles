@@ -7,6 +7,7 @@ files=(
     .bashrc
     .inputrc
     .jshintrc
+    .tmux.conf
 )
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -22,5 +23,19 @@ for f in $files; do
     ln -sf ${src} ${dst}
     diff ${src} ${dst}
 done
+
+if [ ! -f $HOME/.gitconfig ]; then
+    echo "writing out gitconfig"
+    cat <<HEREDOC > $HOME/.gitconfig
+[include]
+   path = $HOME/repos/dot-files/.gitconfig
+HEREDOC
+
+fi
+    
+     
+
+    
+    
 
 
