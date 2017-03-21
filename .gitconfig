@@ -41,12 +41,14 @@
     untracked = cyan
 
 [alias]
-    pushup = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
     a = add
     lgl = log --graph --pretty=format:'%Cred%h%Creset \
     -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
     --abbrev-commit --date=relative
-        lg = !git lgl -n 20
+    lg = log --graph --pretty=format:'%Cred%h%Creset \
+    -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+    --abbrev-commit --date=relative \
+    -n 20
     ci = commit --verbose
     pick = cherry-pick --sign-off
     sl = !git --no-pager log --oneline -n 10
