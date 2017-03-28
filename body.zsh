@@ -70,6 +70,7 @@ zstyle ':completion:*' menu select=5
 
 setopt auto_cd
 alias d='dirs -v'
+alias tc='time caffeinate'
 
 setopt no_flow_control # C-s
 
