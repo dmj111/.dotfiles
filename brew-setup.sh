@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
 set -x
 
 
@@ -16,3 +15,5 @@ brew install zsh
 brew install cmake
 brew install git
 brew install llvm
+
+brew cask install emacs
