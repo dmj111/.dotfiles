@@ -92,7 +92,8 @@
     incm=log ..master@{u} --decorate
     outm=log master@{u}.. --decorate
 
-    trash=stash save TRASH
+    trash="!git commit -am trash; git reset --hard HEAD~1"
+
 
 [push]
     # only push branches that are tracking a remote.
