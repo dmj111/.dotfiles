@@ -14,7 +14,7 @@
 # Get emacs keybindings
 
 [ -f ${ZSH}/local/local-pre.zsh ] && \
-    source ${ZSH}/local/local-pre.zsh || print "no file"
+    source ${ZSH}/local/local-pre.zsh
 
 setopt emacs
 setopt no_beep
@@ -207,7 +207,6 @@ function restart { exec $SHELL $SHELL_ARGS "$@" ; }
 # Add GNU completion to a function.
 function gmp () {
     fcn=$1
-    print "adding gnu completion to $fcn"
     compdef _gnu_generic $fcn
 }
 
