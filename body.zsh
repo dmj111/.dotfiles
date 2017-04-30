@@ -224,6 +224,9 @@ if [ "$EMACS" ]; then
     print -P "\033AnSiTc %d"
 fi
 
+
+export GOPATH=$HOME/Go
+
 [[ -n $EMACS ]] && export VISUAL=emacsclient
 
 # Useful information
