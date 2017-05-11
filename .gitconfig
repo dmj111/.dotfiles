@@ -104,7 +104,13 @@
 [credential]
     helper = osxkeychain
 
+[fetch]
+    prune = true
+
 [diff]
     submodule = log
     renames = copies
     mnemonicprefix = true
+
+[rebase]
+  autosquash = true
