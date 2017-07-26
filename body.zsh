@@ -200,6 +200,11 @@ precmd () { vcs_info }
 PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
 %# '
 
+# Note:  To make a simple prompt (when dealing with mounted drives),
+# do: 
+# PS1="%~ $"
+# precmd()
+
 
 
 function restart { exec $SHELL $SHELL_ARGS "$@" ; }
