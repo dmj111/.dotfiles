@@ -12,4 +12,4 @@ $endif
 
 set visible-stats on
 set show-all-if-ambiguous on
-set completion-ignore-case-on
+set completion-ignore-case on
