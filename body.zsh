@@ -13,9 +13,6 @@
 
 # Get emacs keybindings
 
-[ -f ${ZSH}/local/local-pre.zsh ] && \
-    source ${ZSH}/local/local-pre.zsh
-
 setopt emacs
 setopt no_beep
 
