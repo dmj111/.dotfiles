@@ -115,3 +115,11 @@
 [rebase]
   autosquash = true
 
+# Match org headers
+# Set `pat diff=org` in .gitattributes to use.
+[diff "org"]
+	xfuncname = "^\\*+ .*$"
+
+# Match start of entries
+[diff "ledger"]
+	xfuncname = "^[[:digit:]].*"
