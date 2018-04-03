@@ -136,6 +136,7 @@
                     git merge-base --is-ancestor $b@{u} $b ; \
       	         if [ $? -eq 0 ]; then \
 	           echo 'branches are equal'; \
+	           git co $b ; \
 	         else \
                    echo 'switching....'; \
 	           git co -B $b $b@{u}; \
