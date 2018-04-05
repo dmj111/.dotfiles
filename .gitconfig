@@ -122,8 +122,10 @@
 	bvv=branch -vv --sort=committerdate
 	rbvv=branch -vv --sort=-committerdate
 
-	# ism = is merged with origin/HEAD.  origin/HEAD not always set though...
-	ism="!git merge-base --is-ancestor origin/HEAD HEAD && echo 'merged' || echo 'not merged'"
+	# hasm = contains main-tracking@{u}
+	hasm="!git merge-base --is-ancestor main-tracking@{u} HEAD && echo 'contains main' || echo 'does not contain main'"
+	# inm = is contained by main-tracking
+	inm="!git merge-base --is-ancestor HEAD main-tracking@{u} && echo 'contained' || echo 'not contained'"
 
 	# https://github.com/git/git/blob/master/contrib/completion/git-completion.bash#L25
 	# Switch to branch, resetting the branch to the upstream
