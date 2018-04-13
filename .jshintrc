@@ -1,5 +1,5 @@
 {
-        "esnext": true,
+    "esnext": true,
     "undef": true,
     "unused": true,
     "strict": true,
@@ -10,7 +10,7 @@
     "expr": true,
     "immed": true,
     "noarg": true,
-//    "onevar": true,
+    //    "onevar": true,
     "quotmark": "single",
     "smarttabs": true,
     "trailing": true,
