@@ -1,17 +1,14 @@
 # ~/.bash_profile: executed by bash for login shells.
 
-# export CDPATH=".:..:../..:~"
+# ~/.bash_profile: executed by bash for login shells.
 
 export HISTIGNORE="&:ls:exit:h:l"
 
 export SHELL=$(which bash)
-
 export LESS="-Ri"
 export PAGER="less"
 
 PATH=/usr/local/bin:$PATH
-
-# export PYTHONPATH=$HOME/lib/python
 
 export EDITOR=vi
 
@@ -20,7 +17,10 @@ export EDITOR=vi
 # export LANG=ASCII
 
 
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+# Load bashrc in login shells.
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
 
 # Local Variables:
 # mode: shell-script
