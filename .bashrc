@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+# echo "in .bashrc"
 
 BASH_DIR=$HOME/repos/dot-files/bash
 
