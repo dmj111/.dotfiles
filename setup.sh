@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+
 files=(.bash_profile
        .bashrc
        .inputrc
@@ -21,19 +23,10 @@ EOF
 
 for f in "${files[@]}"; do
     echo $f
-    rm -f ${HOME}/${f}
+    # rm -f ${HOME}/${f}
     src=${DIR}/${f}
     dst=${HOME}/${f}
     echo $src $dst
     ln -sf ${src} ${dst}
     diff ${src} ${dst}
 done
-
-if [ ! -f $HOME/.gitconfig ]; then
-    echo "writing out gitconfig"
-    cat <<HEREDOC > $HOME/.gitconfig
-[include]
-   path = $HOME/repos/dot-files/.gitconfig
-HEREDOC
-
-fi
