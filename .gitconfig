@@ -1,14 +1,3 @@
-# In ~/.gitignore, use:
-# [include]
-#   path = /path/to/this/file
-#
-# [user]
-#   name =
-#   email =
-
-# [github]
-#   user =
-
 [core]
     excludesfile = ~/.gitignore
     pager = less -F -X -R
@@ -181,3 +170,13 @@
 
 [include]
 	path = ~/.local-dotfiles/.gitconfig
+
+# In local gitconfig:
+# ----
+# [user]
+#   name =
+#   email =
+
+# [github]
+#   user =
+

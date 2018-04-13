@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-files=(.bash_profile .bashrc .inputrc .jshintrc .tmux.conf)
+files=(.bash_profile
+       .bashrc
+       .inputrc
+       .jshintrc
+       .tmux.conf
+       .gitconfig)
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo $DIR
