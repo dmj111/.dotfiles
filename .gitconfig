@@ -178,3 +178,6 @@
 # Match start of entries
 [diff "ledger"]
 	xfuncname = "^[[:digit:]].*"
+
+[include]
+	path = ~/.local-dotfiles/.gitconfig
