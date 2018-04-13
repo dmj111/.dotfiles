@@ -1,0 +1,15 @@
+# history search
+"\ep": history-search-backward
+"\en": history-search-forward
+"\e/": dynamic-complete-history
+
+# cycle through completions
+"\M-s": menu-complete
+
+$if Bash
+   Space: magic-space
+$endif
+
+set visible-stats on
+set show-all-if-ambiguous on
+set completion-ignore-case on

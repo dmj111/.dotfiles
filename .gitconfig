@@ -1,0 +1,182 @@
+[core]
+    excludesfile = ~/.gitignore
+    pager = less -F -X -R
+
+[rerere]
+    enabled = true
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    # meta = yellow bold
+    meta = blue bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[apply]
+    whitespace = warn
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[alias]
+	a = add
+
+	# One line log,
+	lgl = log --graph --pretty=format:'%Cred%h%Creset \
+	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+	--abbrev-commit --date=relative
+
+	# One line log, limit to 20
+	lg = log --graph --pretty=format:'%Cred%h%Creset \
+	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+	--abbrev-commit --date=relative \
+	-n 20
+
+	# http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+	# one line log with stats
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+
+
+	ci = commit --verbose
+	pick = cherry-pick --sign-off
+
+	st = status --short --branch
+
+	# kick off a server
+	serve = daemon --reuseaddr --base-path=. --export-all --verbose
+
+	# Top committers
+	top-commits = shortlog --summary --numbered --no-merges
+
+	gdiff = difftool --gui --no-prompt
+
+	# Prune all remote references
+	prune-all = !git remote | xargs -n 1 git remote prune
+
+	co = checkout
+	cb = checkout -b
+	ci = commit
+
+	# How to unstage.  The -- prevents further args, like... --hard.
+	unstage = reset HEAD --
+
+	# Last commit
+	last =  !git --no-pager log -1 HEAD --
+
+	# Another log version
+	l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset \
+	%s %C(white) %an, %ar%Creset'
+
+	# Quick merge?
+	qm = "!git checkout $1; git merge @{-1}"
+
+	# Old log message.
+	lol = log --pretty=oneline --abbrev-commit --graph --decorate
+
+	# Create a new branch off of origin/master
+	nb = "!f() { if [[ -z $1 ]]; then \
+	echo 'need a branch name.'; \
+	exit 1 ; \
+	else\
+	git co --no-track -b ${1} origin/master ; \
+	fi } ; f "
+
+	# show the merge merge result between two branches without
+	# actually doing the merge.
+	obdiff="!f() { git merge-tree `git merge-base ${1} ${2}` ${1} ${2} ; } ; f "
+
+	# Different from upstream
+	inc=log ..@{u} --decorate
+	out=log @{u}.. --decorate
+
+	# Different from upstream master
+	incm=log ..master@{u} --decorate
+	outm=log master@{u}.. --decorate
+
+	# Save all changes to working dir to a commit, and then pop that commit.
+	trash="!git commit -am trash; git reset --hard HEAD~1"
+
+	# Branch -vv shows the status of a branch (and against its upstream)
+	bvv=branch -vv --sort=committerdate
+	rbvv=branch -vv --sort=-committerdate
+
+	# hasm = contains main-tracking@{u}
+	hasm="!git merge-base --is-ancestor main-tracking@{u} HEAD && echo 'contains main' || echo 'does not contain main'"
+	# inm = is contained by main-tracking
+	inm="!git merge-base --is-ancestor HEAD main-tracking@{u} && echo 'contained' || echo 'not contained'"
+
+	# https://github.com/git/git/blob/master/contrib/completion/git-completion.bash#L25
+	# Switch to branch, resetting the branch to the upstream
+	# branch if it is newer.  For working on a master-like branch,
+	# where i don't edit the local one, and want to switch to it
+	# without all of the working directory changing.
+	# sw - switch
+ 	sw = "!f() { : git checkout ; \
+                 set -x; \
+	         local b=${1-master}; \
+	         echo $b ; \
+	         git merge-base --is-ancestor $b $b@{u} ; \
+	         if [ $? -eq 0 ]; then \
+                    git merge-base --is-ancestor $b@{u} $b ; \
+      	         if [ $? -eq 0 ]; then \
+	           echo 'branches are equal'; \
+	           git co $b ; \
+	         else \
+                   echo 'switching....'; \
+	           git co -B $b $b@{u}; \
+	          fi; \
+	         else \
+                    echo 'not an ancestor' ; \
+                 fi ; \
+                 } ; f "
+
+[push]
+    # only push branches that are tracking a remote.
+    default=current
+
+[credential]
+    helper = osxkeychain
+
+[fetch]
+    prune = true
+
+[diff]
+    submodule = log
+    renames = copies
+    mnemonicprefix = true
+
+[rebase]
+  autosquash = true
+
+# Match org headers
+# Set `pat diff=org` in .gitattributes to use.
+[diff "org"]
+	xfuncname = "^\\*+ .*$"
+
+# Match start of entries
+[diff "ledger"]
+	xfuncname = "^[[:digit:]].*"
+
+[include]
+	path = ~/.local-dotfiles/.gitconfig
+
+# In local gitconfig:
+# ----
+# [user]
+#   name =
+#   email =
+
+# [github]
+#   user =
+
