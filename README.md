@@ -1,5 +1,4 @@
-# Common dot-files
+# Dotfiles
 
-
-- .gitconfig
+Use setup.sh to get going.
 
