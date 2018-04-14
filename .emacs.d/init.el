@@ -53,7 +53,7 @@
 ;; Give names to some config directories.
 (defconst *config-dir* (file-name-directory load-file-name)
   "Root directory for the configuration.")
-(defconst *local-dir* (expand-file-name "local" *config-dir*)
+(defconst *local-dir* (expand-file-name "~/.local-dotfiles/.emacs.d")
   "Root directory for local configuation.")
 
 ;; Keep the custom file in local-dir so it is out of git's way, and
@@ -400,11 +400,10 @@
          ("\\.js\\'" . js2-mode))
   :init
   (add-hook 'js-mode-hook 'js2-minor-mode)
-  (setq js2-highlight-level 3)
+  (setq js2-highlight-level 3))
 
-  (use-package ac-js2
-    :init
-    (add-hook 'js2-mode-hook 'ac-js2-mode)))
+(use-package ac-js2
+  :hook js2-mode-hook)
 
 ;;;; auto-complete
 (use-package auto-complete
@@ -545,20 +544,16 @@ Added: %U")))
 (use-package ace-window
   :bind ([(f12)] . ace-window))
 
-
+;; http://irreal.org/blog/?p=760
 (use-package ace-jump-mode
+  :bind ("C-c SPC" . ace-jump-mode)
   :config
   (add-hook 'ace-jump-mode-before-jump-hook
             (lambda () (push-mark (point) t))))
 
-;; http://irreal.org/blog/?p=760
-(use-package ace-jump-mode
-  :bind ("C-c SPC" . ace-jump-mode))
 
 (use-package lacarte
   :bind ([?\M-`] . lacarte-execute-command))
-
-
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
@@ -766,6 +761,7 @@ file of a buffer in an external program."
 
 ;; google-this
 (use-package google-this
+  :ensure t
   :config
   (google-this-mode 1))
 
