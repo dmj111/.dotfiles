@@ -17,6 +17,10 @@ if [ -z $NO_SWITCH ]; then
 fi
 
 
+if [ -f ~/.local-dotfiles/.bashrc-pre ]; then
+    source ~/.local-dotfiles/.bashrc-pre
+fi
+
 PATH=$HOME/bin:/usr/local/bin:$PATH
 
 alias l=less
@@ -73,4 +77,7 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
     export PS1='\w$(__git_ps1 " (%s)")\$ '
 fi
 
+if [ -f ~/.local-dotfiles/.bashrc-post ]; then
+    source ~/.local-dotfiles/.bashrc-post
+fi
 
