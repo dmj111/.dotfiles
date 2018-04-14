@@ -17,9 +17,15 @@ export EDITOR=vi
 # export LANG=ASCII
 
 
+# Local local
+if [ -f ~/.local-dotfiles/.bash_profile ]; then
+    builtin source ~/.local-dotfiles/.bash_profile
+fi
+
+
 # Load bashrc in login shells.
 if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
+    builtin source ~/.bashrc
 fi
 
 # Local Variables:
