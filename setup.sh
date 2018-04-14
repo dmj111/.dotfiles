@@ -9,6 +9,7 @@ files=(
     .jshintrc
     .tmux.conf
     .zshrc
+    .emacs.d
       )
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
