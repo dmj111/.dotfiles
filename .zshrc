@@ -1,19 +1,17 @@
+# Add to this in local.zsh if desired.
 
-# Add to these methods in local.zsh if desired.
 post_init_hook=()
-pre_init_hook=()
 
 # For example:
-# function local_pre() {
-#     path=(/usr/local/bin $path)
+#
+# function local_post () {
+#     fpath=($fpath /usr/local/share/zsh-completions)
 # }
-# pre_init_hook+=local_pre
+# post_init_hook += local_post
 
-[[ -f ~/.local-dotfiles/.zshrc ]] && source ~/.local-dotfiles/.zshrc
-
-for f in $pre_init_hook; do
-    $f
-done
+if [ -f ~/.local-dotfiles/.zshrc ]; then
+    builtin source ~/.local-dotfiles/.zshrc
+fi
 
 # TODO:
 # - hash -d to hash directory shortcuts
