@@ -18,7 +18,7 @@ fi
 
 
 if [ -f ~/.local-dotfiles/.bashrc-pre ]; then
-    source ~/.local-dotfiles/.bashrc-pre
+    builtin source ~/.local-dotfiles/.bashrc-pre
 fi
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -67,17 +67,17 @@ shopt -s histappend
 
 if [ -f $BASH_DIR/git-completion.bash ]; then
     echo "loading git-completion"
-    source git-completion.bash
+    builtin source git-completion.bash
 fi
 
 if [ -f $BASH_DIR/git-prompt.sh ]; then
-    source git-prompt.sh
+    builtin source git-prompt.sh
     export GIT_PS1_SHOWDIRTYSTATE=1
     export GIT_PS1_SHOWUPSTREAM="auto,verbose,name"
     export PS1='\w$(__git_ps1 " (%s)")\$ '
 fi
 
 if [ -f ~/.local-dotfiles/.bashrc-post ]; then
-    source ~/.local-dotfiles/.bashrc-post
+    builtin source ~/.local-dotfiles/.bashrc-post
 fi
 
