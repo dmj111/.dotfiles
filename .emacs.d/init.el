@@ -81,6 +81,23 @@
 ;;         (message "after loading %s" ,mode)
 ;;         ,@body)))
 
+(defvar dmj-org-capture-templates
+      '(("r" "Reference" entry (file "reference.org")
+         "* %? %^g" :prepend t)
+        ;; ("t" "Todo Inbox" entry (file+headline "" "Todos")
+        ;;  "* TODO %?\n  Added %u\n  %i" :prepend t)
+        ("b" "Bookmark" entry (file "bookmarks.org")
+         "* %?\n %I")
+        ;; http://members.optusnet.com.au/~charles57/GTD/datetree.html
+        ("n" "Notes inbox" entry (file+headline "log.org" "Inbox")
+         "* %^{Description} %^g %?
+Added: %U")
+        ("t" "make a task" entry (file+datetree "log.org")
+         "* TODO %^{Description} %^g
+ %?
+Added: %U")))
+
+
 ;; Try to load local settings ahead of time
 (require 'init-local-preload nil t)
 
@@ -495,21 +512,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (setq org-default-notes-file "log.org")
   (define-key global-map "\C-cc" 'org-capture)
 
-  (setq dmj-org-capture-templates
-        '(("r" "Reference" entry (file "reference.org")
-           "* %? %^g" :prepend t)
-          ;; ("t" "Todo Inbox" entry (file+headline "" "Todos")
-          ;;  "* TODO %?\n  Added %u\n  %i" :prepend t)
-          ("b" "Bookmark" entry (file "bookmarks.org")
-           "* %?\n %I")
-          ;; http://members.optusnet.com.au/~charles57/GTD/datetree.html
-          ("n" "Notes inbox" entry (file+headline "log.org" "Inbox")
-           "* %^{Description} %^g %?
-Added: %U")
-          ("t" "make a task" entry (file+datetree "log.org")
-           "* TODO %^{Description} %^g
- %?
-Added: %U")))
 
   (setq org-capture-templates dmj-org-capture-templates)
   ;; http://doc.norang.ca/org-mode.html#Refiling
