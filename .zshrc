@@ -13,6 +13,7 @@ if [ -f ~/.local-dotfiles/.zshrc ]; then
     builtin source ~/.local-dotfiles/.zshrc
 fi
 
+
 # TODO:
 # - hash -d to hash directory shortcuts
 
@@ -30,6 +31,9 @@ fi
 
 setopt emacs
 setopt no_beep
+
+
+typeset -U path
 
 # Use emacs keybindings
 bindkey -e
