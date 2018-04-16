@@ -7,7 +7,7 @@ post_init_hook=()
 # function local_post () {
 #     fpath=($fpath /usr/local/share/zsh-completions)
 # }
-# post_init_hook += local_post
+# post_init_hook+=local_post
 
 if [ -f ~/.local-dotfiles/.zshrc ]; then
     builtin source ~/.local-dotfiles/.zshrc
