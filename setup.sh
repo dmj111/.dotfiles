@@ -8,6 +8,7 @@ files=(
     .inputrc
     .jshintrc
     .tmux.conf
+    .vimrc
     .zshrc
     .emacs.d
       )
