@@ -105,9 +105,8 @@
 	outm=log master@{u}.. --decorate
 
 	# Save all changes to working dir to a commit, and then pop that commit.
-	trash="!f() { : git stash \
-        git stash push  $@ ; \
-        git stash drop ; } ; f "
+	trash="!git stash push; git stash drop"
+
 
 	# Branch -vv shows the status of a branch (and against its upstream)
 	bvv=branch -vv --sort=committerdate
