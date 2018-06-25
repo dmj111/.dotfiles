@@ -82,7 +82,6 @@ autoload -U compinit
 compinit -i -D
 
 
-zstyle ':completion:*' menu select=5
 
 setopt auto_cd
 alias d='dirs -v'
@@ -262,6 +261,76 @@ export GOPATH=$HOME/Go
 # - bindkey -A my-map main # alias my map to main
 # - "\e-return" multi line input
 # - zsh -f # no init
+
+
+
+# Completion stuff from zsh book
+zstyle ':completion:*:warnings' format 'no matches: %d'
+
+
+# Necessary for the later zstyle stuff to print the descriptions.
+zstyle ':completion:*:descriptions' format %B%d%b
+
+# Group by type (command / alias / etc)
+zstyle ':completion:*'  group-name ''
+
+# Group non-parameters together
+# zstyle ':completion:*:-command-:*:(commands|builtins|reserved-words|aliases)'  group-name commands
+
+# Man pages, use sections as descriptions
+zstyle ':completion:*:manuals' separate-sections true
+
+# To get paging when too many matches
+zmodload zsh/complist
+zstyle ':completion:*default' list-prompt '%S%M matches%s'
+bindkey -M listscroll q send-break
+
+zstyle ':completion:*:default' menu 'select=5'
+
+# C-o accepts, but doesn't leave the menu.
+bindkey -M menuselect '\C-a' accept-and-menu-complete
+
+# Turn on menu completion for tag windows (since they are a pain to type.)
+# TODO: git commits?
+zstyle ':completion:*:windows' menu on=0
+
+# to delete:
+# zstyle -d ':completion:*:windows' menu on=0
+# to delete all styles using same context:
+# zstyle -d ':completion:*:windows'
+
+
+# Bind tab to complete word
+bindkey '\C-i' complete-word
+
+# zstyle ':completion:::::' completer _expand _complete _ignored
+# % echo /etc/z*
+# tags in context :completion::expand:::
+#     all-expansions expansions original  (_expand)
+
+# Set the ordering of the results in the menu
+zstyle ':completion:*:expand:*' tag-order 'expansions all-expansions original'
+
+# Other options
+# zstyle ':completion:*:expand:*' glob false # don't expand globs
+# zstyle ':completion:*:expand:*' substitute false # don't expand $
+
+# approximate matching
+zstyle ':completion:::::' completer _expand _complete _approximate _ignored
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) )'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+
+# consider lower cases as matches for upper case
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# Don't use for approximate matches
+zstyle ':completion:*:(^approximate)' matcher-list 'm:{a-z}={A-Z}'
+
+
+setopt complete_in_word
+zstyle ':completion:*:::' completer _complete _prefix
+# zstyle ':completion:*:prefix:*' add-space true
+
+# git co o/d/c
 
 for f in $post_init_hook; do
     $f
