@@ -537,11 +537,6 @@ Will work on both org-mode and any mode that accepts plain html."
 ;;   :config
 ;;   (setq org-drill-add-random-noise-to-intervals-p t))
 
-(use-package flycheck
-  :init
-  (add-hook 'js-mode-hook
-          (lambda () (flycheck-mode t))))
-
 
 (use-package ace-window
   :bind ([(f12)] . ace-window))
@@ -811,15 +806,6 @@ file of a buffer in an external program."
    '(conda-anaconda-home *anaconda-directory*)))
 
 
-(use-package flycheck
-  :ensure t
-  :init
-  (defun flycheck-python-setup ()
-    (flycheck-mode))
-  (add-hook 'python-mode-hook #'flycheck-python-setup))
-
-
-
 
 ;; http://jblevins.org/log/mmm
 (defun my-mmm-markdown-auto-class (lang &optional submode)
@@ -852,17 +838,26 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 (use-package flycheck
   :ensure t
-  :config
+  :init
   ;; TODO [ ] https://github.com/abo-abo/hydra/wiki/Flycheck
   ;; Force flycheck to always use c++11 support. We use
   ;; the clang language backend so this is set to clang
-  ;; (add-hook 'c++-mode-hook
-  ;;           (lambda () (setq flycheck-clang-language-standard "c++11")))
+
+  (add-hook 'c++-mode-hook
+            (lambda () (setq flycheck-clang-language-standard "c++14")))
+
   ;; Turn flycheck on everywhere
+
   (global-flycheck-mode)
 
-  (use-package flycheck-pyflakes
-    :ensure t))
+  ;; (add-hook 'js-mode-hook
+  ;;           (lambda () (flycheck-mode t)))
+
+  ;; (defun flycheck-python-setup ()
+  ;;   (flycheck-mode))
+  ;; (add-hook 'python-mode-hook #'flycheck-python-setup)
+  (flycheck-add-next-checker `python-pylint '(warning . python-flake8))
+  )
 
 
 ;; Load rtags and start the cmake-ide-setup process
