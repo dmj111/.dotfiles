@@ -308,7 +308,7 @@ Added: %U")))
   (setq projectile-completion-system 'ivy)
   (setq projectile-indexing-method 'alien)
   (setq projectile-enable-caching t)
-  (projectile-global-mode t))
+  (projectile-mode t))
 
 
 ;;;; python
@@ -344,6 +344,7 @@ Added: %U")))
 
 ;; http://milkbox.net/note/single-file-master-emacs-configuration/
 (defun imenu-elisp-sections ()
+  "Might as well have a doc  string."
   (setq imenu-prev-index-position-function nil)
   (add-to-list 'imenu-generic-expression '("Sections" "^;;;; \\(.+\\)$" 1) t))
 
@@ -692,6 +693,7 @@ file of a buffer in an external program."
   (global-set-key (kbd "C-c o") 'prelude-open-with))
 
 (defun clear-kill-ring ()
+  "Clear all entries from the kill ring."
   (interactive)
   (setq kill-ring nil)
   (garbage-collect))
@@ -704,11 +706,13 @@ file of a buffer in an external program."
   (server-start))
 
 
-(setq apropos-sort-by-scores t)
+(eval-after-load 'apropos '(setq apropos-sort-by-scores t))
+
 
 
 ;; http://stackoverflow.com/questions/20967818/emacs-function-to-case-insensitive-sort-lines
 (defun sort-lines-nocase ()
+  "Sort lines, case insensitive."
   (interactive)
   (let ((sort-fold-case t))
     (call-interactively 'sort-lines)))
@@ -843,21 +847,13 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   ;; Force flycheck to always use c++11 support. We use
   ;; the clang language backend so this is set to clang
 
+    ;; Turn flycheck on everywhere
+  (global-flycheck-mode)
   (add-hook 'c++-mode-hook
             (lambda () (setq flycheck-clang-language-standard "c++14")))
 
-  ;; Turn flycheck on everywhere
-
-  (global-flycheck-mode)
-
-  ;; (add-hook 'js-mode-hook
-  ;;           (lambda () (flycheck-mode t)))
-
-  ;; (defun flycheck-python-setup ()
-  ;;   (flycheck-mode))
-  ;; (add-hook 'python-mode-hook #'flycheck-python-setup)
-  (flycheck-add-next-checker `python-pylint '(warning . python-flake8))
-  )
+  ;; Requires pylint and flake8 to be installed.
+  (flycheck-add-next-checker `python-pylint '(warning . python-flake8)))
 
 
 ;; Load rtags and start the cmake-ide-setup process
