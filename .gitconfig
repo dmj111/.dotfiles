@@ -148,6 +148,17 @@
 	# checkout theirs during merge conflict.
         theirs = "!f() { git checkout --theirs $@; git add $@; } ; f "
 
+	please = push --force-with-lease
+	commend = commit --amend --no-edit
+	# only unstaged
+	stsh = stash --keep-index
+
+	# tracked + untracked
+	staash = stash --include-untracked
+
+	# tracked + untracked + ignored.
+	# staaash = stash --all # too rare for me
+
 [push]
     # only push branches that are tracking a remote.
     default=current
