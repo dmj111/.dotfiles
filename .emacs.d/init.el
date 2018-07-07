@@ -982,6 +982,7 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 (require 'init-local nil t)
 
 
+(define-coding-system-alias 'UTF-8 'utf-8)
 
 (provide 'init)
 
