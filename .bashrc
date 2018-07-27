@@ -6,6 +6,14 @@ function run_zsh {
     [ -f ${zsh_exe} ] && exec ${zsh_exe} -l
 }
 
+
+case "$TERM" in
+    "dumb")
+        # For emacs tramp mode
+        export NO_SWITCH=1
+        ;;
+esac
+
 if [ -z $NO_SWITCH ]; then
     case "$-" in
         *i*)
