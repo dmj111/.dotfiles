@@ -1,7 +1,5 @@
 # ~/.bash_profile: executed by bash for login shells.
 
-# ~/.bash_profile: executed by bash for login shells.
-
 export HISTIGNORE="&:ls:exit:h:l"
 
 export SHELL=$(which bash)
