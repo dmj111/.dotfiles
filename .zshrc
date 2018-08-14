@@ -1,3 +1,6 @@
+# Uncomment for profiling (and go to end of file)
+# zmodload zsh/zprof
+
 # Add to this in local.zsh if desired.
 
 post_init_hook=()
@@ -335,3 +338,6 @@ zstyle ':completion:*:::' completer _complete _prefix
 for f in $post_init_hook; do
     $f
 done
+
+# Uncomment for profiling
+# zprof
