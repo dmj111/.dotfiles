@@ -11,6 +11,8 @@ case "$TERM" in
     "dumb")
         # For emacs tramp mode
         export NO_SWITCH=1
+        PS1='$ '
+        return 0
         ;;
 esac
 
