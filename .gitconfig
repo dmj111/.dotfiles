@@ -37,6 +37,9 @@
 	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative
 
+	# One line log, --all
+	lgla = "!git lgl --all"
+
 	# One line log, limit to 20
 	lg = log --graph --pretty=format:'%Cred%h%Creset \
 	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
