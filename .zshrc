@@ -93,7 +93,7 @@ alias tc='time caffeinate'
 setopt no_flow_control # C-s
 
 function runbash() {
-    NO_SWITCH=1 command bash "$@" 
+    NO_SWITCH=1 command bash "$@"
 }
 
 
@@ -130,7 +130,7 @@ setopt prompt_subst
 
 
 # function git_branch() {
-#     (git symbolic-ref -q HEAD || 
+#     (git symbolic-ref -q HEAD ||
 #             git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
 # }
 
@@ -156,7 +156,7 @@ setopt prompt_subst
 #         RESULT=$RESULT${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
 #     fi
 
-#     [ -n $RESULT ] && echo $RESULT    
+#     [ -n $RESULT ] && echo $RESULT
 # }
 
 # function git_prompt() {
@@ -169,7 +169,7 @@ setopt prompt_subst
 
 # # Set up a prompt.
 # RPS1="%B%~%b"
-# PROMPT='%B%~$(git_prompt) %n@%m 
+# PROMPT='%B%~$(git_prompt) %n@%m
 # $%b '
 
 # Example from man zshcontrib
@@ -219,7 +219,7 @@ PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
 %# '
 
 # Note:  To make a simple prompt (when dealing with mounted drives),
-# do: 
+# do:
 # PS1="%~ $"
 # precmd()
 
@@ -239,7 +239,7 @@ export TERM=xterm-256color
 
 # For emacs ansi-term
 # TODO: evaluate only in ansi-term
-if [ "$EMACS" ]; then 
+if [ "$EMACS" ]; then
     ansi_term_chpwd() { print -P "\033AnSiTc %d" }
     chpwd_functions=(${chpwd_functions[@]} ansi_term_chpwd)
     print -P "\033AnSiTu %n"
