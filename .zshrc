@@ -333,6 +333,12 @@ setopt complete_in_word
 zstyle ':completion:*:::' completer _complete _prefix
 # zstyle ':completion:*:prefix:*' add-space true
 
+
+# tmux
+# Run in a tmux window to reload the ssh-agent data
+alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
+
+
 # git co o/d/c
 
 for f in $post_init_hook; do
