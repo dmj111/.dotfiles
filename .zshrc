@@ -12,9 +12,10 @@ post_init_hook=()
 # }
 # post_init_hook+=local_post
 
-if [ -f ~/.local-dotfiles/.zshrc ]; then
-    builtin source ~/.local-dotfiles/.zshrc
-fi
+
+# Load local file first.  Load local post.zsh at the end
+[[ -f ~/.local-dotfiles/.zshrc ]] && builtin source ~/.local-dotfiles/.zshrc
+
 
 
 # TODO:
@@ -344,6 +345,9 @@ alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 for f in $post_init_hook; do
     $f
 done
+
+[[ -f ~/.local-dotfiles/post.zsh ]] && builtin source ~/.local-dotfiles/post.zsh
+
 
 # Uncomment for profiling
 # zprof
