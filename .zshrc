@@ -272,6 +272,10 @@ export GOPATH=$HOME/Go
 
 
 # Completion stuff from zsh book
+
+# C-o accepts the menu item, but stays in the same menu to allow
+# multiple selections.
+
 zstyle ':completion:*:warnings' format 'no matches: %d'
 
 
@@ -294,12 +298,12 @@ bindkey -M listscroll q send-break
 
 zstyle ':completion:*:default' menu 'select=5'
 
-# C-o accepts, but doesn't leave the menu.
-bindkey -M menuselect '\C-a' accept-and-menu-complete
 
 # Turn on menu completion for tag windows (since they are a pain to type.)
 # TODO: git commits?
 zstyle ':completion:*:windows' menu on=0
+
+
 
 # to delete:
 # zstyle -d ':completion:*:windows' menu on=0
@@ -309,6 +313,8 @@ zstyle ':completion:*:windows' menu on=0
 
 # Bind tab to complete word
 bindkey '\C-i' complete-word
+
+# Use C-x h inside complete to get debug info
 
 # zstyle ':completion:::::' completer _expand _complete _ignored
 # % echo /etc/z*
@@ -344,6 +350,13 @@ alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
 
 # git co o/d/c
+
+autoload -- ~/.dotfiles/zsh/[^_]*(:t)
+
+# C-o accepts, but doesn't leave the menu.
+# zmodload zsh/complist
+bindkey -M menuselect '\C-a' accept-and-menu-complete
+
 
 [[ -f $CONDA_SETUP ]] && source $CONDA_SETUP
 
