@@ -13,6 +13,9 @@ post_init_hook=()
 # post_init_hook+=local_post
 
 
+CONDA_SETUP=
+
+
 # Load local file first.  Load local post.zsh at the end
 [[ -f ~/.local-dotfiles/.zshrc ]] && builtin source ~/.local-dotfiles/.zshrc
 
@@ -341,6 +344,8 @@ alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
 
 # git co o/d/c
+
+[[ -f $CONDA_SETUP ]] && source $CONDA_SETUP
 
 for f in $post_init_hook; do
     $f
