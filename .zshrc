@@ -13,7 +13,11 @@ post_init_hook=()
 # post_init_hook+=local_post
 
 
-CONDA_SETUP=
+CONDA_SETUP=$HOME/miniconda3/etc/profile.d/conda.sh
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TERM=xterm-256color
 
 
 # Load local file first.  Load local post.zsh at the end
@@ -90,7 +94,6 @@ compinit -i -D
 
 
 
-setopt auto_cd
 alias d='dirs -v'
 alias tc='time caffeinate'
 
@@ -237,9 +240,6 @@ function gmp () {
     compdef _gnu_generic $fcn
 }
 
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color
 
 # For emacs ansi-term
 # TODO: evaluate only in ansi-term
@@ -251,8 +251,9 @@ if [ "$EMACS" ]; then
 fi
 
 
-export GOPATH=$HOME/Go
+[[ -r $HOME/Go ]] && export GOPATH=$HOME/Go
 
+# Use emacs client as VISUAL if already in emacs.
 [[ -n $EMACS ]] && export VISUAL=emacsclient
 
 # Useful information
