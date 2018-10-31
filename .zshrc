@@ -1,6 +1,9 @@
 # Uncomment for profiling (and go to end of file)
 # zmodload zsh/zprof
 
+
+
+
 # Add to this in local.zsh if desired.
 
 post_init_hook=()
@@ -12,19 +15,7 @@ post_init_hook=()
 # }
 # post_init_hook+=local_post
 
-
-CONDA_SETUP=$HOME/miniconda3/etc/profile.d/conda.sh
-
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color
-
-
-# Load local file first.  Load local post.zsh at the end
-[[ -f ~/.local-dotfiles/.zshrc ]] && builtin source ~/.local-dotfiles/.zshrc
-
-
-
+#### Notes
 # TODO:
 # - hash -d to hash directory shortcuts
 
@@ -38,77 +29,49 @@ export TERM=xterm-256color
 
 # TODO: On linux, try: ls --color=auto
 
-# Get emacs keybindings
+### Useful information
 
-setopt emacs
-setopt no_beep
-
-
-typeset -U path
-
-# Use emacs keybindings
-bindkey -e
-
-# setopt ignore_eof # don't let C-d kill the shell
-
-# Set WORDCHARS so the shell will treat only chars/numbers as words
-WORDCHARS=
-
-# Search history, matching the line so far
-bindkey "\ep" history-beginning-search-backward
-bindkey "\en" history-beginning-search-forward
-
-# Put current line on the command stack.
-bindkey "\eq" push-line-or-edit
-
-# make run-help nicer.  M-h brings up help for what you are doing
-# unalias run-help
-autoload -U run-help
-autoload -U run-help-git
-
-#### History file
-HISTSIZE=1000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
+# - C-u delete line
+# - zsh is region aware (C-space, C-x C-x, M-x kill-region)
+# - bindkey -L to see the listings
+# - zle -la to see the zle commands
+# - bindkey "\C-y" -- to see C-y's function
+# - can bind strings to a key
+# - create a key map by bindkey -N my-keymap parent-keymap
+#     - emacs is a keymap
+# - bindkey -A my-map main # alias my map to main
+# - "\e-return" multi line input
+# - zsh -f # no init
 
 
-#### Aliases
-alias l=less
-alias ll='ls -l'
-alias la='ls -la'
-alias ..='cd ..'
+#### Shell
 
-alias -g L="| less"
-alias -g LL="2>&1 | less"
-
-alias en='emacsclient -n'
-alias ec='emacsclient'
-
-alias gl='git log --oneline --graph'
-alias awake='caffeinate -d '
-alias g='git'
-
-#### Completion
-autoload -U compinit
-compinit -i -D
-
-
-
-alias d='dirs -v'
-alias tc='time caffeinate'
-
-setopt no_flow_control # C-s
+# Restart the shell
+function restart { exec $SHELL $SHELL_ARGS "$@" ; }
 
 function runbash() {
     NO_SWITCH=1 command bash "$@"
 }
 
+# restart in bash
 
-# Globbing
-setopt extended_glob
+#### Environment
 
-# Change to a directory, if it is named on the command line.
-setopt auto_cd
+typeset -U path
+
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TERM=xterm-256color
+
+# CONDA_SETUP is used later to initialize conda
+CONDA_SETUP=$HOME/miniconda3/etc/profile.d/conda.sh
+
+# [[ -r $HOME/Go ]] && export GOPATH=$HOME/Go
+
+#### History
+HISTSIZE=10000
+SAVEHIST=100000
+HISTFILE=~/.zsh_history
 
 # Pressing space after a history command will expand it.
 bindkey ' ' magic-space
@@ -132,107 +95,67 @@ setopt hist_ignore_space
 setopt hist_no_functions
 
 
-#### Git prompt stuff
-setopt prompt_subst
+#### UI
+
+### options
+
+# Use emacs keybindings
+# bindkey -e
+setopt emacs
+
+setopt no_beep
+
+setopt no_flow_control # C-s
+
+# Globbing
+setopt extended_glob
+
+# Change to a directory, if it is named on the command line.
+setopt auto_cd
 
 
-# function git_branch() {
-#     (git symbolic-ref -q HEAD ||
-#             git name-rev --name-only --no-undefined --always HEAD) 2> /dev/null
-# }
+# Set WORDCHARS so the shell will treat only chars/numbers as words
+WORDCHARS=
+
+## Keymaps
+# Search history, matching the line so far
+bindkey "\ep" history-beginning-search-backward
+bindkey "\en" history-beginning-search-forward
+
+# Put current line on the command stack.
+bindkey "\eq" push-line-or-edit
 
 
-# function prompt_char {
-#     git branch >/dev/null 2>/dev/null && echo '±' && return
-#     hg root >/dev/null 2>/dev/null && echo '☿' && return
-#     echo '○'
-# }
-
-# function git_state() {
-#     local RESULT=""
+# make run-help nicer.  M-h brings up help for what you are doing
+# unalias run-help
+autoload -U run-help
+autoload -U run-help-git
 
 
-
-#     local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
-#     if [ "$NUM_AHEAD" -gt 0 ]; then
-#         RESULT=$RESULT${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
-#     fi
-
-#     local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
-#     if [ "$NUM_BEHIND" -gt 0 ]; then
-#         RESULT=$RESULT${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
-#     fi
-
-#     [ -n $RESULT ] && echo $RESULT
-# }
-
-# function git_prompt() {
-#     local branch="$(git_branch)"
-#     [ -n $branch ] && echo " $(prompt_char) (${branch#(refs/heads/|tags/)})"
-# }
+# setopt ignore_eof # don't let C-d kill the shell
 
 
-# ## Autoloaded files, start with _, and are located on fpath.
+#### Aliases
+alias l=less
+alias ll='ls -l'
+alias la='ls -la'
+alias ..='cd ..'
 
-# # Set up a prompt.
-# RPS1="%B%~%b"
-# PROMPT='%B%~$(git_prompt) %n@%m
-# $%b '
+alias -g L="| less"
+alias -g LL="2>&1 | less"
 
-# Example from man zshcontrib
-autoload -Uz vcs_info
+alias en='emacsclient -n'
+alias ec='emacsclient'
 
-zstyle ':vcs_info:(hg*|git*):*' get-revision true
-zstyle ':vcs_info:(hg*|git*):*' check-for-changes true
+alias gl='git log --oneline --graph'
+alias awake='caffeinate -d '
+alias g='git'
 
-zstyle ':vcs_info:(hg*|git*):*' stagedstr "${green}S${gray}"
-zstyle ':vcs_info:(hg*|git*):*' unstagedstr "${red}U${gray}"
+#### Completion
+autoload -U compinit
+compinit -i -D
+zmodload zsh/complist
 
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' actionformats \
-       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats       \
-    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f'
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}-%r-'
-
-zstyle ':vcs_info:git*+set-message:*' hooks git-st
-
-# Show remote ref name and number of commits ahead-of or behind
-function +vi-git-st() {
-    local ahead behind remote
-    local -a gitstatus
-
-    # Are we on a remote-tracking branch?
-    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
-        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
-
-    if [[ -n ${remote} ]] ; then
-        # for git prior to 1.7
-        # ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
-        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-        (( $ahead )) && gitstatus+=( "${c3}+${ahead}${c2}" )
-
-        # for git prior to 1.7
-        # behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
-        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-        (( $behind )) && gitstatus+=( "${c4}-${behind}${c2}" )
-
-        hook_com[branch]="${hook_com[branch]} [${remote} ${(j:/:)gitstatus}]"
-    fi
-}
-
-precmd () { vcs_info }
-PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
-%# '
-
-# Note:  To make a simple prompt (when dealing with mounted drives),
-# do:
-# PS1="%~ $"
-# precmd()
-
-
-
-function restart { exec $SHELL $SHELL_ARGS "$@" ; }
 
 # Add GNU completion to a function.
 function gmp () {
@@ -240,39 +163,11 @@ function gmp () {
     compdef _gnu_generic $fcn
 }
 
+# C-o accepts, but doesn't leave the menu.
+# zmodload zsh/complist
+bindkey -M menuselect '\C-a' accept-and-menu-complete
 
-# For emacs ansi-term
-# TODO: evaluate only in ansi-term
-if [ "$EMACS" ]; then
-    ansi_term_chpwd() { print -P "\033AnSiTc %d" }
-    chpwd_functions=(${chpwd_functions[@]} ansi_term_chpwd)
-    print -P "\033AnSiTu %n"
-    print -P "\033AnSiTc %d"
-fi
-
-
-[[ -r $HOME/Go ]] && export GOPATH=$HOME/Go
-
-# Use emacs client as VISUAL if already in emacs.
-[[ -n $EMACS ]] && export VISUAL=emacsclient
-
-# Useful information
-
-# - C-u delete line
-# - zsh is region aware (C-space, C-x C-x, M-x kill-region)
-# - bindkey -L to see the listings
-# - zle -la to see the zle commands
-# - bindkey "\C-y" -- to see C-y's function
-# - can bind strings to a key
-# - create a key map by bindkey -N my-keymap parent-keymap
-#     - emacs is a keymap
-# - bindkey -A my-map main # alias my map to main
-# - "\e-return" multi line input
-# - zsh -f # no init
-
-
-
-# Completion stuff from zsh book
+### Completion stuff from zsh book
 
 # C-o accepts the menu item, but stays in the same menu to allow
 # multiple selections.
@@ -293,7 +188,7 @@ zstyle ':completion:*'  group-name ''
 zstyle ':completion:*:manuals' separate-sections true
 
 # To get paging when too many matches
-zmodload zsh/complist
+
 zstyle ':completion:*default' list-prompt '%S%M matches%s'
 bindkey -M listscroll q send-break
 
@@ -345,19 +240,109 @@ zstyle ':completion:*:::' completer _complete _prefix
 # zstyle ':completion:*:prefix:*' add-space true
 
 
-# tmux
+#### tmux
 # Run in a tmux window to reload the ssh-agent data
 alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
 
+
+# Load local file first.  Load local post.zsh at the end
+[[ -f ~/.local-dotfiles/.zshrc ]] && builtin source ~/.local-dotfiles/.zshrc
+
+
+
+alias d='dirs -v'
+alias tc='time caffeinate'
+
+
+
+#### Prompt
+setopt prompt_subst
+
+
+# # Set up a prompt.
+# RPS1="%B%~%b"
+# PROMPT='%B%~$(git_prompt) %n@%m
+# $%b '
+
+# Example from man zshcontrib
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:(hg*|git*):*' get-revision true
+zstyle ':vcs_info:(hg*|git*):*' check-for-changes true
+
+zstyle ':vcs_info:(hg*|git*):*' stagedstr "${green}S${gray}"
+zstyle ':vcs_info:(hg*|git*):*' unstagedstr "${red}U${gray}"
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' actionformats \
+       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats       \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f'
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}-%r-'
+
+zstyle ':vcs_info:git*+set-message:*' hooks git-st
+
+# Show remote ref name and number of commits ahead-of or behind
+function +vi-git-st() {
+    local ahead behind remote
+    local -a gitstatus
+
+    # Are we on a remote-tracking branch?
+    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
+        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+
+    if [[ -n ${remote} ]] ; then
+        # for git prior to 1.7
+        # ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
+        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+        (( $ahead )) && gitstatus+=( "${c3}+${ahead}${c2}" )
+
+        # for git prior to 1.7
+        # behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
+        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+        (( $behind )) && gitstatus+=( "${c4}-${behind}${c2}" )
+
+        hook_com[branch]="${hook_com[branch]} [${remote} ${(j:/:)gitstatus}]"
+    fi
+}
+
+precmd () { vcs_info }
+
+PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
+%# '
+
+# Note:  To make a simple prompt (when dealing with mounted drives),
+# do:
+# PS1="%~ $"
+# precmd()
+
+
+
+
+
+
+# For emacs ansi-term
+# TODO: evaluate only in ansi-term
+if [ "$EMACS" ]; then
+    ansi_term_chpwd() { print -P "\033AnSiTc %d" }
+    chpwd_functions=(${chpwd_functions[@]} ansi_term_chpwd)
+    print -P "\033AnSiTu %n"
+    print -P "\033AnSiTc %d"
+fi
+
+
+
+# Use emacs client as VISUAL if already in emacs.
+[[ -n $EMACS ]] && export VISUAL=emacsclient
+
+
 # git co o/d/c
+# fpath=(~/.dotfiles/zsh/ $fpath)
+# autoload -- ~/.dotfiles/zsh/[^_]*(:t)
 
-autoload -- ~/.dotfiles/zsh/[^_]*(:t)
 
-# C-o accepts, but doesn't leave the menu.
-# zmodload zsh/complist
-bindkey -M menuselect '\C-a' accept-and-menu-complete
-
+### Conda
 
 [[ -f $CONDA_SETUP ]] && source $CONDA_SETUP
 
