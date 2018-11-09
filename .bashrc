@@ -1,4 +1,3 @@
-# echo "in .bashrc"
 
 # Try to run zshrc if NO_SWITCH is not set
 function run_zsh {
@@ -28,6 +27,7 @@ fi
 
 
 if [ -f ~/.local-dotfiles/.bashrc-pre ]; then
+    echo "loading local bashrc-pre"
     builtin source ~/.local-dotfiles/.bashrc-pre
 fi
 
@@ -60,8 +60,6 @@ prompt_func () {
     PS1="bash $B[\$(date +%H:%M)] \w [\u@\h"$screenw"]$b\n$B--\! \$ $b"
 }
 
-prompt_func
-
 
 simple_prompt () {
     PS1="[\$(date +%H:%M)] \w [\u@\h"$screenw"]\n--\! \$ "
@@ -71,13 +69,21 @@ PROMPT_COMMAND='history -a; history -n'
 shopt -s histappend
 
 
+
+if [ -f ~/.local-dotfiles/.bashrc ]; then
+    builtin source ~/.local-dotfiles/.bashrc
+fi
+
+
+prompt_func
+
 # Copy git-prompt.sh and git-completion.bash from the git
 # contrib/completion directory here.
 
 
 if [ -f $BASH_DIR/git-completion.bash ]; then
     echo "loading git-completion"
-    builtin source git-completion.bash
+    builtin source $BASH_DIR/git-completion.bash
 fi
 
 if [ -f $BASH_DIR/git-prompt.sh ]; then
@@ -88,6 +94,7 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
 fi
 
 if [ -f ~/.local-dotfiles/.bashrc-post ]; then
+    echo "loading local bashrc-post"
     builtin source ~/.local-dotfiles/.bashrc-post
 fi
 
