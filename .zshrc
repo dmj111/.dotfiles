@@ -1,11 +1,7 @@
 # Uncomment for profiling (and go to end of file)
 # zmodload zsh/zprof
 
-
-
-
 # Add to this in local.zsh if desired.
-
 post_init_hook=()
 
 # For example:
@@ -57,7 +53,6 @@ function runbash() {
 
 #### Environment
 
-typeset -U path
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -342,16 +337,20 @@ fi
 # autoload -- ~/.dotfiles/zsh/[^_]*(:t)
 
 
-### Conda
-
-[[ -f $CONDA_SETUP ]] && source $CONDA_SETUP
 
 for f in $post_init_hook; do
     $f
 done
-
 [[ -f ~/.local-dotfiles/post.zsh ]] && builtin source ~/.local-dotfiles/post.zsh
 
+
+### Conda
+[[ -f $CONDA_SETUP ]] && source $CONDA_SETUP
+
+# When restarting shells, the conda path can get moved to the end of
+# the path.  deactivate and restart to avoid.
+conda deactivate && conda activate
+typeset -U path
 
 # Uncomment for profiling
 # zprof
