@@ -341,15 +341,18 @@ fi
 for f in $post_init_hook; do
     $f
 done
-[[ -f ~/.local-dotfiles/post.zsh ]] && builtin source ~/.local-dotfiles/post.zsh
 
+[[ -f ~/.local-dotfiles/post.zsh ]] && builtin source ~/.local-dotfiles/post.zsh
 
 ### Conda
 [[ -f $CONDA_SETUP ]] && source $CONDA_SETUP
 
 # When restarting shells, the conda path can get moved to the end of
 # the path.  deactivate and restart to avoid.
-conda deactivate && conda activate
+
+type conda >/dev/null 2>&1 && conda deactivate && conda activate || echo "didn't run conda"
+type activate.sh >/dev/null 2>&1 && source $(whence activate.sh) && cd . || echo "no autoenv"
+
 typeset -U path
 
 # Uncomment for profiling
