@@ -355,5 +355,8 @@ type activate.sh >/dev/null 2>&1 && source $(whence activate.sh) && cd . || echo
 
 typeset -U path
 
+fpath=($fpath ~/.dotfiles/zsh)
+
+autoload setup_conda
 # Uncomment for profiling
 # zprof

@@ -1,0 +1,12 @@
+#  -*- mode: shell-script; -*-
+function setup_conda() {
+    local current=""
+    local goal=$1
+
+    current="${CONDA_PREFIX##*/}"
+    if [[ $current != $goal ]]; then
+        conda activate $goal
+    fi
+}
+
+# Call `setup_conda goal` in .env files
