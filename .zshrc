@@ -129,7 +129,7 @@ autoload -U run-help-git
 
 # setopt ignore_eof # don't let C-d kill the shell
 
-export LESS='-XFR'
+export LESS='-XFRi'
 
 #### Aliases
 alias l=less
