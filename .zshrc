@@ -354,6 +354,7 @@ done
 fpath=($fpath ~/.dotfiles/zsh)
 
 autoload setup_conda
+autoload gitrash
 
 
 type conda >/dev/null 2>&1 && conda deactivate && conda activate || echo "conda not found or something failed"
