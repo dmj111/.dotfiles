@@ -108,7 +108,12 @@
 	outm=log master@{u}.. --decorate
 
 	# Save all changes to working dir to a commit, and then pop that commit.
-	trash="!djcmit_id=$(git rev-parse HEAD) && git commit -am 'trash' && git reset --hard $djcmit_id"
+	trash="!f() { djcmit_id=$(git rev-parse HEAD) && \
+                       msg=$(date +'trash: %Y/%m/%d %H:%M:%S') && \
+                       git commit -am \"$msg\" && \
+	               echo $djcmit_id $msg ; \
+                       git reset --hard $djcmit_id ; \
+	             } ; f "
 
 	# Branch -vv shows the status of a branch (and against its upstream)
 	bvv=branch -vv --sort=committerdate
