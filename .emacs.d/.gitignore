@@ -4,6 +4,7 @@
 /ac-comphist.dat
 /auto-save-list/
 /bookmarks
+/ede-projects.el
 /elpa/
 /eshell
 /history
@@ -15,7 +16,8 @@
 /recentf
 /semanticdb/
 /server
+/session*
 /smex-items
+/tramp
 /transient/
 /url/
-/ede-projects.el
