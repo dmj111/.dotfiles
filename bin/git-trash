@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# save off changed files in a temporary commit before reset-hard.
+
+msg=$(date +'trash : %Y%m%d-%H%M%S')
+git commit -am "$msg" && git reset --hard HEAD^

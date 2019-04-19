@@ -314,10 +314,6 @@ PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
 # precmd()
 
 
-
-
-
-
 # For emacs ansi-term
 # TODO: evaluate only in ansi-term
 if [ "$EMACS" ]; then
@@ -352,10 +348,9 @@ done
 # the path.  deactivate and restart to avoid.
 
 fpath=($fpath ~/.dotfiles/zsh)
+path=($path ~/.dotfiles/bin)
 
 autoload setup_conda
-autoload gitrash
-
 
 type conda >/dev/null 2>&1 && conda deactivate && conda activate || echo "conda not found or something failed"
 type activate.sh >/dev/null 2>&1 && source $(whence activate.sh) && cd . || echo "try 'pip install autoenv'"

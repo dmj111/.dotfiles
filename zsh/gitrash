@@ -1,9 +1,0 @@
-#  -*- mode: shell-script; -*-
-
-function gitrash() {
-    local djcmit_id=$(git rev-parse HEAD)
-    local msg=$(date +'trash: %Y/%m/%d %H:%M:%S')
-    git commit -am "$msg" \
-	&& echo $djcmit_id $msg \
-        && git reset --hard $djcmit_id
-}
