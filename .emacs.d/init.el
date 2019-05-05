@@ -893,16 +893,31 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   :config
   (global-company-mode 1))
 
+
+;; To get tabs in c++ code
+;; // Local Variables:
+;; // *cpp-auto-clang-format*: nil
+;; // indent-tabs-mode: t
+;; // c-basic-offset: 4
+;; // tab-width: 4
+;; // whitespace-mode: t
+;; // End:
+
+
 (use-package clang-format
   :ensure t
   :config
-  (add-hook 'c++-mode-hook (lambda ()
-                             (add-hook 'before-save-hook #'clang-format-buffer nil t)))
+  (defvar *cpp-auto-clang-format* t  "Auto-clang format on save hook.")
+  (defun my-add-clang-format-hook ()
+    (add-hook 'before-save-hook
+              (lambda ()
+                (when *cpp-auto-clang-format* (clang-format-buffer)))
+              nil t))
+  (add-hook 'c++-mode-hook #'my-add-clang-format-hook)
   (global-set-key [C-M-tab] 'clang-format-region))
 
 (use-package ggtags
   :disabled t)
-
 
 (use-package cc-mode
   :config
