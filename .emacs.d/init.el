@@ -853,6 +853,8 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 (add-to-list 'exec-path "/usr/local/opt/llvm/bin/" t)
 
+;; https://nilsdeppe.com/posts/emacs-c++-ide
+
 (use-package flycheck
   :ensure t
   :init
@@ -868,6 +870,11 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   ;; Requires pylint and flake8 to be installed.
   (flycheck-add-next-checker `python-pylint '(warning . python-flake8)))
 
+;; Make sure clang-tidy is on exec path
+(use-package flycheck-clang-tidy
+  :init
+  (eval-after-load 'flycheck
+    '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup)))
 
 ;; Load rtags and start the cmake-ide-setup process
 (use-package rtags
