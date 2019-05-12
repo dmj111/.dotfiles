@@ -794,7 +794,7 @@ file of a buffer in an external program."
 
 
 (use-package conda
-  :ensure t
+  :disabled
   :config
   ;; Make sure pylint is installed.
   ;; make sure a default environment is set
@@ -811,6 +811,17 @@ file of a buffer in an external program."
   (custom-set-variables
    '(conda-anaconda-home *anaconda-directory*)))
 
+
+;; Install pylint / flake8 to the conda environment3
+;; add to .dir-locals.el
+;; ((nil . ((pyvenv-workon . "ENV_NAME"))))
+(use-package pyvenv
+  :ensure t
+  :config
+  (setenv "WORKON_HOME" (concat (file-name-as-directory *anaconda-directory*)
+                                "envs"))
+  (pyvenv-mode 1)
+  (pyvenv-tracking-mode 1))
 
 
 ;; http://jblevins.org/log/mmm
