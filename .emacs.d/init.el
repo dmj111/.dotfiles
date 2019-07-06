@@ -35,6 +35,18 @@
 ;; (setq debug-on-error t)
 
 ;; Don't limit the print out of a variable
+
+;; use-package:
+;; :init  - before load
+;; :config - after load
+;; :bind - creates autoload
+;; :commands - creates autoload
+;; :bind-keymap
+;; :mode, :keymap
+;; :magic
+;; :hook - add to hook
+;; :if, :after, :requires (stops if not loaded)
+
 (setq eval-expression-print-length nil)
 
 (setq inhibit-startup-screen t)
@@ -146,7 +158,6 @@ Added: %U")))
 (define-key dmj-map (kbd "w") 'whitespace-mode)
 
 
-
 (require 'package)
 (package-initialize)
 
@@ -172,7 +183,11 @@ Added: %U")))
 
 (require 'use-package)
 
-(use-package zenburn-theme :ensure t)
+(use-package does-not-exist
+  :disabled)
+
+(use-package zenburn-theme
+  :ensure t)
 
 (defvar my-default-theme 'zenburn
   "Default theme to use at startup.")
@@ -190,7 +205,8 @@ Added: %U")))
 (use-package markdown-mode :ensure t)
 
 ;; http://danmidwood.com/content/2014/11/21/animated-paredit.html
-(use-package paredit :ensure t
+(use-package paredit
+  :ensure t
   :init
   (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode))))
 
