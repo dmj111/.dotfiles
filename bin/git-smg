@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Git submodule grep
+cmd="git grep $@"
+git submodule foreach "$cmd || true"
