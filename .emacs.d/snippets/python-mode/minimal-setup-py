@@ -1,0 +1,16 @@
+# name: minimal-setup-py
+# key: minimal-setup-py
+# expand-env: ((yas-indent-line 'fixed))
+# https://python-packaging.readthedocs.io/en/latest/minimal.html
+# --
+from setuptools import setup
+
+setup(name='$1',
+      version='$2',
+      description='$3',
+      url='$4',
+      author='$5',
+      author_email='$6',
+      license='MIT',
+      packages=['$7'],
+      zip_safe=False)
