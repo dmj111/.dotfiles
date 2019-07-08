@@ -6,7 +6,8 @@
 # --
 // Using-declarations, Typedefs and Enums
 // Constants (static const data members)
-// Constructors and assignment operators
+// Constructors
+// assignment operators
 // Destructor
 // Methods, including static methods
 // Data Members (except static const data members)
