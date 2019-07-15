@@ -889,7 +889,8 @@ If SUBMODE is not provided, use `LANG-mode' by default."
             (lambda () (setq flycheck-clang-language-standard "c++14")))
 
   ;; Requires pylint and flake8 to be installed.
-  (flycheck-add-next-checker `python-pylint '(warning . python-flake8)))
+  (flycheck-add-next-checker `python-pylint '(warning . python-flake8))
+  (setq  flycheck-python-flake8-executable "flake8"))
 
 ;; Make sure clang-tidy is on exec path
 (use-package flycheck-clang-tidy
@@ -983,6 +984,9 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   :disabled t
   :config
   (global-ede-mode))
+
+(use-package ledger-mode
+  :mode "\\.ledger$")
 
 (use-package helm-gtags
   :disabled t
