@@ -58,9 +58,6 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
-# CONDA_SETUP is used later to initialize conda
-CONDA_SETUP=$HOME/miniconda3/etc/profile.d/conda.sh
-
 # [[ -r $HOME/Go ]] && export GOPATH=$HOME/Go
 
 #### History
@@ -341,19 +338,8 @@ done
 
 [[ -f ~/.local-dotfiles/post.zsh ]] && builtin source ~/.local-dotfiles/post.zsh
 
-### Conda
-[[ -f $CONDA_SETUP ]] && source $CONDA_SETUP
-
-# When restarting shells, the conda path can get moved to the end of
-# the path.  deactivate and restart to avoid.
-
 fpath=($fpath ~/.dotfiles/zsh)
 path=($path ~/.dotfiles/bin)
-
-autoload setup_conda
-
-type conda >/dev/null 2>&1 && conda deactivate && conda activate || echo "conda not found or something failed"
-type activate.sh >/dev/null 2>&1 && source $(whence activate.sh) && cd . || echo "try 'pip install autoenv'"
 
 typeset -U path
 
