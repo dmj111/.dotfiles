@@ -528,7 +528,7 @@ Will work on both org-mode and any mode that accepts plain html."
   (setq org-export-htmlize-output-type 'css)
   (setq org-src-fontify-natively t)
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-  (setq org-directory "~/repos/private/notes")
+  (setq org-directory "~/code/private")
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
@@ -547,7 +547,7 @@ Will work on both org-mode and any mode that accepts plain html."
   ;; active Babel languages
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((sh . t)
+   '(;; (sh . t)
      (emacs-lisp . t)
      (python . t)
      ))
