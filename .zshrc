@@ -357,5 +357,8 @@ function _pip_completion {
              PIP_AUTO_COMPLETE=1 $words[1] ) )
 }
 compctl -K _pip_completion pip
+
+tmp_conda_prefix=$CONDA_PREFIX
+[[ -z $tmp_conda_prefix ]] || conda deactivate; conda activate $tmp_conda_prefix; unset tmp_conda_prefix
 # pip zsh completion end
 
