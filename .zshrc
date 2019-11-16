@@ -358,6 +358,14 @@ function _pip_completion {
 }
 compctl -K _pip_completion pip
 
+export PYENV_ROOT="$HOME/.pyenv"
+path=($PYENV_ROOT/bin $path)
+
+if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
+
 tmp_conda_prefix=$CONDA_PREFIX
 [[ -z $tmp_conda_prefix ]] || conda deactivate; conda activate $tmp_conda_prefix; unset tmp_conda_prefix
 # pip zsh completion end
