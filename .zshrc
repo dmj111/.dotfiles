@@ -364,9 +364,9 @@ path=($PYENV_ROOT/bin $path)
 if command -v pyenv 1>/dev/null 2>&1; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
+else
+    tmp_conda_prefix=$CONDA_PREFIX
+    [[ -z $tmp_conda_prefix ]] || conda deactivate; conda activate $tmp_conda_prefix; unset tmp_conda_prefix
 fi
-
-tmp_conda_prefix=$CONDA_PREFIX
-[[ -z $tmp_conda_prefix ]] || conda deactivate; conda activate $tmp_conda_prefix; unset tmp_conda_prefix
 # pip zsh completion end
 
