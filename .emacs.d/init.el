@@ -74,8 +74,8 @@
 
 (defconst *is-mac* (eq system-type 'darwin))
 
-(defvar *anaconda-directory* "/Users/dave/miniconda3"
-  "Anaconda installation directory.")
+;; (defvar *anaconda-directory* "/Users/dave/miniconda3"
+;;   "Anaconda installation directory.")
 
 ;; Add a local lisp directory to the load path.
 (add-to-list 'load-path *local-dir*)
@@ -839,8 +839,8 @@ file of a buffer in an external program."
 (use-package pyvenv
   :ensure t
   :config
-  (setenv "WORKON_HOME" (concat (file-name-as-directory *anaconda-directory*)
-                                "envs"))
+  (add-to-list 'exec-path "~/.pyenv/shims")
+  (setenv "WORKON_HOME" "~/.pyenv/versions")
   (pyvenv-mode 1)
   (pyvenv-tracking-mode 1))
 
