@@ -1,4 +1,12 @@
 
+case "$TERM" in
+    "dumb")
+        # For emacs tramp mode
+        PS1='$ '
+        return 0
+        ;;
+esac
+
 # Try to run zshrc if NO_SWITCH is not set
 function run_zsh {
     zsh_exe=$1
@@ -6,14 +14,6 @@ function run_zsh {
 }
 
 
-case "$TERM" in
-    "dumb")
-        # For emacs tramp mode
-        export NO_SWITCH=1
-        PS1='$ '
-        return 0
-        ;;
-esac
 
 if [ -z $NO_SWITCH ]; then
     case "$-" in
