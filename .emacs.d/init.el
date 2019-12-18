@@ -833,18 +833,6 @@ file of a buffer in an external program."
    '(conda-anaconda-home *anaconda-directory*)))
 
 
-;; Install pylint / flake8 to the conda environment3
-;; add to .dir-locals.el
-;; ((nil . ((pyvenv-workon . "ENV_NAME"))))
-(use-package pyvenv
-  :ensure t
-  :config
-  (add-to-list 'exec-path "~/.pyenv/shims")
-  (setenv "WORKON_HOME" "~/.pyenv/versions")
-  (pyvenv-mode 1)
-  (pyvenv-tracking-mode 1))
-
-
 ;; http://jblevins.org/log/mmm
 (defun my-mmm-markdown-auto-class (lang &optional submode)
   "Define a mmm-mode class for LANG in `markdown-mode' using SUBMODE.
