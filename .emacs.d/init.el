@@ -74,8 +74,8 @@
 
 (defconst *is-mac* (eq system-type 'darwin))
 
-;; (defvar *anaconda-directory* "/Users/dave/miniconda3"
-;;   "Anaconda installation directory.")
+(defvar *anaconda-directory* (expand-file-name "~/miniconda3")
+  "Anaconda installation directory.")
 
 ;; Add a local lisp directory to the load path.
 (add-to-list 'load-path *local-dir*)
@@ -815,7 +815,7 @@ file of a buffer in an external program."
 
 
 (use-package conda
-  :disabled
+  :ensure t
   :config
   ;; Make sure pylint is installed.
   ;; make sure a default environment is set

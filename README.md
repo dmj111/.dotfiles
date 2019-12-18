@@ -1,13 +1,21 @@
 # Dotfiles
 
 - Use setup.sh to get going.
-- install pyenv with pyenv-installer
-- python3 -m pip install --user pipx  (probably from system python?)
+
+- use "conda init zsh" to get the config settings for the local installation, move to ~/.local-dotfiles/.zshrc
+
+
 - add ~/.local/bin to path
-- pipx install pre-commit
-- use `pre-commit install` to install in a repo
-- pipx reinstall-all $(pyenv which python)
+
+    python3 -m pip install --user --force pip
+    pip install --user pipx
+    pipx install pre-commit
+    pipx install conan
+    pipx install flake8
+
+- use `pre-commit install` to install pre-commit in a repo
 
 
-    pipx install --spec $HOME/.dotfiles/packages/clean_git clean-git
-    pipx upgrade --spec $HOME/.dotfiles/packages/clean_git clean-git
+- Or install in editable mode
+
+    pipx install -e --spec $HOME/.dotfiles/dmj-tools dmj-tools

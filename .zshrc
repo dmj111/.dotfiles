@@ -358,4 +358,7 @@ function _pip_completion {
 }
 compctl -K _pip_completion pip
 
+[[ -f $HOME/miniconda3/etc/profile.d/conda.sh ]] && \
+    . $HOME/miniconda3/etc/profile.d/conda.sh
+
 # pip zsh completion end
