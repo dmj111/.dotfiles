@@ -2,6 +2,7 @@
 
 
 files=(
+    .abcde.conf
     .bash_profile
     .bashrc
     .gitconfig
