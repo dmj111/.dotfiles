@@ -15,7 +15,7 @@ import git
     "-f", "--force", is_flag=True, default=False, help="Force deletion of branches"
 )
 @click.option("-v", "--verbose", is_flag=True, default=False)
-@click.argument("repopath", type=click.Path(exists=True))
+@click.argument("repopath", default=".", type=click.Path(exists=True))
 def cli(force, repopath, verbose):
     repo = git.Repo(repopath)
 
