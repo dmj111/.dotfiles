@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Remove all of stashes.  Prints them out first for
+# one last safety net.
+#
+# To recover from the hash:
+#
+# git stash apply <hash>
+# git branch <branchname> <hash>
+git stash list && git stash clear
