@@ -872,7 +872,7 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   ;; the clang language backend so this is set to clang
 
     ;; Turn flycheck on everywhere
-  (global-flycheck-mode)
+  ;; (global-flycheck-mode)
   (add-hook 'c++-mode-hook
             (lambda () (setq flycheck-clang-language-standard "c++14")))
 
