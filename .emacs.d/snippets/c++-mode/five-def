@@ -4,6 +4,11 @@
 # binding: direct-keybinding
 # --
 
+// types: classes, enums, aliases
+// constructors, assignments, destructor
+// functions
+// data
+
 ${1:Name}() = default;
 $1(const $1&) = default;
 $1($1&&) = default;
