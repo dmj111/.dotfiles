@@ -87,13 +87,10 @@
 	# Old log message.
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
 
-	# Create a new branch off of origin/master
-	nb = "!f() { if [[ -z $1 ]]; then \
-	echo 'need a branch name.'; \
-	exit 1 ; \
-	else\
-	git co --no-track -b ${1} origin/master ; \
-	fi } ; f "
+        # Create a new branch off of main's upstream.  make sure to
+        # have a main brach tracking whatever is the ... main branch.
+        new-branch = switch --no-track main@{u} -c
+        nb = new-branch
 
 	# show the merge merge result between two branches without
 	# actually doing the merge.
