@@ -338,7 +338,9 @@ done
 
 [[ -f ~/.local-dotfiles/post.zsh ]] && builtin source ~/.local-dotfiles/post.zsh
 
-fpath=($fpath ~/.dotfiles/zsh)
+zstyle ':completion:*:*:git:*' script ~/.dotfiles/zsh/git-completion.bash
+fpath=(~/.dotfiles/zsh $fpath)
+
 path=($path ~/.dotfiles/bin)
 
 typeset -U path
