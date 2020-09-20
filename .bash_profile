@@ -20,7 +20,6 @@ if [ -f ~/.local-dotfiles/.bash_profile ]; then
     builtin source ~/.local-dotfiles/.bash_profile
 fi
 
-
 # Load bashrc in login shells.
 if [ -f ~/.bashrc ]; then
     builtin source ~/.bashrc

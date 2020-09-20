@@ -63,7 +63,7 @@ export TERM=xterm-256color
 #### History
 HISTSIZE=10000
 SAVEHIST=100000
-HISTFILE=~/.zsh_history
+HISTFILE=$HOME/.zsh_history
 
 # Pressing space after a history command will expand it.
 bindkey ' ' magic-space
@@ -240,7 +240,7 @@ alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
 
 # Load local file first.  Load local post.zsh at the end
-[[ -f ~/.local-dotfiles/.zshrc ]] && builtin source ~/.local-dotfiles/.zshrc
+[[ -f $HOME/.local-dotfiles/.zshrc ]] && builtin source $HOME/.local-dotfiles/.zshrc
 
 
 
@@ -336,12 +336,12 @@ for f in $post_init_hook; do
     $f
 done
 
-[[ -f ~/.local-dotfiles/post.zsh ]] && builtin source ~/.local-dotfiles/post.zsh
+[[ -f $HOME/.local-dotfiles/post.zsh ]] && builtin source $HOME/.local-dotfiles/post.zsh
 
-zstyle ':completion:*:*:git:*' script ~/.dotfiles/zsh/git-completion.bash
-fpath=(~/.dotfiles/zsh $fpath)
+zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
+fpath=($HOME/.zsh $fpath)
 
-path=($path ~/.dotfiles/bin)
+path=($path $HOME/.dotfiles/bin)
 
 typeset -U path
 

@@ -186,7 +186,6 @@
 [include]
 	path = ~/.local-dotfiles/.gitconfig
 
-
 [main-branch]
         name = master
 
