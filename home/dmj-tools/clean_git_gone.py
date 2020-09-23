@@ -17,7 +17,7 @@ import git
 @click.option("-v", "--verbose", is_flag=True, default=False)
 @click.argument("repopath", default=".", type=click.Path(exists=True))
 def cli(force, repopath, verbose):
-    repo = git.Repo(repopath)
+    repo = git.Repo(repopath, search_parent_directories=True)
 
     branches = list_gone_branches(repo, verbose)
     if not branches:
