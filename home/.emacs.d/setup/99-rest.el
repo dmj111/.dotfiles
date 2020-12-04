@@ -20,21 +20,6 @@
 
 
 
-(use-package zenburn-theme
-  :ensure t)
-
-(defvar my-default-theme 'zenburn
-  "Default theme to use at startup.")
-
-;; After init.el is loaded, set the theme.
-(eval-after-load 'init
-  '(progn
-     (message "loading the theme...")
-     ;; To change, make sure the package is loaded, and then set
-     ;; my-default-theme.
-     (load-theme my-default-theme t)))
-
-
 (use-package dash :ensure t)
 (use-package markdown-mode :ensure t)
 
