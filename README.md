@@ -3,25 +3,14 @@
     cd $HOME
     git clone https://github.com/dmj111/.dotfiles.git
     cd .dotfiles
-    git config core.worktree ../../
-    # This step will wipe out any existing changes, careful...
-    git reset --hard origin/main
+    ./setup.sh
 
 
 ## Directories
 
-- home/bin -- scripts
-- home/dmj-tools -- python package with user tools
-- .zsh/
-- .emacs.d
-
-## Git commands
-
-From inside the .dotfiles dir, run commands like this:
-
-- git ls-files ../
-- git grep zsh ../
-- git add -f ../new-file
+- bin -- scripts
+- dmj-tools -- python package with user tools
+- home/ -- files/folder to link into ~/
 
 
 ## Using pipx/pre-commit
@@ -38,4 +27,4 @@ From inside the .dotfiles dir, run commands like this:
 
 - Or install in editable mode
 
-    pipx install -e --spec $HOME/home/dmj-tools dmj-tools
+    pipx install -e --spec $HOME/dmj-tools dmj-tools
