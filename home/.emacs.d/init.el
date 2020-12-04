@@ -34,33 +34,20 @@
 ;; Debug if there is an error
 ;; (setq debug-on-error t)
 
+
+
+
 ;; Don't limit the print out of a variable
-
-;; use-package:
-;; :init  - before load
-;; :config - after load
-;; :bind - creates autoload
-;; :commands - creates autoload
-;; :bind-keymap
-;; :mode, :keymap
-;; :magic
-;; :hook - add to hook
-;; :if, :after, :requires (stops if not loaded)
-
 (setq eval-expression-print-length nil)
 
 (setq inhibit-startup-screen t)
+(setq visible-bell t)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
 ;; The macro is for non-windowed emacs.
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-
-;; make yes/no shorter, and a frequent alias.
-(defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'qrr 'query-replace-regexp)
 
 ;; Give names to some config directories.
 (defconst *config-dir* (file-name-directory load-file-name)
@@ -83,8 +70,7 @@
 
 (message *config-d*)
 
-
-(mapc 'load (file-expand-wildcards (concat  *config-d* "*.el")))
+(require 'cl)
 
 ; (mapc 'load (file-expand-wildcards (concat  *local-dir* "*.el")))
 ; (mapc 'load (file-expand-wildcards *config-dir*))
@@ -93,3 +79,60 @@
 
 ;; Add a local lisp directory to the load path.
 (add-to-list 'load-path *local-dir*)
+;; Try to load local settings ahead of time
+(require 'init-local-preload nil t)
+
+
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.org/packages/") t)
+
+(when (not package-archive-contents)
+    (package-refresh-contents))
+
+;; make sure use-package is loaded
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+
+(use-package does-not-exist
+  :disabled)
+
+(use-package dash :ensure t)
+
+
+;; use-package quick notes:
+;; :init  - before load
+;; :config - after load
+;; :bind - creates autoload
+;; :commands - creates autoload
+;; :bind-keymap
+;; :mode, :keymap
+;; :magic
+;; :hook - add to hook
+;; :if, :after, :requires (stops if not loaded)
+
+;; Load local settings files
+(mapc 'load (file-expand-wildcards (concat  *config-d* "*.el")))
+
+
+
+;; Load the local file, if it exists.
+(require 'init-local nil t)
+
+
+;; TODO require-after-load is using this...
+(provide 'init)
+
+
+;; Consider something like this in local:
+;;;; Example init-local.el
+;;(add-to-list 'exec-path "/usr/local/bin" t)
+;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+;;(setq my-default-theme 'zenburn)
+;; (provide 'init-local)
+
+
+;;https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary

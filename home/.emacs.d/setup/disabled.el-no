@@ -166,3 +166,17 @@
   :config
   (setq elfeed-feeds
         '("http://pragmaticemacs.com")))
+
+
+;; server
+;; I don't really use this at the moment
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
+
+;; i don't really use this... maybe I will someday
+(use-package google-this
+  :ensure t
+  :config
+  (google-this-mode 1))

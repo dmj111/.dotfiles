@@ -1,4 +1,8 @@
-;;;; User interface
+;; make yes/no shorter, and a frequent alias.
+(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'qrr 'query-replace-regexp)
+
+
 (setq-default indent-tabs-mode nil)
 (column-number-mode 1)
 (show-paren-mode 1)
@@ -83,3 +87,54 @@
 
 (when *is-mac*
   (setq mac-command-modifier 'meta))
+
+(setq uniquify-buffer-name-style 'forward)
+
+;;;; undo-tree
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode t)
+  (setq undo-tree-visualizer-relative-timestamps t)
+  (setq undo-tree-visualizer--timestamps t))
+
+;;;; winner
+(winner-mode t)
+
+
+(define-coding-system-alias 'UTF-8 'utf-8)
+
+(use-package move-text
+  :ensure t
+  :config
+  (global-set-key [\M-\S-up] 'move-text-up)
+  (global-set-key [\M-\S-down] 'move-text-down))
+
+;;;; open-with
+(when *is-mac*
+  ;; Copied from emacs-prelude
+  (defun prelude-open-with ()
+    "Simple function that allows us to open the underlying
+file of a buffer in an external program."
+    (interactive)
+    (when buffer-file-name
+      (shell-command (concat
+                      (if (eq system-type 'darwin)
+                          "open"
+                        (read-shell-command "Open current file with: "))
+                      " "
+                      buffer-file-name))))
+
+  (global-set-key (kbd "C-c o") 'prelude-open-with))
+
+
+(defun clear-kill-ring ()
+  "Clear all entries from the kill ring."
+  (interactive)
+  (setq kill-ring nil)
+  (garbage-collect))
+
+(defalias 'list-buffers 'ibuffer)
+
+
+(eval-after-load 'apropos '(setq apropos-sort-by-scores t))
