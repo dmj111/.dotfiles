@@ -63,3 +63,23 @@
 
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
+
+;; Sometimes M-x is just too hard to type.
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-xm" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+;; TODO - detect electric indent, and don't bother if it exists
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+
+;; backward-kill-word is a fast way to delete
+(global-set-key "\C-w"     'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+;; This is for when alt is not meta.   I need my meta.
+(setq x-alt-keysym 'meta)
+
+(when *is-mac*
+  (setq mac-command-modifier 'meta))

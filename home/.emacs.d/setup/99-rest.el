@@ -18,8 +18,6 @@
 ;;;; package stuff..
 (require 'cl)
 
-
-
 (use-package dash :ensure t)
 (use-package markdown-mode :ensure t)
 
@@ -49,52 +47,6 @@
                                          try-complete-lisp-symbol-partially
                                          try-complete-lisp-symbol))
 
-;; Sometimes M-x is just too hard to type.
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-xm" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
-
-;; TODO - detect electric indent, and don't bother if it exists
-(define-key global-map (kbd "RET") 'newline-and-indent)
-
-
-;; backward-kill-word is a fast way to delete
-(global-set-key "\C-w"     'backward-kill-word)
-(global-set-key "\C-x\C-k" 'kill-region)
-(global-set-key "\C-c\C-k" 'kill-region)
-
-;; This is for when alt is not meta.   I need my meta.
-(setq x-alt-keysym 'meta)
-
-(when *is-mac*
-  (setq mac-command-modifier 'meta))
-
-(use-package ido
-  :disabled t
-  ;; Consider the settings that prelude uses.
-  ;; -- look at ido-ubiquitous
-  ;; -- flx-ido
-  :config
-  ;; https://www.masteringemacs.org/article/introduction-to-ido-mode
-  ;; Ido settings.  I am not real familiar with these yet.
-  (setq ido-enable-flex-matching t)
-  (setq ido-everywhere t)
-  (setq ido-create-new-buffer 'always)
-  (ido-mode 1)
-
-
-  ;; This one might not be fun.  If point is on something that looks
-  ;; like a filename, ido assumes that is what you want.
-  (setq ido-use-filename-at-point 'guess)
-
-  ;; Avoid pinging with C-x f
-  (setq ffap-machine-p-known 'reject)
-
-  ;; (setq ido-use-url-at-point t)
-  ;; this can give preferences to more common files.
-  ;; (setq ido-file-extensions-order '(".py" ".cc"))
-  ;; look for docs in ido-find-file, ido-find-dir, etc
-  )
 
 ;;;; magit
 (use-package magit
@@ -444,45 +396,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (setq ivy-count-format "(%d/%d) ")
   )
 
-;; [ ] http://tuhdo.github.io/helm-intro.html
-(use-package helm
-  :disabled t
-  :config
-  (require 'helm-config)
-  (helm-mode 1)
-  ("M-x" . 'undefined)
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key (kbd "C-x r b") 'helm-filtered-bookmarks)
-  ;; (global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (message "used helm"))
-
-
-(use-package helm
-  :disabled t
-  :config
-  (require 'helm-config)
-  ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-  ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
-  ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
-
-  (global-set-key (kbd "C-c h") 'helm-command-prefix)
-  (global-unset-key (kbd "C-x c"))
-
-  (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-  (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
-
-  (when (executable-find "curl")
-    (setq helm-google-suggest-use-curl-p t))
-
-  (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-        helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-        helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-        helm-ff-file-name-history-use-recentf t)
-
-  (helm-mode 1))
-
 (use-package avy
   :ensure t
   :bind (
@@ -574,12 +487,6 @@ file of a buffer in an external program."
   ;; ( { [ ] } )
 )
 
-(use-package golden-ratio
-  :disabled t
-  :diminish golden-ratio-mode
-  :config
-  (golden-ratio-mode 1))
-
 ;; google-this
 (use-package google-this
   :ensure t
@@ -601,14 +508,6 @@ file of a buffer in an external program."
     ("g" text-scale-increase "in")
     ("l" text-scale-decrease "out"))
   )
-
-
-(use-package elfeed
-  :ensure t
-  :config
-  (setq elfeed-feeds
-        '("http://pragmaticemacs.com")))
-
 
 
 (use-package conda
@@ -683,32 +582,6 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   :init
   (eval-after-load 'flycheck
     '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup)))
-
-;; Load rtags and start the cmake-ide-setup process
-(use-package rtags
-  :disabled t
-  :config
-  ;; Set rtags to enable completions and use the standard keybindings.
-  ;; A list of the keybindings can be found at:
-  ;; http://syamajala.github.io/c-ide.html
-
-  (setq rtags-autostart-diagnostics t)
-  (rtags-diagnostics)
-  (setq rtags-completions-enabled t)
-  (rtags-enable-standard-keybindings)
-
-  (use-package company-rtags
-    :ensure t
-    :config
-    (setq rtags-completions-enabled t)
-    (eval-after-load 'company
-      '(add-to-list
-        'company-backends 'company-rtags))
-    (setq rtags-autostart-diagnostics t)
-    (rtags-enable-standard-keybindings))
-
-  ;; Load the local file, if it exists.
-  )
 ;; (use-package heml-rtags
 ;;   :ensure t
 ;;   :config
@@ -742,67 +615,9 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   (add-hook 'c++-mode-hook #'my-add-clang-format-hook)
   (global-set-key [C-M-tab] 'clang-format-region))
 
-(use-package ggtags
-  :disabled t)
-
-(use-package cc-mode
-  :config
-  (use-package semantic
-    :disabled t
-    :config
-    (global-semanticdb-minor-mode 1)
-    (global-semantic-idle-scheduler-mode 1)
-    (global-semantic-stickyfunc-mode 1)
-
-    (semantic-mode 1)
-
-    (defun alexott/cedet-hook ()
-      (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
-      (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
-    (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
-    (add-hook 'c-mode-hook 'alexott/cedet-hook)
-    (add-hook 'c++-mode-hook 'alexott/cedet-hook)))
-
-
-;; Enable EDE only in C/C++
-(use-package ede
-  :disabled t
-  :config
-  (global-ede-mode))
 
 (use-package ledger-mode
   :mode "\\.ledger$")
-
-(use-package helm-gtags
-  :disabled t
-  :init
-  (setq helm-gtags-ignore-case t
-        helm-gtags-auto-update t
-        helm-gtags-use-input-at-cursor t
-        helm-gtags-pulse-at-cursor t
-        helm-gtags-prefix-key "\C-cg"
-        helm-gtags-suggested-key-mapping t)
-  ;; Enable helm-gtags-mode in Dired so you can jump to any tag
-  ;; when navigate project tree with Dired
-  (add-hook 'dired-mode-hook 'helm-gtags-mode)
-
-  ;; Enable helm-gtags-mode in Eshell for the same reason as above
-  (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-
-  ;; Enable helm-gtags-mode in languages that GNU Global supports
-  (add-hook 'c-mode-hook 'helm-gtags-mode)
-  (add-hook 'c++-mode-hook 'helm-gtags-mode)
-  (add-hook 'java-mode-hook 'helm-gtags-mode)
-  (add-hook 'asm-mode-hook 'helm-gtags-mode)
-
-  ;; key bindings
-  (with-eval-after-load 'helm-gtags
-    (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-    (define-key helm-gtags-mode-map (kbd "C-c g C-j") 'helm-gtags-select)
-    (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-    (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-    (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-    (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)))
 
 
 (use-package move-text
@@ -830,6 +645,7 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 (define-coding-system-alias 'UTF-8 'utf-8)
 
+;; TODO require-after-load is using this...
 (provide 'init)
 
 
