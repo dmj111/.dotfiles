@@ -37,3 +37,29 @@
 (define-key dmj-map (kbd "[") 'dmj-test-foo)
 (define-key dmj-map (kbd "l") 'delete-trailing-whitespace)
 (define-key dmj-map (kbd "w") 'whitespace-mode)
+
+
+
+
+;;;; Keybindings
+
+(global-set-key [(f5)] 'call-last-kbd-macro)
+(global-set-key "\C-x\C-n" 'next-error)
+(global-set-key (quote [S-M-down])  'next-error)
+(global-set-key (quote [S-M-up])  'prev-error)
+
+(global-set-key "\M-?" 'help)
+(global-set-key "\C-cx" 'compile)
+(global-set-key [(f9)] 'recompile)
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+;; Hmm... isearch.  and regexp.
+;; (global-set-key "\M-s" 'isearch-forward-regexp)
+;; (global-set-key "\M-r" 'isearch-backward-regexp)
+
+;; backward-kill-word is a fast way to delete
+(global-set-key "\C-w"     'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
