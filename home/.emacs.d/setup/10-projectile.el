@@ -2,7 +2,7 @@
   :ensure t
   :diminish projectile-mode
   :bind-keymap
-  ("C-c p" . projectile-command-map)
+  ("C-x p" . projectile-command-map)
   :config
   (setq projectile-completion-system 'ivy)
   (setq projectile-indexing-method 'alien)
