@@ -594,7 +594,7 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 
 ;; To get tabs in c++ code
-;; // Local Variables:
+;; // L o c a l Variables:
 ;; // *cpp-auto-clang-format*: nil
 ;; // indent-tabs-mode: t
 ;; // c-basic-offset: 4
