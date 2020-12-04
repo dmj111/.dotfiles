@@ -15,7 +15,7 @@
 
 ;; Make sure clang-tidy is on exec path
 (use-package flycheck-clang-tidy
-  :ensure t
+  :disabled t
   :init
   (eval-after-load 'flycheck
     '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup)))
