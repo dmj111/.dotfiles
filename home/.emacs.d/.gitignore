@@ -10,6 +10,7 @@
 /history
 /ido.last
 /local/
+/.lsp-session*
 /network-security.data
 /projectile-bookmarks.eld
 /projectile.cache
