@@ -1,16 +1,13 @@
 (setq lsp-keymap-prefix "C-c l")
 
-
 (use-package lsp-mode
   :ensure t
-  :hook ((python-mode . lsp)
+  :hook (
          ;; if you want which-key integration
          ;; (lsp-mode . lsp-enable-which-key-integration)
-
-         )
+         (python-mode . lsp)
+         (c++-mode . lsp))
   :commands (lsp lsp-deferred))
-
-;; optionally
 
 (use-package lsp-ui
   :ensure t
@@ -39,13 +36,38 @@
 ;;   :config
 ;;   (which-key-mode))
 
-
-;;;; python setup
-
+;;;; python
 ;; pipx install jedi-language-server
+
 (use-package lsp-jedi
   :ensure t
   :config
   (with-eval-after-load "lsp-mode"
     (add-to-list 'lsp-disabled-clients 'pyls)
     (add-to-list 'lsp-enabled-clients 'jedi)))
+
+
+;;; C++
+
+;; install clangd on system
+
+;; TODO: move to local, or add to path
+;; (setq lsp-clients-clangd-executable "/usr/local/opt/llvm/bin/clangd")
+
+(require 'lsp-clangd)
+(add-to-list 'lsp-enabled-clients 'clangd)
+
+(defun remove-from (xs ms)
+  (seq-filter (lambda (x) (not (memq x ms))) xs))
+
+
+
+(defun my/lsp-cpp-hook ()
+  ;; using lsp for completion means we don't want to use the company
+  (set (make-local-variable  'company-backends)
+       ;; TODO: filter out these values instead of copy/update
+       (remove-from company-backends '(company-xcode company-clang))))
+
+(use-package company
+  :config
+  (add-hook 'c++-mode-hook 'my/lsp-cpp-hook))
