@@ -5,8 +5,7 @@
   :hook (
          ;; if you want which-key integration
          ;; (lsp-mode . lsp-enable-which-key-integration)
-         (python-mode . lsp)
-         (c++-mode . lsp))
+         ((python-mode c++-mode js2-mode) . lsp))
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui
@@ -56,6 +55,7 @@
 
 (require 'lsp-clangd)
 (add-to-list 'lsp-enabled-clients 'clangd)
+(add-to-list 'lsp-enabled-clients 'eslint)
 
 (defun remove-from (xs ms)
   (seq-filter (lambda (x) (not (memq x ms))) xs))
