@@ -1,6 +1,7 @@
 
 ;; [ ] https://github.com/abo-abo/swiper
 ;; [ ] http://oremacs.com/swiper/
+;; counsel
 (use-package ivy :ensure t
   :diminish (ivy-mode . "")
   :bind
@@ -37,11 +38,14 @@
 ;; counsel-yank-pop
 ;; counsel-projectile
 
+;; https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
+
 (use-package swiper
   :ensure t
   ;; C-j to select current
   ;; C-M-j to select current value (creat new file)
   ;; M-j to select word at point.
+  :requires ivy
   :bind (("C-s" . swiper)
          ("C-x C-r" . counsel-recentf)
          ("M-x" . counsel-M-x)
