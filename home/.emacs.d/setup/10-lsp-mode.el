@@ -71,3 +71,5 @@
 (use-package company
   :config
   (add-hook 'c++-mode-hook 'my/lsp-cpp-hook))
+
+; (add-to-list 'lsp-enabled-clients 'eslint)
