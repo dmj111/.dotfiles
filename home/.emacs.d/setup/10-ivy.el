@@ -59,6 +59,8 @@
          ;; ("C-r" . swiper-backward)
          ))
 
+
 ;; interesting for later:
+;; - ivy-rich
 ;; - ivy-hydra
 ;; - ivy-pass https://www.passwordstore.org/ the standard unix password manager
