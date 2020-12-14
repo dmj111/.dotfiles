@@ -9,9 +9,6 @@
   :ensure t)
 
 ;; wgrep replacement :
-;; https://sam217pa.github.io/2016/09/11/nuclear-power-editing-via-ivy-and-ag/
-;; counsel-ag,
-;; C-c C-o ivy occur
 ;; C-x C-q - wgrep
 ;;
 
@@ -28,7 +25,10 @@
 
 (global-set-key (kbd "M-i") 'imenu)
 
-;;(set-frame-font "Cousine-14" nil t)
+; (set-frame-font "Cousine-14" nil t)
+; (set-frame-font "source code pro-13")
+(set-frame-font "fira code-14")
+
 
 ;; https://github.com/abo-abo/hydra
 (use-package hydra

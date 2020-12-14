@@ -1,6 +1,3 @@
-;; [ ] https://github.com/abo-abo/swiper
-;; [ ] http://oremacs.com/swiper/
-
 (use-package ivy
   :ensure t
   :defer 0.1
@@ -64,3 +61,5 @@
 ;; - ivy-rich
 ;; - ivy-hydra
 ;; - ivy-pass https://www.passwordstore.org/ the standard unix password manager
+
+;; https://sam217pa.github.io/2016/09/11/nuclear-power-editing-via-ivy-and-ag/
