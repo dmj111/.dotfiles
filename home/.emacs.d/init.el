@@ -101,7 +101,7 @@
   :disabled)
 
 (use-package dash :ensure t)
-
+(use-package diminish :ensure t)
 
 ;; use-package quick notes:
 ;; :init  - before load
