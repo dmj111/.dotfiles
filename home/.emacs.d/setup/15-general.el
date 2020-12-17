@@ -1,4 +1,3 @@
-
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
 
 (add-hook 'after-save-hook
@@ -25,9 +24,25 @@
 
 (global-set-key (kbd "M-i") 'imenu)
 
-; (set-frame-font "Cousine-14" nil t)
-; (set-frame-font "source code pro-13")
-(set-frame-font "fira code-14")
+
+(defvar *my-frame-fonts*
+  '(
+    "fira code-14"
+    "source code pro-13"
+    "cousine-14"
+    )
+  "List of fonts to try. Add to this list in init-local and
+the font will be set after init is loaded")
+
+
+(when (display-graphic-p)
+  (eval-after-load 'init
+    (reduce (lambda (acc font)
+              (or acc (ignore-errors
+                        (set-frame-font font) font)))
+            *my-frame-fonts*
+            :initial-value nil)))
+
 
 
 ;; https://github.com/abo-abo/hydra
