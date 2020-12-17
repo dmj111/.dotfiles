@@ -1,6 +1,6 @@
 ;;;; auto-complete
 (use-package auto-complete
-  :ensure t
+  :disabled t
   :config
   (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories

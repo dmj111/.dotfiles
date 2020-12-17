@@ -69,7 +69,9 @@
        (remove-from company-backends '(company-xcode company-clang))))
 
 (use-package company
+  :ensure t
   :config
-  (add-hook 'c++-mode-hook 'my/lsp-cpp-hook))
+  (add-hook 'c++-mode-hook 'my/lsp-cpp-hook)
+  (company-mode 1))
 
 ; (add-to-list 'lsp-enabled-clients 'eslint)
