@@ -37,11 +37,11 @@ the font will be set after init is loaded")
 
 (when (display-graphic-p)
   (eval-after-load 'init
-    (reduce (lambda (acc font)
-              (or acc (ignore-errors
-                        (set-frame-font font) font)))
-            *my-frame-fonts*
-            :initial-value nil)))
+    '(reduce (lambda (acc font)
+               (or acc (ignore-errors
+                         (set-frame-font font) font)))
+             *my-frame-fonts*
+             :initial-value nil)))
 
 
 
