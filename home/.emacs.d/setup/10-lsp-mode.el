@@ -72,6 +72,6 @@
   :ensure t
   :config
   (add-hook 'c++-mode-hook 'my/lsp-cpp-hook)
-  (company-mode 1))
+  (global-company-mode 1))
 
 ; (add-to-list 'lsp-enabled-clients 'eslint)
