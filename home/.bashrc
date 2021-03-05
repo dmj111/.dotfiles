@@ -27,7 +27,6 @@ fi
 
 
 if [ -f ~/.local-dotfiles/.bashrc-pre ]; then
-    echo "loading local bashrc-pre"
     builtin source ~/.local-dotfiles/.bashrc-pre
 fi
 
@@ -82,7 +81,6 @@ prompt_func
 
 
 if [ -f $BASH_DIR/git-completion.bash ]; then
-    echo "loading git-completion"
     builtin source $BASH_DIR/git-completion.bash
 fi
 
@@ -94,7 +92,5 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
 fi
 
 if [ -f ~/.local-dotfiles/.bashrc-post ]; then
-    echo "loading local bashrc-post"
     builtin source ~/.local-dotfiles/.bashrc-post
 fi
-
