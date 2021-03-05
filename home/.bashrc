@@ -7,6 +7,10 @@ case "$TERM" in
         ;;
 esac
 
+if [ -f ~/.local-dotfiles/.bashrc-pre ]; then
+    builtin source ~/.local-dotfiles/.bashrc-pre
+fi
+
 # Try to run zshrc if NO_SWITCH is not set
 function run_zsh {
     zsh_exe=$1
@@ -26,9 +30,6 @@ if [ -z $NO_SWITCH ]; then
 fi
 
 
-if [ -f ~/.local-dotfiles/.bashrc-pre ]; then
-    builtin source ~/.local-dotfiles/.bashrc-pre
-fi
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
 
