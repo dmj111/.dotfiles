@@ -3,6 +3,8 @@
   :config
   (message "first use-package-org")
 
+  ;; note - C-c C-, instead of <s for newer org
+
   (add-hook 'org-mode-hook (lambda ()
                              (auto-fill-mode 1)))
 
