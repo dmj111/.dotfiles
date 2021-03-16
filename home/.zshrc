@@ -4,6 +4,9 @@
 # Add to this in local.zsh if desired.
 post_init_hook=()
 
+[[ -f $HOME/.local-dotfiles/pre.zsh ]] && builtin source $HOME/.local-dotfiles/pre.zsh
+
+
 # For example:
 #
 # function local_post () {
