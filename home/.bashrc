@@ -17,6 +17,9 @@ function run_zsh {
     [ -f ${zsh_exe} ] && exec ${zsh_exe} -l
 }
 
+function restart {
+    NO_SWITCH=1 exec bash -l
+}
 
 
 if [ -z $NO_SWITCH ]; then
@@ -28,8 +31,6 @@ if [ -z $NO_SWITCH ]; then
         *) ;;
     esac
 fi
-
-
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -44,6 +45,18 @@ shopt -s cdable_vars
 shopt -s cdspell
 
 set bell-style none
+
+
+bind '"\\ep": history-search-backward'
+
+export LESS='-XFRi'
+
+
+shopt -s histappend
+HISTCONTROL=ignoredups:ignorespace
+HISTIGNORE="ls:exit:h:l:ll:ls -lrt"
+# Use history -r and history -w to manually read/write history
+
 
 prompt_func () {
     local screenw=""
