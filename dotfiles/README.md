@@ -1,16 +1,17 @@
 # Dotfiles
 
-    cd $HOME
-    git clone https://github.com/dmj111/.dotfiles.git
-    cd .dotfiles
-    ./setup.sh
+Setup:
+
+    . bootstrap.sh
+
+creates an alias, sets option to ignore untracked, checksout
 
 
 ## Directories
 
-- bin -- scripts
-- dmj-tools -- python package with user tools
-- home/ -- files/folder to link into ~/
+- dotfiles/
+  - dmj-tools -- python package with user tools
+  - local-example
 
 
 ## Using pipx/pre-commit/flake8
@@ -29,7 +30,7 @@
 
 - install the custom tools
 
-        pipx install $HOME/.dotfiles/dmj-tools
+        pipx install $HOME/dotfiles/dmj-tools
 
 
 TODO: editable install doesn't seem to install the standalone scripts

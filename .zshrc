@@ -4,6 +4,10 @@
 # Add to this in local.zsh if desired.
 post_init_hook=()
 
+# Setup for managing dotfiles
+alias config="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+
+
 [[ -f $HOME/.local-dotfiles/pre.zsh ]] && builtin source $HOME/.local-dotfiles/pre.zsh
 
 
