@@ -1,3 +1,4 @@
+" Reload with :source ~/.vimrc
 " use jk as escape
 inoremap jk <ESC>
 
@@ -13,6 +14,7 @@ set incsearch " show search results as you type
 set cursorline
 
 set hidden
+set autochdir
 
 nnoremap <leader>' :ls<CR>:b<Space>
 " :help buffers
