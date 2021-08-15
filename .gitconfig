@@ -184,7 +184,7 @@
 	xfuncname = "^[[:digit:]].*"
 
 [include]
-	path = ~/.local-dotfiles/.gitconfig
+	path = ~/.local.gitconfig
 
 [main-branch]
         name = master
