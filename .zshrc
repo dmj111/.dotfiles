@@ -1,6 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Optionally load startup files if they exist
+load_if_exists() {
+    if [[ -r $1 ]]; then
+        # echo "sourcing $1"
+        source $1
+    fi
+}
+
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/dave/.oh-my-zsh"
 
@@ -71,7 +80,10 @@ ZSH_CUSTOM=$HOME/.zsh/custom
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# plugins are loaded before the custom directory...
 plugins=(git)
+
+load_if_exists ~/.zsh/local.zsh
 
 source $ZSH/oh-my-zsh.sh
 
