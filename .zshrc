@@ -18,6 +18,7 @@ export ZSH="/Users/dave/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -83,7 +84,7 @@ ZSH_CUSTOM=$HOME/.zsh/custom
 # plugins are loaded before the custom directory...
 plugins=(git)
 
-load_if_exists ~/.zsh/local.zsh
+load_if_exists ~/.zsh/init.zsh
 
 source $ZSH/oh-my-zsh.sh
 
