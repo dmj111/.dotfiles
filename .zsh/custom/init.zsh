@@ -1,8 +1,7 @@
+echo "in init.zsh"
+
 # Setup for managing dotfiles
-alias config="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-
-
-# Use a-foo.zsh to pre-initialize
+# alias config="$(which git) --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 #### Notes
 # TODO:
@@ -47,8 +46,8 @@ runbash() {
 #### Environment
 
 
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+# export LANG=en_US.UTF-8
+# export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
 # [[ -r $HOME/Go ]] && export GOPATH=$HOME/Go
@@ -70,7 +69,6 @@ setopt inc_append_history
 # Keep time in history
 setopt extended_history
 
-
 #### UI
 
 ### options
@@ -84,7 +82,8 @@ setopt no_beep
 ## setopt no_flow_control # C-s
 
 # Globbing
-setopt extended_glob
+# TODO: check on this
+# setopt extended_glob
 
 # Change to a directory, if it is named on the command line.
 ## setopt auto_cd
@@ -102,247 +101,249 @@ bindkey "\en" history-beginning-search-forward
 bindkey "\eq" push-line-or-edit
 
 
-# make run-help nicer.  M-h brings up help for what you are doing
-# unalias run-help
-autoload -U run-help
-autoload -U run-help-git
+## Start of unreviewed section
+
+# # make run-help nicer.  M-h brings up help for what you are doing
+# # unalias run-help
+# autoload -U run-help
+# autoload -U run-help-git
 
 
-# setopt ignore_eof # don't let C-d kill the shell
+# # setopt ignore_eof # don't let C-d kill the shell
 
-export LESS='-XFRi'
+# export LESS='-XFRi'
 
-#### Aliases
-alias l=less
-alias ll='ls -l'
-alias la='ls -la'
-alias ..='cd ..'
+# #### Aliases
+# alias l=less
+# alias ll='ls -l'
+# alias la='ls -la'
+# alias ..='cd ..'
 
-alias -g L="| less"
-alias -g LL="2>&1 | less"
+# alias -g L="| less"
+# alias -g LL="2>&1 | less"
 
-alias en='emacsclient -n'
-alias ec='emacsclient'
+# alias en='emacsclient -n'
+# alias ec='emacsclient'
 
-alias gl='git log --oneline --graph'
-alias awake='caffeinate -d '
-alias g='git'
+# alias gl='git log --oneline --graph'
+# alias awake='caffeinate -d '
+# alias g='git'
 
-#### Completion
-autoload -U compinit
-compinit -i -D
-zmodload zsh/complist
-
-
-# Add GNU completion to a function.
-function gmp () {
-    fcn=$1
-    compdef _gnu_generic $fcn
-}
-
-# C-o accepts, but doesn't leave the menu.
+# #### Completion
+# autoload -U compinit
+# compinit -i -D
 # zmodload zsh/complist
-bindkey -M menuselect '\C-a' accept-and-menu-complete
 
-### Completion stuff from zsh book
 
-# C-o accepts the menu item, but stays in the same menu to allow
-# multiple selections.
+# # Add GNU completion to a function.
+# function gmp () {
+#     fcn=$1
+#     compdef _gnu_generic $fcn
+# }
 
-zstyle ':completion:*:warnings' format 'no matches: %d'
+# # C-o accepts, but doesn't leave the menu.
+# # zmodload zsh/complist
+# bindkey -M menuselect '\C-a' accept-and-menu-complete
 
+# ### Completion stuff from zsh book
 
-# Necessary for the later zstyle stuff to print the descriptions.
-zstyle ':completion:*:descriptions' format %B%d%b
+# # C-o accepts the menu item, but stays in the same menu to allow
+# # multiple selections.
 
-# Group by type (command / alias / etc)
-zstyle ':completion:*'  group-name ''
+# zstyle ':completion:*:warnings' format 'no matches: %d'
 
-# Group non-parameters together
-# zstyle ':completion:*:-command-:*:(commands|builtins|reserved-words|aliases)'  group-name commands
 
-# Man pages, use sections as descriptions
-zstyle ':completion:*:manuals' separate-sections true
+# # Necessary for the later zstyle stuff to print the descriptions.
+# zstyle ':completion:*:descriptions' format %B%d%b
 
-# To get paging when too many matches
+# # Group by type (command / alias / etc)
+# zstyle ':completion:*'  group-name ''
 
-zstyle ':completion:*default' list-prompt '%S%M matches%s'
-bindkey -M listscroll q send-break
+# # Group non-parameters together
+# # zstyle ':completion:*:-command-:*:(commands|builtins|reserved-words|aliases)'  group-name commands
 
-zstyle ':completion:*:default' menu 'select=5'
+# # Man pages, use sections as descriptions
+# zstyle ':completion:*:manuals' separate-sections true
 
+# # To get paging when too many matches
 
-# Turn on menu completion for tag windows (since they are a pain to type.)
-# TODO: git commits?
-zstyle ':completion:*:windows' menu on=0
+# zstyle ':completion:*default' list-prompt '%S%M matches%s'
+# bindkey -M listscroll q send-break
 
+# zstyle ':completion:*:default' menu 'select=5'
 
 
-# to delete:
-# zstyle -d ':completion:*:windows' menu on=0
-# to delete all styles using same context:
-# zstyle -d ':completion:*:windows'
+# # Turn on menu completion for tag windows (since they are a pain to type.)
+# # TODO: git commits?
+# zstyle ':completion:*:windows' menu on=0
 
 
-# Bind tab to complete word
-bindkey '\C-i' complete-word
 
-# Use C-x h inside complete to get debug info
+# # to delete:
+# # zstyle -d ':completion:*:windows' menu on=0
+# # to delete all styles using same context:
+# # zstyle -d ':completion:*:windows'
 
-# zstyle ':completion:::::' completer _expand _complete _ignored
-# % echo /etc/z*
-# tags in context :completion::expand:::
-#     all-expansions expansions original  (_expand)
 
-# Set the ordering of the results in the menu
-zstyle ':completion:*:expand:*' tag-order 'expansions all-expansions original'
+# # Bind tab to complete word
+# bindkey '\C-i' complete-word
 
-# Other options
-# zstyle ':completion:*:expand:*' glob false # don't expand globs
-# zstyle ':completion:*:expand:*' substitute false # don't expand $
+# # Use C-x h inside complete to get debug info
 
-# approximate matching
-zstyle ':completion:::::' completer _expand _complete _approximate _ignored
-zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) )'
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+# # zstyle ':completion:::::' completer _expand _complete _ignored
+# # % echo /etc/z*
+# # tags in context :completion::expand:::
+# #     all-expansions expansions original  (_expand)
 
-# consider lower cases as matches for upper case
-# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# Don't use for approximate matches
-zstyle ':completion:*:(^approximate)' matcher-list 'm:{a-z}={A-Z}'
+# # Set the ordering of the results in the menu
+# zstyle ':completion:*:expand:*' tag-order 'expansions all-expansions original'
 
+# # Other options
+# # zstyle ':completion:*:expand:*' glob false # don't expand globs
+# # zstyle ':completion:*:expand:*' substitute false # don't expand $
 
-setopt complete_in_word
-zstyle ':completion:*:::' completer _complete _prefix
-# zstyle ':completion:*:prefix:*' add-space true
+# # approximate matching
+# zstyle ':completion:::::' completer _expand _complete _approximate _ignored
+# zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) )'
+# zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 
+# # consider lower cases as matches for upper case
+# # zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# # Don't use for approximate matches
+# zstyle ':completion:*:(^approximate)' matcher-list 'm:{a-z}={A-Z}'
 
-#### tmux
-# Run in a tmux window to reload the ssh-agent data
-alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
+# setopt complete_in_word
+# zstyle ':completion:*:::' completer _complete _prefix
+# # zstyle ':completion:*:prefix:*' add-space true
 
 
-# Load local file first.  Load local post.zsh at the end
-[[ -f $HOME/.local-dotfiles/.zshrc ]] && builtin source $HOME/.local-dotfiles/.zshrc
+# #### tmux
+# # Run in a tmux window to reload the ssh-agent data
+# alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
 
 
-alias d='dirs -v'
-alias tc='time caffeinate'
+# # Load local file first.  Load local post.zsh at the end
+# [[ -f $HOME/.local-dotfiles/.zshrc ]] && builtin source $HOME/.local-dotfiles/.zshrc
 
 
 
-#### Prompt
-setopt prompt_subst
+# alias d='dirs -v'
+# alias tc='time caffeinate'
 
 
-# # Set up a prompt.
-# RPS1="%B%~%b"
-# PROMPT='%B%~$(git_prompt) %n@%m
-# $%b '
 
-# Example from man zshcontrib
-autoload -Uz vcs_info
+# #### Prompt
+# setopt prompt_subst
 
-zstyle ':vcs_info:(hg*|git*):*' get-revision true
-zstyle ':vcs_info:(hg*|git*):*' check-for-changes true
 
-zstyle ':vcs_info:(hg*|git*):*' stagedstr "${green}S${gray}"
-zstyle ':vcs_info:(hg*|git*):*' unstagedstr "${red}U${gray}"
+# # # Set up a prompt.
+# # RPS1="%B%~%b"
+# # PROMPT='%B%~$(git_prompt) %n@%m
+# # $%b '
 
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' actionformats \
-       '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats       \
-    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f'
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}-%r-'
+# # Example from man zshcontrib
+# autoload -Uz vcs_info
 
-zstyle ':vcs_info:git*+set-message:*' hooks git-st
+# zstyle ':vcs_info:(hg*|git*):*' get-revision true
+# zstyle ':vcs_info:(hg*|git*):*' check-for-changes true
 
-# Show remote ref name and number of commits ahead-of or behind
-function +vi-git-st() {
-    local ahead behind remote
-    local -a gitstatus
+# zstyle ':vcs_info:(hg*|git*):*' stagedstr "${green}S${gray}"
+# zstyle ':vcs_info:(hg*|git*):*' unstagedstr "${red}U${gray}"
 
-    # Are we on a remote-tracking branch?
-    remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
-        --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+# zstyle ':vcs_info:*' enable git
+# zstyle ':vcs_info:*' actionformats \
+#        '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+# zstyle ':vcs_info:*' formats       \
+#     '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f'
+# zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}-%r-'
 
-    if [[ -n ${remote} ]] ; then
-        # for git prior to 1.7
-        # ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
-        ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-        (( $ahead )) && gitstatus+=( "${c3}+${ahead}${c2}" )
+# zstyle ':vcs_info:git*+set-message:*' hooks git-st
 
-        # for git prior to 1.7
-        # behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
-        behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-        (( $behind )) && gitstatus+=( "${c4}-${behind}${c2}" )
+# # Show remote ref name and number of commits ahead-of or behind
+# function +vi-git-st() {
+#     local ahead behind remote
+#     local -a gitstatus
 
-        hook_com[branch]="${hook_com[branch]} [${remote} ${(j:/:)gitstatus}]"
-    fi
-}
+#     # Are we on a remote-tracking branch?
+#     remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
+#         --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
 
-precmd () { vcs_info }
+#     if [[ -n ${remote} ]] ; then
+#         # for git prior to 1.7
+#         # ahead=$(git rev-list origin/${hook_com[branch]}..HEAD | wc -l)
+#         ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+#         (( $ahead )) && gitstatus+=( "${c3}+${ahead}${c2}" )
 
-PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
-%# '
+#         # for git prior to 1.7
+#         # behind=$(git rev-list HEAD..origin/${hook_com[branch]} | wc -l)
+#         behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+#         (( $behind )) && gitstatus+=( "${c4}-${behind}${c2}" )
 
-# Note:  To make a simple prompt (when dealing with mounted drives),
-# do:
-# PS1="%~ $"
-# precmd()
+#         hook_com[branch]="${hook_com[branch]} [${remote} ${(j:/:)gitstatus}]"
+#     fi
+# }
 
+# precmd () { vcs_info }
 
-# For emacs ansi-term
-# TODO: evaluate only in ansi-term
-if [ "$EMACS" ]; then
-    ansi_term_chpwd() { print -P "\033AnSiTc %d" }
-    chpwd_functions=(${chpwd_functions[@]} ansi_term_chpwd)
-    print -P "\033AnSiTu %n"
-    print -P "\033AnSiTc %d"
-fi
+# PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
+# %# '
 
+# # Note:  To make a simple prompt (when dealing with mounted drives),
+# # do:
+# # PS1="%~ $"
+# # precmd()
 
 
-# Use emacs client as VISUAL if already in emacs.
-[[ -n $EMACS ]] && export VISUAL=emacsclient
+# # For emacs ansi-term
+# # TODO: evaluate only in ansi-term
+# if [ "$EMACS" ]; then
+#     ansi_term_chpwd() { print -P "\033AnSiTc %d" }
+#     chpwd_functions=(${chpwd_functions[@]} ansi_term_chpwd)
+#     print -P "\033AnSiTu %n"
+#     print -P "\033AnSiTc %d"
+# fi
 
 
-# git co o/d/c
-# fpath=(~/.dotfiles/zsh/ $fpath)
-# autoload -- ~/.dotfiles/zsh/[^_]*(:t)
 
+# # Use emacs client as VISUAL if already in emacs.
+# [[ -n $EMACS ]] && export VISUAL=emacsclient
 
 
-for f in $post_init_hook; do
-    $f
-done
+# # git co o/d/c
+# # fpath=(~/.dotfiles/zsh/ $fpath)
+# # autoload -- ~/.dotfiles/zsh/[^_]*(:t)
 
-[[ -f $HOME/.local-dotfiles/post.zsh ]] && builtin source $HOME/.local-dotfiles/post.zsh
 
-zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
-fpath=($HOME/.zsh $fpath)
 
-path=($path $HOME/.dotfiles/bin)
+# for f in $post_init_hook; do
+#     $f
+# done
 
-typeset -U path
+# [[ -f $HOME/.local-dotfiles/post.zsh ]] && builtin source $HOME/.local-dotfiles/post.zsh
 
-# Uncomment for profiling
-# zprof
+# zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
+# fpath=($HOME/.zsh $fpath)
 
-# Generated with : pip completion --zsh
-# pip zsh completion start
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] ) )
-}
-compctl -K _pip_completion pip
+# path=($path $HOME/.dotfiles/bin)
 
+# typeset -U path
 
-# pip zsh completion end
+# # Uncomment for profiling
+# # zprof
+
+# # Generated with : pip completion --zsh
+# # pip zsh completion start
+# function _pip_completion {
+#   local words cword
+#   read -Ac words
+#   read -cn cword
+#   reply=( $( COMP_WORDS="$words[*]" \
+#              COMP_CWORD=$(( cword-1 )) \
+#              PIP_AUTO_COMPLETE=1 $words[1] ) )
+# }
+# compctl -K _pip_completion pip
+
+
+# # pip zsh completion end
