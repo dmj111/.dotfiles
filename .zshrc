@@ -84,7 +84,7 @@ ZSH_CUSTOM=$HOME/.zsh/custom
 # plugins are loaded before the custom directory...
 plugins=(git)
 
-load_if_exists ~/.zsh/init.zsh
+load_if_exists ~/.zsh/local-init.zsh
 
 source $ZSH/oh-my-zsh.sh
 
