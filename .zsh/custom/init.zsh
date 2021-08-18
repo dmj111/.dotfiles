@@ -100,6 +100,22 @@ bindkey "\en" history-beginning-search-forward
 # Put current line on the command stack.
 bindkey "\eq" push-line-or-edit
 
+export LESS='-XFRi'
+alias l=less
+
+alias -g L="| less"
+alias -g LL="2>&1 | less"
+
+# C-o accepts, but doesn't leave the menu.
+# zmodload zsh/complist
+bindkey -M menuselect '\C-a' accept-and-menu-complete
+
+
+
+#### tmux
+# Run in a tmux window to reload the ssh-agent data
+alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
+
 
 ## Start of unreviewed section
 
@@ -111,23 +127,8 @@ bindkey "\eq" push-line-or-edit
 
 # # setopt ignore_eof # don't let C-d kill the shell
 
-# export LESS='-XFRi'
-
-# #### Aliases
-# alias l=less
-# alias ll='ls -l'
-# alias la='ls -la'
-# alias ..='cd ..'
-
-# alias -g L="| less"
-# alias -g LL="2>&1 | less"
-
 # alias en='emacsclient -n'
 # alias ec='emacsclient'
-
-# alias gl='git log --oneline --graph'
-# alias awake='caffeinate -d '
-# alias g='git'
 
 # #### Completion
 # autoload -U compinit
@@ -141,9 +142,6 @@ bindkey "\eq" push-line-or-edit
 #     compdef _gnu_generic $fcn
 # }
 
-# # C-o accepts, but doesn't leave the menu.
-# # zmodload zsh/complist
-# bindkey -M menuselect '\C-a' accept-and-menu-complete
 
 # ### Completion stuff from zsh book
 
@@ -217,10 +215,6 @@ bindkey "\eq" push-line-or-edit
 # zstyle ':completion:*:::' completer _complete _prefix
 # # zstyle ':completion:*:prefix:*' add-space true
 
-
-# #### tmux
-# # Run in a tmux window to reload the ssh-agent data
-# alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
 
 
