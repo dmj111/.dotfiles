@@ -52,7 +52,7 @@
 ;; Give names to some config directories.
 (defconst *config-dir* (file-name-directory load-file-name)
   "Root directory for the configuration.")
-(defconst *local-dir* (expand-file-name "~/.local-dotfiles/.emacs.d")
+(defconst *local-dir* (expand-file-name "~/.dotfiles/local/.emacs.d")
   "Root directory for local configuation.")
 
 (defconst *config-d* (file-name-as-directory (concat *config-dir* "setup"))

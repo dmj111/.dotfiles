@@ -6,7 +6,7 @@
 (set-frame-font "fira code-14")
 
 ;; (use-package zenburn-theme :ensure t)
-;; (add-to-list 'custom-theme-load-path "/Users/dave/.local-dotfiles/.emacs.d/emacs-color-theme-solarized")
+;; (add-to-list 'custom-theme-load-path "/Users/dave/.dotfiles/local/.emacs.d/emacs-color-theme-solarized")
 ;; (setq my-default-theme 'solarized)
 
 

@@ -104,4 +104,4 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
     export PS1='\w$(__git_ps1 " (%s)")\$ '
 fi
 
-load_if_exists ~/.local-dotfiles/.bashrc-post
+load_if_exists ~/.dotfiles/local/.bashrc-post
