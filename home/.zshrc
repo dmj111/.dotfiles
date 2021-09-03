@@ -1,11 +1,17 @@
 # Uncomment for profiling (and go to end of file)
 # zmodload zsh/zprof
 
+# echo "in ${0:a}"
+
 # Add to this in local.zsh if desired.
 post_init_hook=()
 
-[[ -f $HOME/.local-dotfiles/pre.zsh ]] && builtin source $HOME/.local-dotfiles/pre.zsh
 
+load_if_exists() {
+    [[ -f $1 ]] && builtin source $1
+}
+
+load_if_exists $HOME/.dotfiles/local/pre.zsh
 
 # For example:
 #
@@ -242,11 +248,6 @@ alias fixssh='eval $(tmux show-env -s SSH_AUTH_SOCK)'
 
 
 
-# Load local file first.  Load local post.zsh at the end
-[[ -f $HOME/.local-dotfiles/.zshrc ]] && builtin source $HOME/.local-dotfiles/.zshrc
-
-
-
 alias d='dirs -v'
 alias tc='time caffeinate'
 
@@ -339,7 +340,7 @@ for f in $post_init_hook; do
     $f
 done
 
-[[ -f $HOME/.local-dotfiles/post.zsh ]] && builtin source $HOME/.local-dotfiles/post.zsh
+load_if_exists $HOME/.dotfiles/local/post.zsh
 
 zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
 fpath=($HOME/.zsh $fpath)
