@@ -33,3 +33,11 @@
 
 
 TODO: editable install doesn't seem to install the standalone scripts
+
+## Conda settings
+
+conda config --describe
+
+to disable conda modifying the prompt:
+
+conda config --set changeps1 false

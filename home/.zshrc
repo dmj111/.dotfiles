@@ -306,8 +306,14 @@ function +vi-git-st() {
 
 precmd () { vcs_info }
 
-PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
-%# '
+# PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
+# %# '
+
+# https://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+# # and ; were not my idea.  kate.
+PS1='%B%F{6}## %D{%I:%M} %n@%m %~%f%b
+; '
+
 
 # Note:  To make a simple prompt (when dealing with mounted drives),
 # do:
@@ -365,4 +371,15 @@ function _pip_completion {
 compctl -K _pip_completion pip
 
 
+ii() {
+    if (( ${+CONDA_DEFAULT_ENV} )); then
+        print -P "%Bconda%b: ${CONDA_DEFAULT_ENV}"
+        print -P "%Bpython%b: $(which python)"
+    fi
+
+    if [[ ! -z ${vcs_info_msg_0_} ]]; then
+        print -P "git: ${vcs_info_msg_0_}"
+    fi
+
+}
 # pip zsh completion end
