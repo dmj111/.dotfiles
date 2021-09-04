@@ -88,9 +88,12 @@
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
 
         # Create a new branch off of main's upstream.  make sure to
-        # have a main brach tracking whatever is the ... main branch.
-        new-branch = switch --no-track main@{u} -c
+        # have a z/main brach tracking the default branch
+        new-branch = switch --no-track z/main@{u} -c
         nb = new-branch
+
+        # Compare with what we would take to the main branch:
+        dd = diff z/main@{u}...
 
 	# show the merge merge result between two branches without
 	# actually doing the merge.
