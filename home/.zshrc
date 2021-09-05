@@ -304,21 +304,13 @@ function +vi-git-st() {
     fi
 }
 
-precmd () { vcs_info }
+autoload -Uz add-zsh-hook
+add-zsh-hook -Uz precmd vcs_info
 
-# PS1='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}%f
-# %# '
+autoload -Uz promptinit
 
-# https://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-# # and ; were not my idea.  kate.
 PS1='%B%F{6}## %D{%I:%M} %n@%m %~%f%b
 ; '
-
-
-# Note:  To make a simple prompt (when dealing with mounted drives),
-# do:
-# PS1="%~ $"
-# precmd()
 
 
 # For emacs ansi-term
@@ -382,4 +374,8 @@ ii() {
     fi
 
 }
+
+promptinit
+prompt ${ZSH_USE_PROMPT:-mine}
+
 # pip zsh completion end

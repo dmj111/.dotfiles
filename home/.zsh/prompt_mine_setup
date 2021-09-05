@@ -1,0 +1,16 @@
+# My prompt
+#
+# ## 09:26 dave@machine /current/path
+# ; cmd arg1 arg2
+
+PS1='%B%F{6}## %D{%I:%M} %n@%m %~%f%b
+; '
+
+# RPS1="right prompt"
+
+# https://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+# # and ; were not my idea.  kate.
+
+# Local Variables:
+# mode: shell-script
+# End:

@@ -1,0 +1,6 @@
+# Very simple prompt for making tramp/ssh type things happier
+PS1='%n@%m $'
+
+# Local Variables:
+# mode: shell-script
+# End:
