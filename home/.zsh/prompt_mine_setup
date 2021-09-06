@@ -3,7 +3,26 @@
 # ## 09:26 dave@machine /current/path
 # ; cmd arg1 arg2
 
-PS1='%B%F{6}## %D{%I:%M} %n@%m %~%f%b
+
+prompt_mine() {
+    local version branch prompt
+    version=$(git rev-parse --short HEAD 2>/dev/null)
+    prompt=""
+    if [[ -z $version ]]; then
+    else
+        branch=$(git symbolic-ref --short -q HEAD 2>/dev/null)
+        prompt="${prompt%% } [${${branch}:-detached} ${version:-}]"
+    fi
+
+    # if (( ${+CONDA_DEFAULT_ENV} )); then
+    #     prompt="${prompt%% } [${CONDA_DEFAULT_ENV} $(which python)]"
+    # fi
+    prompt=${prompt:-[]}
+    echo -n $prompt
+
+}
+
+PS1='%B%F{6}## %D{%I:%M} %n@%m %~ $(prompt_mine)%f%b
 ; '
 
 # RPS1="right prompt"

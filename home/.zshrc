@@ -362,6 +362,7 @@ function _pip_completion {
 compctl -K _pip_completion pip
 
 
+# Get information about the current environment
 ii() {
     if (( ${+CONDA_DEFAULT_ENV} )); then
         print -P "%Bconda%b: ${CONDA_DEFAULT_ENV}"
