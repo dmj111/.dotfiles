@@ -338,7 +338,6 @@ for f in $post_init_hook; do
     $f
 done
 
-load_if_exists $HOME/.dotfiles/local/post.zsh
 
 zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
 fpath=($HOME/.zsh $fpath)
@@ -372,8 +371,10 @@ ii() {
     if [[ ! -z ${vcs_info_msg_0_} ]]; then
         print -P "git: ${vcs_info_msg_0_}"
     fi
-
 }
+
+
+load_if_exists $HOME/.dotfiles/local/post.zsh
 
 promptinit
 prompt ${ZSH_USE_PROMPT:-mine}
