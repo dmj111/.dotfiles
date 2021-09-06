@@ -1,4 +1,3 @@
-
 case "$TERM" in
     "dumb")
         # For emacs tramp mode
@@ -6,6 +5,36 @@ case "$TERM" in
         return 0
         ;;
 esac
+
+# Try to run zshrc if NO_SWITCH is not set
+function run_zsh {
+    zsh_exe=$1
+    [ -f ${zsh_exe} ] && exec ${zsh_exe} -l
+}
+
+if [ -z $NO_SWITCH ]; then
+    case "$-" in
+        *i*)
+            run_zsh /bin/zsh
+            run_zsh /usr/bin/zsh
+            ;;
+        *) ;;
+    esac
+fi
+
+
+
+
+function load_if_exists() {
+    if [ -r $1 ]; then
+        echo "loading $1"
+        builtin source $1
+    fi
+}
+
+load_if_exists ~/.dotfiles/local/.bashrc-pre
+
+
 
 export HISTIGNORE="&:ls:exit:h:l"
 
@@ -22,35 +51,14 @@ export EDITOR=vim
 # export LANG=ASCII
 
 
-function load_if_exists() {
-    if [ -r $1 ]; then
-        echo "loading $1"
-        builtin source $1
-    fi
-}
 
-load_if_exists ~/.dotfiles/local/.bashrc-pre
 
-# Try to run zshrc if NO_SWITCH is not set
-function run_zsh {
-    zsh_exe=$1
-    [ -f ${zsh_exe} ] && exec ${zsh_exe} -l
-}
 
 function restart {
     NO_SWITCH=1 exec bash -l
 }
 
 
-if [ -z $NO_SWITCH ]; then
-    case "$-" in
-        *i*)
-            run_zsh /bin/zsh
-            run_zsh /usr/bin/zsh
-            ;;
-        *) ;;
-    esac
-fi
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
 
