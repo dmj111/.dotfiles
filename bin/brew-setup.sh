@@ -20,8 +20,3 @@ brew install node
 # Emacs
 brew cask install emacs
 brew install ispell
-
-
-# nerd fonts
-brew tap homebrew/cask-fonts
-brew install --cask font-hack-nerd-font
