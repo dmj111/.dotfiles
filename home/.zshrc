@@ -139,19 +139,45 @@ export LESS='-XFRi'
 
 #### Aliases
 alias l=less
-alias ll='ls -l'
-alias la='ls -la'
 alias ..='cd ..'
 
-alias -g L="| less"
-alias -g LL="2>&1 | less"
 
 alias en='emacsclient -n'
 alias ec='emacsclient'
 
-alias gl='git log --oneline --graph'
-alias awake='caffeinate -d '
-alias g='git'
+
+alias ll='ls -lFh'
+alias la='ls -lAFh'
+alias lsl='ls -l'
+alias ldot='ls -ld .*'
+alias lsort='ls -lrSAh'
+
+alias grep='grep --color'
+alias t='tail -f'
+
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g L="| less"
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+
+
+alias h='history'
+alias hg='history | grep --color'
+alias hgi='history | grep -i --color'
+
+alias gg='git st'
+alias gds='git diff --staged'
+alias gd='git diff'
+
+
+alias ducmd='du -cmxd 1'
+
+alias tm='tmux new-session -A -s main'
+
 
 #### Completion
 autoload -U compinit
