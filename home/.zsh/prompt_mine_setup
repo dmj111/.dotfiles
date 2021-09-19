@@ -22,7 +22,7 @@ prompt_mine() {
 
 }
 
-PS1='%B%F{6}## %D{%I:%M} %n@%m %~ $(prompt_mine)%f%b
+PS1='%b%F{184}## %D{%I:%M} %n@%m %~ $(prompt_mine)%f%b
 ; '
 
 # RPS1="right prompt"
