@@ -70,7 +70,8 @@
 
 (message *config-d*)
 
-(require 'cl)
+(require 'cl-lib)
+
 
 ; (mapc 'load (file-expand-wildcards (concat  *local-dir* "*.el")))
 ; (mapc 'load (file-expand-wildcards *config-dir*))
