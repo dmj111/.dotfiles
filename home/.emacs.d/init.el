@@ -68,13 +68,20 @@
 (defvar *anaconda-directory* (expand-file-name "~/miniconda3")
   "Anaconda installation directory.")
 
+(defvar *font-name* "fira code-14"
+  "Which font to use.  Can be set by the local init scripts.")
+
 (message *config-d*)
 
 (require 'cl-lib)
 
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (set-frame-font *font-name*)))
 
-; (mapc 'load (file-expand-wildcards (concat  *local-dir* "*.el")))
-; (mapc 'load (file-expand-wildcards *config-dir*))
+
+;; (mapc 'load (file-expand-wildcards (concat  *local-dir* "*.el")))
+;; (mapc 'load (file-expand-wildcards *config-dir*))
 
 
 
