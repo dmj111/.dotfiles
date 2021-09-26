@@ -4,6 +4,9 @@
 # ; cmd arg1 arg2
 
 
+# Set changeps1: false in .condarc to avoid getting the ps1 changes
+
+
 prompt_mine() {
     local version branch prompt
     version=$(git rev-parse --short HEAD 2>/dev/null)
