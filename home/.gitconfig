@@ -90,13 +90,11 @@
 	# Old log message.
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
 
-        # Create a new branch off of main's upstream.  make sure to
-        # have a z/main brach tracking the default branch
-        new-branch = switch --no-track z/main@{u} -c
+        new-branch = switch --no-track origin/HEAD -c
         nb = new-branch
 
         # Compare with what we would take to the main branch:
-        dd = diff z/main@{u}...
+        dd = diff origin/HEAD...
 
 	# show the merge merge result between two branches without
 	# actually doing the merge.
@@ -106,19 +104,17 @@
 	inc=log ..@{u} --decorate
 	out=log @{u}.. --decorate
 
-	# Different from upstream master
-	incm=log ..master@{u} --decorate
-	outm=log master@{u}.. --decorate
+	# Different from main branch
+	incm=log ..origin/HEAD --decorate
+	outm=log origin/HEAD.. --decorate
+
+        # Rebase off of main
+        rbm = rebase origin/HEAD
 
 	# Save all changes to working dir to a commit, and then pop that commit.
 	# Branch -vv shows the status of a branch (and against its upstream)
 	bvv=branch -vv --sort=committerdate
 	rbvv=branch -vv --sort=-committerdate
-
-	# hasm = contains main-tracking@{u}
-	hasm="!git merge-base --is-ancestor main-tracking@{u} HEAD && echo 'contains main' || echo 'does not contain main'"
-	# inm = is contained by main-tracking
-	inm="!git merge-base --is-ancestor HEAD main-tracking@{u} && echo 'contained' || echo 'not contained'"
 
 	# https://github.com/git/git/blob/master/contrib/completion/git-completion.bash#L25
 	# Switch to branch, resetting the branch to the upstream
@@ -144,6 +140,10 @@
                     echo 'not an ancestor' ; \
                  fi ; \
                  } ; f "
+	# hasm - current branch has the main branch in its history
+	hasm="!git merge-base --is-ancestor origin/HEAD HEAD && echo 'contains main' || echo 'does not contain main'"
+	# inm - current branch is in main branch history
+	inm="!git merge-base --is-ancestor HEAD origin/HEAD && echo 'contained' || echo 'not contained'"
 
 	# checkout ours during merge conflict.
         ours = "!f() { git checkout --ours $@; git add $@; } ; f "
@@ -191,9 +191,6 @@
 
 [include]
 	path = ~/.dotfiles/local/.gitconfig
-
-[main-branch]
-        name = master
 
 
 # Use this to mark org headings as "functions" in get diff.
