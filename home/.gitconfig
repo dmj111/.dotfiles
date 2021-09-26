@@ -37,14 +37,17 @@
 	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative
 
-	# One line log, --all
-	lgla = "!git lgl --all"
-
 	# One line log, limit to 20
-	lg = log --graph --pretty=format:'%Cred%h%Creset \
-	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-	--abbrev-commit --date=relative \
-	-n 20
+	lg = lgl -n 20
+
+	# One line log, --all
+	lgla = lgl --all
+
+
+        # log --graph --pretty=format:'%Cred%h%Creset \
+	# -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+	# --abbrev-commit --date=relative \
+	# -n 20
 
 	# http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
 	# one line log with stats
