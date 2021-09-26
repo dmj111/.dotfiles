@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-
-if git diff-index --quiet HEAD; then
-    :
-else
+if ! git diff-index --quiet HEAD; then
     echo "there are uncommited changes"
     exit 1
 fi

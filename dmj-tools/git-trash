@@ -1,9 +1,36 @@
 #!/usr/bin/env bash
 
-# save off changed files in a temporary commit before reset-hard.
 
+# Commit staged changes to a temporary commit, and then come back to
+# the current HEAD.  This is a way to trash unwanted changes, with a
+# safety net of creating a commit we can reach from the reflog.
 
-msg=$(date +'GITTRASH: %Y/%m/%d %H:%M:%S')
-git stash push -m "$msg"
+if  ! git rev-parse --quiet --is-inside-work-tree 2>&1 >/dev/null ; then
+    echo "not in a git directory"
+    exit 0
+fi
 
+# Figure out if we are on a branch or detached
+current_branch=$(git symbolic-ref HEAD --short 2>&1 >/dev/null)
+
+if [ $? -eq 0 ] ; then
+    echo "current branch: $current_branch"
+else
+    current_branch=$(git rev-parse HEAD)
+    echo "detached rev: $current_branch"
+fi
+
+# detach and commit.  This will show up in the reflog.
+message=$(date +'GITTRASH: %Y/%m/%d %H:%M:%S')
+git checkout --detach --quiet
+git commit --no-verify --quiet -m "$message" 2>&1 >/dev/null
+
+if [ $? -eq 0 ] ; then
+    echo "commited"
+else
+    echo "nothing to commit"
+fi
+
+# Go back to the branch/detached state we started in.
+git checkout --quiet $current_branch
 
