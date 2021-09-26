@@ -116,30 +116,6 @@
 	bvv=branch -vv --sort=committerdate
 	rbvv=branch -vv --sort=-committerdate
 
-	# https://github.com/git/git/blob/master/contrib/completion/git-completion.bash#L25
-	# Switch to branch, resetting the branch to the upstream
-	# branch if it is newer.  For working on a master-like branch,
-	# where i don't edit the local one, and want to switch to it
-	# without all of the working directory changing.
-	# sw - switch
- 	sw = "!f() { : git checkout ; \
-                 set -x; \
-	         local b=${1-master}; \
-	         echo $b ; \
-	         git merge-base --is-ancestor $b $b@{u} ; \
-	         if [ $? -eq 0 ]; then \
-                    git merge-base --is-ancestor $b@{u} $b ; \
-      	         if [ $? -eq 0 ]; then \
-	           echo 'branches are equal'; \
-	           git co $b ; \
-	         else \
-                   echo 'switching....'; \
-	           git co -B $b $b@{u}; \
-	          fi; \
-	         else \
-                    echo 'not an ancestor' ; \
-                 fi ; \
-                 } ; f "
 	# hasm - current branch has the main branch in its history
 	hasm="!git merge-base --is-ancestor origin/HEAD HEAD && echo 'contains main' || echo 'does not contain main'"
 	# inm - current branch is in main branch history
