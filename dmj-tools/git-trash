@@ -11,7 +11,7 @@ if  ! git rev-parse --quiet --is-inside-work-tree 2>&1 >/dev/null ; then
 fi
 
 # Figure out if we are on a branch or detached
-current_branch=$(git symbolic-ref HEAD --short 2>&1 >/dev/null)
+current_branch=$(git symbolic-ref HEAD --short 2>/dev/null)
 
 if [ $? -eq 0 ] ; then
     echo "current branch: $current_branch"
