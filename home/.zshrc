@@ -370,7 +370,6 @@ fpath=($HOME/.zsh $fpath)
 
 path=($path $HOME/.dotfiles/bin)
 
-typeset -U path
 
 # Uncomment for profiling
 # zprof
@@ -405,5 +404,7 @@ load_if_exists $HOME/.dotfiles/local/post.zsh
 
 promptinit
 prompt ${ZSH_USE_PROMPT:-mine}
+
+typeset -U path
 
 # pip zsh completion end
