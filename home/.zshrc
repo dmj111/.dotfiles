@@ -179,6 +179,11 @@ alias ducmd='du -cmxd 1'
 alias tm='tmux new-session -A -s main'
 
 
+
+if type brew &>/dev/null; then
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+fi
+
 #### Completion
 autoload -U compinit
 compinit -i -D
