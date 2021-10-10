@@ -184,3 +184,5 @@
 
 # [github]
 #   user =
+[init]
+	defaultBranch = main
