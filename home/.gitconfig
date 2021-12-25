@@ -1,3 +1,9 @@
+# Notes:
+
+#   git symbolic-ref refs/aaa refs/remotes/origin/main (or
+#    upstream/develop, or whatever)
+
+
 [core]
     excludesfile = ~/.gitexcludes
     pager = less -F -X -R
@@ -90,11 +96,11 @@
 	# Old log message.
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
 
-        new-branch = switch --no-track origin/HEAD -c
+        new-branch = switch --no-track aaa -c
         nb = new-branch
 
         # Compare with what we would take to the main branch:
-        dd = diff origin/HEAD...
+        dd = diff aaa...
 
 	# show the merge merge result between two branches without
 	# actually doing the merge.
@@ -105,11 +111,11 @@
 	out=log @{u}.. --decorate
 
 	# Different from main branch
-	incm=log ..origin/HEAD --decorate
-	outm=log origin/HEAD.. --decorate
+	incm=log ..aaa --decorate
+	outm=log aaa.. --decorate
 
         # Rebase off of main
-        rbm = rebase origin/HEAD
+        rbm = rebase aaa
 
 	# Save all changes to working dir to a commit, and then pop that commit.
 	# Branch -vv shows the status of a branch (and against its upstream)
@@ -117,9 +123,9 @@
 	rbvv=branch -vv --sort=-committerdate
 
 	# hasm - current branch has the main branch in its history
-	hasm="!git merge-base --is-ancestor origin/HEAD HEAD && echo 'contains main' || echo 'does not contain main'"
+	hasm="!git merge-base --is-ancestor aaa HEAD && echo 'contains main' || echo 'does not contain main'"
 	# inm - current branch is in main branch history
-	inm="!git merge-base --is-ancestor HEAD origin/HEAD && echo 'contained' || echo 'not contained'"
+	inm="!git merge-base --is-ancestor HEAD aaa && echo 'contained' || echo 'not contained'"
 
 	# checkout ours during merge conflict.
         ours = "!f() { git checkout --ours $@; git add $@; } ; f "

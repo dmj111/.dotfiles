@@ -149,6 +149,7 @@ alias ec='emacsclient'
 alias ll='ls -lFh'
 alias la='ls -lAFh'
 alias lsl='ls -l'
+alias lrt='ls -lAFhrt'
 alias ldot='ls -ld .*'
 alias lsort='ls -lrSAh'
 

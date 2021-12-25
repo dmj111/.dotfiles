@@ -21,8 +21,11 @@
         python3 -m pip install --user --force pip
         pip install --user pipx
         pipx install pre-commit
-        pipx install conan
+        pipx install autopep8
         pipx install flake8
+
+- autopep8, conan, cookiecutter, dmj-tools
+  flake8, kaggle, mp3-utils (mine, stored somewhere)
 
 - use `pre-commit install` to install pre-commit in a repo
 
