@@ -180,9 +180,10 @@ alias ducmd='du -cmxd 1'
 alias tm='tmux new-session -A -s main'
 
 
-
 if type brew &>/dev/null; then
-    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+    if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
+        fpath=($(brew --prefix)/share/zsh-completions $fpath)
+    fi
 fi
 
 #### Completion
