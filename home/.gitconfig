@@ -190,5 +190,11 @@
 
 # [github]
 #   user =
+
+[pull]
+        ff = only
+
 [init]
 	defaultBranch = main
+
+
