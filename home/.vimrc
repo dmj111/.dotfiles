@@ -13,6 +13,10 @@ set incsearch " show search results as you type
 
 set cursorline
 
+set expandtab
+set autoindent
+set tabstop=4
+
 set hidden
 set autochdir
 
