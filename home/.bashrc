@@ -35,7 +35,8 @@ function load_if_exists() {
 load_if_exists ~/.dotfiles/local/.bashrc-pre
 
 
-
+export HISTSIZE=10000
+export HISTFILESIZE=100000
 export HISTIGNORE="&:ls:exit:h:l"
 
 export SHELL=$(which bash)
