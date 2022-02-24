@@ -1,3 +1,10 @@
+set nocompatible  " avoid vi compatibility
+
+
+if has('filetype')
+   filetype indent plugin on
+endif
+
 " Reload with :source ~/.vimrc
 " use jk as escape
 inoremap jk <ESC>
@@ -18,7 +25,12 @@ set autoindent
 set tabstop=4
 
 set hidden
-set autochdir
+
+if has('autochdir1')
+   set autochdir
+else
+        echo "skipping autochdir"
+endif
 
 nnoremap <leader>' :ls<CR>:b<Space>
 " :help buffers
