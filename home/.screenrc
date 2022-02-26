@@ -4,5 +4,7 @@ escape ^oo
 
 bind l other
 bind x
+bind o
+
 
 
