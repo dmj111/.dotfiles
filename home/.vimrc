@@ -28,9 +28,8 @@ set hidden
 
 if has('autochdir1')
    set autochdir
-else
-        echo "skipping autochdir"
 endif
 
+" Quick buffer switching
 nnoremap <leader>' :ls<CR>:b<Space>
 " :help buffers
