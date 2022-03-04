@@ -64,8 +64,20 @@ function restart {
 PATH=$HOME/bin:/usr/local/bin:$PATH
 
 alias l=less
-alias ll='ls -l'
 alias ..='cd ..'
+alias ll='ls -lFh'
+alias la='ls -lAFh'
+alias lsl='ls -l'
+alias lrt='ls -lAFhrt'
+alias ldot='ls -ld .*'
+alias lsort='ls -lrSAh'
+
+alias grep='grep --color'
+alias t='tail -f'
+
+alias gg='git st'
+alias gds='git diff --staged'
+alias gd='git diff'
 
 # Used to be necessary.
 # stty -ixon
@@ -107,7 +119,7 @@ simple_prompt () {
     PS1="[\$(date +%H:%M)] \w [\u@\h"$screenw"]\n--\! \$ "
 }
 
-PROMPT_COMMAND='history -a; history -n'
+PROMPT_COMMAND='history -a'
 shopt -s histappend
 
 
