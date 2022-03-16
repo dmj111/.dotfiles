@@ -27,7 +27,7 @@ set tabstop=4
 
 set hidden
 
-if has('autochdir1')
+if has('autochdir')
    set autochdir
 endif
 
@@ -60,3 +60,7 @@ nnoremap <silent> ]B :blast<CR>
 " expand %% in command-line prompt to path of active buffer
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+if has("autocmd")
+   filetype on
+   autocmd FileType python setlocal ts=4 sts=4 sw=4
+endif
