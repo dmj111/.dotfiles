@@ -172,8 +172,7 @@
 ;; :if, :after, :requires (stops if not loaded)
 
 ;; Load local settings files
-(mapc 'load (file-expand-wildcards (concat  *config-d* "*.el")))
-
+(mapc 'load (file-expand-wildcards (concat  *config-d* "[a-zA-Z0-9]*.el")))
 
 
 ;; Load the local file, if it exists.
