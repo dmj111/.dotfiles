@@ -4,25 +4,21 @@
   :mode "\\.h\\'")
 
 ;;;; cpputils-cmake
-(use-package cpputils-cmake
-  :ensure t)
+(use-package cpputils-cmake)
 
 (use-package google-c-style
-  :ensure t
   :init
   (add-hook 'c-mode-common-hook 'google-set-c-style))
 
 
 ;; Make sure clang-tidy is on exec path
 (use-package flycheck-clang-tidy
-  :ensure t
   :init
   (eval-after-load 'flycheck
     '(add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup)))
 
 
 (use-package clang-format
-  :ensure t
   :config
   (defvar *cpp-auto-clang-format* t  "Auto-clang format on save hook.")
   (defun my-add-clang-format-hook ()

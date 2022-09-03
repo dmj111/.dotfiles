@@ -1,6 +1,5 @@
 
 (use-package conda
-  :ensure t
   :config
   ;; Make sure pylint is installed.
   ;; make sure a default environment is set

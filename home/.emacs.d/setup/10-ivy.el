@@ -1,5 +1,4 @@
 (use-package ivy
-  :ensure t
   :defer 0.1
   :diminish ivy-mode
   :bind (("C-c C-r" . ivy-resume)
@@ -27,7 +26,6 @@
 
 (use-package counsel
   :after ivy
-  :ensure t
   :bind
   (
    ("C-x C-r" . counsel-recentf)
@@ -46,7 +44,6 @@
 ;; https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
 
 (use-package swiper
-  :ensure t
   ;; C-j to select current
   ;; C-M-j to select current value (creat new file)
   ;; M-j to select word at point.

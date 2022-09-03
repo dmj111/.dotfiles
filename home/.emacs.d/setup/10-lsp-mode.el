@@ -1,7 +1,6 @@
 (setq lsp-keymap-prefix "C-c l")
 
 (use-package lsp-mode
-  :ensure t
   :hook (
          ;; if you want which-key integration
          ;; (lsp-mode . lsp-enable-which-key-integration)
@@ -9,7 +8,6 @@
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui
-  :ensure t
   :commands lsp-ui-mode)
 
 ;; if you are helm user
@@ -17,7 +15,6 @@
 
 ;; if you are ivy user
 (use-package lsp-ivy
-  :ensure t
   :commands lsp-ivy-workspace-symbol)
 
 
@@ -39,7 +36,6 @@
 ;; pipx install jedi-language-server
 
 (use-package lsp-jedi
-  :ensure t
   :config
   (with-eval-after-load "lsp-mode"
     (add-to-list 'lsp-disabled-clients 'pyls)
@@ -69,7 +65,6 @@
        (remove-from company-backends '(company-xcode company-clang))))
 
 (use-package company
-  :ensure t
   :config
   (add-hook 'c++-mode-hook 'my/lsp-cpp-hook)
   (global-company-mode 1))

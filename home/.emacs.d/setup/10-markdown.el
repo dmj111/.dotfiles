@@ -1,4 +1,4 @@
-(use-package markdown-mode :ensure t)
+(use-package markdown-mode)
 
 
 ;; http://jblevins.org/log/mmm
@@ -14,7 +14,6 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 
 (use-package mmm-mode
-  :ensure t
   :config
   (setq mmm-global-mode 'maybe)
 

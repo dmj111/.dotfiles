@@ -87,17 +87,66 @@
 
 ;; Add a local lisp directory to the load path.
 (add-to-list 'load-path *local-dir*)
+
+(defvar my-packages
+  '(
+    ansi-color
+    avy
+    clang-format
+    company
+    conda
+    counsel
+    cpputils-cmake
+    dash
+    diminish
+    ef-themes
+    flycheck
+    flycheck-clang-tidy
+    google-c-style
+    hydra
+    ivy
+    js2-mode
+    lsp-ivy
+    lsp-jedi
+    lsp-mode
+    lsp-ui
+    magit
+    markdown-mode
+    mmm-mode
+    move-text
+    org-bullets
+    paredit
+    projectile
+    python
+    recentf
+    smex
+    swiper
+    undo-tree
+    wgrep
+    yasnippet
+    )
+  "packages to make sure are installed"
+  )
+
+;; my-packages can be modified in init-local-preload.el to add/remove
+;; packages for a specific deployment.
+
 ;; Try to load local settings ahead of time
 (require 'init-local-preload nil t)
 
 
 (require 'package)
 (package-initialize)
+(message "loading package stuff")
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
-(when (not package-archive-contents)
-    (package-refresh-contents))
+;; Force this call for errors like use-package- not found
+;; (package-refresh-contents)
+(unless package-archive-contents  (package-refresh-contents))
+
+(dolist (pkg my-packages)
+  (package-install pkg))
 
 ;; make sure use-package is loaded
 (unless (package-installed-p 'use-package)
@@ -108,8 +157,8 @@
 (use-package does-not-exist
   :disabled)
 
-(use-package dash :ensure t)
-(use-package diminish :ensure t)
+(use-package dash)
+(use-package diminish)
 
 ;; use-package quick notes:
 ;; :init  - before load

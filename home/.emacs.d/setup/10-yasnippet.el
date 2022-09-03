@@ -3,7 +3,6 @@
 
 ;;;; yasnippet
 (use-package yasnippet
-  :ensure t
   :init
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (add-hook 'snippet-mode-hook 'yas-minor-mode)

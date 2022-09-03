@@ -1,5 +1,4 @@
 (use-package magit
-  :ensure t
   :bind (("\C-xg" . magit-status))
   :config
 

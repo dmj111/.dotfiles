@@ -4,8 +4,7 @@
           'executable-make-buffer-file-executable-if-script-p)
 
 
-(use-package wgrep
-  :ensure t)
+(use-package wgrep)
 
 ;; wgrep replacement :
 ;; C-x C-q - wgrep
@@ -47,7 +46,6 @@ the font will be set after init is loaded")
 
 ;; https://github.com/abo-abo/hydra
 (use-package hydra
-  :ensure t
   :config
   (defhydra hydra-zoom (global-map "<f2>")
     "zoom"

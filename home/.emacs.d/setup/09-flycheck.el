@@ -1,5 +1,4 @@
 (use-package flycheck
-  :ensure t
   :config
   ;; TODO [ ] https://github.com/abo-abo/hydra/wiki/Flycheck
   ;; Force flycheck to always use c++11 support. We use

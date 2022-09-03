@@ -10,7 +10,6 @@
 
 ;; http://stackoverflow.com/a/13408008
 (use-package ansi-color
-  :ensure t
   :init
   (defun colorize-compilation-buffer ()
     "Colorize compiler output."

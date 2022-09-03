@@ -1,6 +1,5 @@
 ;;;; python
 (use-package python
-  :ensure t
   :init
   (defun my-python-mode-hook ()
     "Stuff to run when python-mode loads"

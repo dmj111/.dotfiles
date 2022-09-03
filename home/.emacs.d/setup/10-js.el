@@ -1,6 +1,6 @@
 ;;;; js2
+
 (use-package js2-mode
-  :ensure t
   :mode (("\\.json\\'" . js-mode)
          ("\\.js\\'" . js2-mode))
   :init

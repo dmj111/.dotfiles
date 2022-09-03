@@ -1,6 +1,5 @@
 
 (use-package recentf
-  :ensure t
   :bind
   (("C-x C-r" . recentf-ido-find-file))
   :config

@@ -1,5 +1,7 @@
+
+(package-install 'projectile)
+
 (use-package projectile
-  :ensure t
   :after ivy
   :diminish projectile-mode
   :bind-keymap

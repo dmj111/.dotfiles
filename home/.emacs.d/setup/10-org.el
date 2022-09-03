@@ -130,9 +130,8 @@ Will work on both org-mode and any mode that accepts plain html."
   (my-org-fonts-setup))
 
 
-
+(package-install 'org-bullets)
 (use-package org-bullets
-  :ensure t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 

@@ -92,7 +92,6 @@
 
 ;;;; undo-tree
 (use-package undo-tree
-  :ensure t
   :config
   (global-undo-tree-mode t)
   (setq undo-tree-visualizer-relative-timestamps t)
@@ -105,7 +104,6 @@
 (define-coding-system-alias 'UTF-8 'utf-8)
 
 (use-package move-text
-  :ensure t
   :config
   (global-set-key [\M-\S-up] 'move-text-up)
   (global-set-key [\M-\S-down] 'move-text-down))
