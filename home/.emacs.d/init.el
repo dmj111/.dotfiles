@@ -146,7 +146,8 @@
 (unless package-archive-contents  (package-refresh-contents))
 
 (dolist (pkg my-packages)
-  (package-install pkg))
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
 
 ;; make sure use-package is loaded
 (unless (package-installed-p 'use-package)

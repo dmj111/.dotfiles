@@ -1,40 +1,34 @@
-(defvar *my-org-font-heading* nil
-  "Which font to use.  Can be set by the local init scripts.")
-
-
-(setq *my-org-font-heading*
-      (cond ((x-list-fonts "Avenir")         '(:font "Avenir"))
-            ((x-list-fonts "Charter")         '(:font "Charter"))
-            ((x-list-fonts "Palatino")         '(:font "Palatino"))
-            ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-            (t    '(:family "Sans Serif"))))
-
-(defvar *my-org-font-variable* nil
-  "Which font to use.  Can be set by the local init scripts.")
-
-
-(setq *my-org-font-variable*
+(defvar my-org-font-heading
   (cond
-   ((x-list-fonts "Palatino")         '(:font "Palatino"))
+   ((not window-system) nil)
+   ((x-list-fonts "Avenir")         '(:font "Avenir"))
    ((x-list-fonts "Charter")         '(:font "Charter"))
-   (t    '(:family "Serif"))))
-
-
-(defvar *my-org-font-fixed* nil
+   ((x-list-fonts "Palatino")         '(:font "Palatino"))
+   ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+   (t    '(:family "Sans Serif")))
   "Which font to use.  Can be set by the local init scripts.")
 
+(defvar my-org-font-variable
+  (cond
+   ((not window-system) nil)
+   ((x-list-fonts "Charter")         '(:font "Charter"))
+   ((x-list-fonts "Palatino")         '(:font "Palatino"))
+   (t    '(:family "Serif")))
+  "Which font to use."
+  )
 
-(setq *my-org-font-fixed*
-  (cond ((x-list-fonts "Fira Code")         '(:font "Fira Code"))
-        (t    '(:family "Monospace"))))
-
+(defvar my-org-font-fixed
+  (cond
+   ((not window-system) nil)
+   ((x-list-fonts "Fira Code")         '(:font "Fira Code"))
+   (t    '(:family "Monospace"))))
 
 (defun my-org-fonts-setup ()
   (interactive)
   (when window-system
     (add-hook 'org-mode-hook 'variable-pitch-mode)
 
-    (let* ((heading-font *my-org-font-heading*)
+    (let* ((heading-font my-org-font-heading)
            (headline           `(:weight bold )))
       (custom-theme-set-faces
        'user
@@ -47,8 +41,8 @@
        `(org-level-2 ((t (,@headline ,@heading-font :height 1.5))))
        `(org-level-1 ((t (,@headline ,@heading-font :height 1.75))))
        `(org-document-title ((t (,@headline ,@heading-font :height 2.0 :underline nil))))
-       `(variable-pitch ((t (:height 180 :weight thin ,@*my-org-font-variable*))))
-       `(fixed-pitch ((t (:height 160 ,@*my-org-font-fixed*))))
+       `(variable-pitch ((t (:height 180 :weight thin ,@my-org-font-variable))))
+      `(fixed-pitch ((t (:height 160 ,@my-org-font-fixed))))
        '(org-block ((t (:inherit fixed-pitch))))
        '(org-code ((t (:inherit (shadow fixed-pitch)))))
        ;; '(org-document-info ((t (:foreground "dark orange"))))
@@ -130,7 +124,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (my-org-fonts-setup))
 
 
-(package-install 'org-bullets)
 (use-package org-bullets
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))

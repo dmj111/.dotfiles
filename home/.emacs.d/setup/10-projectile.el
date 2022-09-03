@@ -1,6 +1,4 @@
 
-(package-install 'projectile)
-
 (use-package projectile
   :after ivy
   :diminish projectile-mode
