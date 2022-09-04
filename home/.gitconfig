@@ -43,6 +43,15 @@
 	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
 	--abbrev-commit --date=relative
 
+
+	lgld = log --graph --date=iso \
+        --pretty=format:'%Cred%h%Creset %C(yellow)%ad%Creset %s %Cgreen(%cr)%Creset' \
+	--abbrev-commit
+
+#Format:'%Y-%m-%d'
+
+
+
 	# One line log, limit to 20
 	lg = !git lgl -n 20
 
@@ -196,5 +205,3 @@
 
 [init]
 	defaultBranch = main
-
-
