@@ -118,6 +118,7 @@
     paredit
     projectile
     python
+    rainbow-mode
     recentf
     smex
     swiper
