@@ -39,7 +39,6 @@
 
 ;; Don't limit the print out of a variable
 (setq eval-expression-print-length nil)
-
 (setq inhibit-startup-screen t)
 (setq visible-bell t)
 
@@ -63,13 +62,19 @@
 (setq custom-file (expand-file-name "custom.el" *local-dir*))
 
 
-(defconst *is-mac* (eq system-type 'darwin))
+(defconst my-is-mac (eq system-type 'darwin))
 
 (defvar *anaconda-directory* (expand-file-name "~/miniconda3")
   "Anaconda installation directory.")
 
-(defvar *font-name* "fira code-14"
+(defvar my-font-name "fira code-14"
   "Which font to use.  Can be set by the local init scripts.")
+
+;; "source code pro-13"
+;; "input mono-14"
+;; "source code pro-14"
+;; "fira code-14"
+
 
 (message *config-d*)
 
@@ -77,7 +82,7 @@
 
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (set-frame-font *font-name*)))
+            (set-frame-font my-font-name)))
 
 
 ;; (mapc 'load (file-expand-wildcards (concat  *local-dir* "*.el")))

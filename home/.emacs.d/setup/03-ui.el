@@ -85,7 +85,7 @@
 ;; This is for when alt is not meta.   I need my meta.
 (setq x-alt-keysym 'meta)
 
-(when *is-mac*
+(when my-is-mac
   (setq mac-command-modifier 'meta))
 
 (setq uniquify-buffer-name-style 'forward)
@@ -109,7 +109,7 @@
   (global-set-key [\M-\S-down] 'move-text-down))
 
 ;;;; open-with
-(when *is-mac*
+(when my-is-mac
   ;; Copied from emacs-prelude
   (defun prelude-open-with ()
     "Simple function that allows us to open the underlying
