@@ -64,8 +64,6 @@
 
 (defconst my-is-mac (eq system-type 'darwin))
 
-(defvar *anaconda-directory* (expand-file-name "~/miniconda3")
-  "Anaconda installation directory.")
 
 (defvar my-font-name "fira code-14"
   "Which font to use.  Can be set by the local init scripts.")

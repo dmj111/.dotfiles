@@ -1,4 +1,7 @@
 
+(defvar my-anaconda-directory (expand-file-name "~/miniconda3")
+  "Anaconda installation directory.")
+
 (use-package conda
   :config
   ;; Make sure pylint is installed.
@@ -13,5 +16,5 @@
   (conda-env-autoactivate-mode t)
   ;; If your Anaconda installation is anywhere other than the default (~/.anaconda3) then set the conda-anaconda-home custom variable to the installation path. For instance, in my configuration I have:
 
-  (custom-set-variables
-   '(conda-anaconda-home *anaconda-directory*)))
+  :custom
+  (conda-anaconda-home my-anaconda-directory))
