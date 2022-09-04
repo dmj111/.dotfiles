@@ -4,7 +4,7 @@
   :config
   (require 'auto-complete-config)
   (add-to-list 'ac-dictionary-directories
-               (expand-file-name "ac-dict" *config-dir*))
+               (expand-file-name "ac-dict" my-config-dir))
   (ac-config-default)
   ;; Trigger key
   (ac-set-trigger-key "TAB")

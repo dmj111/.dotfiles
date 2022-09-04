@@ -49,17 +49,17 @@
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;; Give names to some config directories.
-(defconst *config-dir* (file-name-directory load-file-name)
+(defconst my-config-dir (file-name-directory load-file-name)
   "Root directory for the configuration.")
-(defconst *local-dir* (expand-file-name "~/.dotfiles/local/.emacs.d")
+(defconst my-local-dir (expand-file-name "~/.dotfiles/local/.emacs.d")
   "Root directory for local configuation.")
 
-(defconst *config-d* (file-name-as-directory (concat *config-dir* "setup"))
+(defconst my-config-setup (file-name-as-directory (concat my-config-dir "setup"))
   "Root directory for the configuration.")
 
 ;; Keep the custom file in local-dir so it can be tracked in the
 ;; local config git file if desired.
-(setq custom-file (expand-file-name "custom.el" *local-dir*))
+(setq custom-file (expand-file-name "custom.el" my-local-dir))
 
 
 (defconst my-is-mac (eq system-type 'darwin))
@@ -74,7 +74,7 @@
 ;; "fira code-14"
 
 
-(message *config-d*)
+(message my-config-setup)
 
 (require 'cl-lib)
 
@@ -83,13 +83,13 @@
             (set-frame-font my-font-name)))
 
 
-;; (mapc 'load (file-expand-wildcards (concat  *local-dir* "*.el")))
-;; (mapc 'load (file-expand-wildcards *config-dir*))
+;; (mapc 'load (file-expand-wildcards (concat  my-local-dir "*.el")))
+;; (mapc 'load (file-expand-wildcards my-config-dir))
 
 
 
 ;; Add a local lisp directory to the load path.
-(add-to-list 'load-path *local-dir*)
+(add-to-list 'load-path my-local-dir)
 
 (defvar my-packages
   '(
@@ -177,7 +177,7 @@
 ;; :if, :after, :requires (stops if not loaded)
 
 ;; Load local settings files
-(mapc 'load (file-expand-wildcards (concat  *config-d* "[a-zA-Z0-9]*.el")))
+(mapc 'load (file-expand-wildcards (concat  my-config-setup "[a-zA-Z0-9]*.el")))
 
 
 ;; Load the local file, if it exists.

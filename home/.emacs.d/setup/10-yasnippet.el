@@ -10,13 +10,14 @@
   :config
   ;; yas-reload-all
   (add-to-list-if-file-exists
-   'yas-snippet-dirs (expand-file-name "snippets" *config-dir*))
+   'yas-snippet-dirs (expand-file-name "snippets" my-config-dir))
   (add-to-list-if-file-exists
-   'yas-snippet-dirs (expand-file-name "snippets" *local-dir*))
+   'yas-snippet-dirs (expand-file-name "snippets" my-local-dir))
   (add-to-list-if-file-exists
    'yas-snippet-dirs (expand-file-name "~/code/templates/snippets"))
   (yas-reload-all)
   (yas-global-mode -1)
+
   (setq yas-prompt-functions
         '(yas-ido-prompt
           yas-x-prompt
