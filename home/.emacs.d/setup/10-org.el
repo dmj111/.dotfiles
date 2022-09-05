@@ -1,6 +1,7 @@
+
 (defvar my-org-font-heading
   (cond
-   ((not window-system) nil)
+   ((not (display-graphic-p)) nil)
    ((x-list-fonts "Avenir")         '(:font "Avenir"))
    ((x-list-fonts "Charter")         '(:font "Charter"))
    ((x-list-fonts "Palatino")         '(:font "Palatino"))
@@ -10,7 +11,7 @@
 
 (defvar my-org-font-variable
   (cond
-   ((not window-system) nil)
+   ((not (display-graphic-p)) nil)
    ((x-list-fonts "Charter")         '(:font "Charter"))
    ((x-list-fonts "Palatino")         '(:font "Palatino"))
    (t    '(:family "Serif")))
@@ -19,13 +20,13 @@
 
 (defvar my-org-font-fixed
   (cond
-   ((not window-system) nil)
+   ((not (display-graphic-p)) nil)
    ((x-list-fonts "Fira Code")         '(:font "Fira Code"))
    (t    '(:family "Monospace"))))
 
 (defun my-org-fonts-setup ()
   (interactive)
-  (when window-system
+  (when (display-graphic-p)
     (add-hook 'org-mode-hook 'variable-pitch-mode)
 
     (let* ((heading-font my-org-font-heading)

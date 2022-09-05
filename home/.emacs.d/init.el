@@ -65,23 +65,9 @@
 (defconst my-is-mac (eq system-type 'darwin))
 
 
-(defvar my-font-name "fira code-14"
-  "Which font to use.  Can be set by the local init scripts.")
-
-;; "source code pro-13"
-;; "input mono-14"
-;; "source code pro-14"
-;; "fira code-14"
-
-
 (message my-config-setup)
 
 (require 'cl-lib)
-
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (set-frame-font my-font-name)))
-
 
 ;; (mapc 'load (file-expand-wildcards (concat  my-local-dir "*.el")))
 ;; (mapc 'load (file-expand-wildcards my-config-dir))
