@@ -94,8 +94,11 @@
 (use-package undo-tree
   :config
   (global-undo-tree-mode t)
-  (setq undo-tree-visualizer-relative-timestamps t)
-  (setq undo-tree-visualizer--timestamps t))
+  :custom
+  ;; (undo-tree-visualizer-relative-timestamps t)
+  (undo-tree-auto-save-history t)
+  (undo-tree-visualizer-timestamps t)
+  )
 
 ;;;; winner
 (winner-mode t)
