@@ -69,6 +69,18 @@
 
 (require 'cl-lib)
 
+(defun my-el-files (dir)
+  (cl-delete-if
+   (lambda (f) nil
+     (or  (string-match-p "custom.el\\'" f)
+          (string-match-p "~\\|#" f))
+     )
+   (file-expand-wildcards (file-name-concat  dir "*.el")))
+  )
+
+(defun my-load-el-files (dir)
+  (mapc 'load (my-el-files dir)))
+
 ;; (mapc 'load (file-expand-wildcards (concat  my-local-dir "*.el")))
 ;; (mapc 'load (file-expand-wildcards my-config-dir))
 
@@ -163,7 +175,9 @@
 ;; :if, :after, :requires (stops if not loaded)
 
 ;; Load local settings files
-(mapc 'load (file-expand-wildcards (concat  my-config-setup "[a-zA-Z0-9]*.el")))
+
+(my-load-el-files my-config-setup)
+
 
 
 ;; Load the local file, if it exists.
