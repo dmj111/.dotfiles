@@ -72,7 +72,7 @@
 (defun my-el-files (dir)
   (cl-delete-if
    (lambda (f) nil
-     (or  (string-match-p "custom.el\\'" f)
+     (or  (string-match-p "/custom.el\\'" f)
           (string-match-p "~\\|#" f))
      )
    (file-expand-wildcards (file-name-concat  dir "*.el")))
