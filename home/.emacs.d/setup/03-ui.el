@@ -96,7 +96,7 @@
   (global-undo-tree-mode t)
   :custom
   ;; (undo-tree-visualizer-relative-timestamps t)
-  (undo-tree-auto-save-history t)
+  (undo-tree-auto-save-history nil)
   (undo-tree-visualizer-timestamps t)
   )
 
