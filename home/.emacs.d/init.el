@@ -1,5 +1,4 @@
 ;;; init.el --- Emacs configuration file
-
 ;;; Commentary:
 
 ;; stuff to practice:
@@ -70,6 +69,7 @@
 (require 'cl-lib)
 
 (defun my-el-files (dir)
+  "Return list of el files in DIR, except auto-saves and custom.el."
   (cl-delete-if
    (lambda (f) nil
      (or  (string-match-p "/custom.el\\'" f)
@@ -79,6 +79,7 @@
   )
 
 (defun my-load-el-files (dir)
+  "Load .el files in DIR, except auto-saves and custom.el."
   (mapc 'load (my-el-files dir)))
 
 ;; (mapc 'load (file-expand-wildcards (concat  my-local-dir "*.el")))
@@ -127,7 +128,7 @@
     wgrep
     yasnippet
     )
-  "packages to make sure are installed"
+  "Packages to ensure are installed."
   )
 
 ;; my-packages can be modified in init-local-preload.el to add/remove
@@ -197,3 +198,7 @@
 
 
 ;;https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
+
+(provide 'init)
+;;; init.el ends here
+
