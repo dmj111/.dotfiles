@@ -1,3 +1,6 @@
+;;; 10-recentf -- Summary
+;;; Commentary:
+;;; Code:
 
 (use-package recentf
   :bind
@@ -14,3 +17,5 @@
                  "Chose recent file:"
                  (-map 'abbreviate-file-name recentf-list) nil t)))
       (when file (find-file file)))))
+(provide '10-recentf)
+;;; 10-recentf.el ends here

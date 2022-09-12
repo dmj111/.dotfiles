@@ -1,3 +1,6 @@
+;;; 10-projectile -- Summary
+;;; Commentary:
+;;; Code:
 
 (use-package projectile
   :after ivy
@@ -9,3 +12,5 @@
   (setq projectile-enable-caching t)
   ;; (setq projectile-project-search-path '("~/code" "~/.dotfiles"))
   (projectile-mode t))
+(provide '10-projectile)
+;;; 10-projectile.el ends here

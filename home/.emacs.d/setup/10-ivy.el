@@ -1,3 +1,6 @@
+;;; 10-ivy -- Summary
+;;; Commentary:
+;;; Code:
 (use-package ivy
   :defer 0.1
   :diminish ivy-mode
@@ -61,3 +64,5 @@
 ;; - ivy-pass https://www.passwordstore.org/ the standard unix password manager
 
 ;; https://sam217pa.github.io/2016/09/11/nuclear-power-editing-via-ivy-and-ag/
+(provide '10-ivy)
+;;; 10-ivy.el ends here

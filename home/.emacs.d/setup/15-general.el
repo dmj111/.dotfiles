@@ -1,3 +1,6 @@
+;;; 15-general -- Summary
+;;; Commentary:
+;;; Code:
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
 
 (add-hook 'after-save-hook
@@ -60,3 +63,5 @@ the font will be set after init is loaded")
     ("g" text-scale-increase "in")
     ("l" text-scale-decrease "out"))
   )
+(provide '15-general)
+;;; 15-general.el ends here

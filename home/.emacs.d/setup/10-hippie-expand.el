@@ -1,3 +1,6 @@
+;;; 10-hippie-expand -- Summary
+;;; Commentary:
+;;; Code:
 ;;;; Hippie-expand
 ;; From emacs-prelude
 ;; hippie expand is dabbrev expand on steroids
@@ -14,3 +17,5 @@
                                          try-expand-line
                                          try-complete-lisp-symbol-partially
                                          try-complete-lisp-symbol))
+(provide '10-hippie-expand)
+;;; 10-hippie-expand.el ends here

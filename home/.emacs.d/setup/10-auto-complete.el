@@ -1,3 +1,6 @@
+;;; 10-auto-complete -- Summary
+;;; Commentary:
+;;; Code:
 ;;;; auto-complete
 (use-package auto-complete
   :disabled t
@@ -9,3 +12,5 @@
   ;; Trigger key
   (ac-set-trigger-key "TAB")
   (ac-set-trigger-key "<tab>"))
+(provide '10-auto-complete)
+;;; 10-auto-complete.el ends here

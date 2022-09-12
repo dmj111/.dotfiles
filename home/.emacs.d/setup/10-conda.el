@@ -1,3 +1,6 @@
+;;; 10-conda -- Summary
+;;; Commentary:
+;;; Code:
 
 (defvar my-anaconda-directory (expand-file-name "~/miniconda3")
   "Anaconda installation directory.")
@@ -19,3 +22,5 @@
 
   :custom
   (conda-anaconda-home my-anaconda-directory))
+(provide '10-conda)
+;;; 10-conda.el ends here

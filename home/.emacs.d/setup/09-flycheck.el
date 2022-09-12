@@ -1,3 +1,6 @@
+;;; 09-flycheck -- Summary
+;;; Commentary:
+;;; Code:
 (use-package flycheck
   :config
   ;; TODO [ ] https://github.com/abo-abo/hydra/wiki/Flycheck
@@ -13,3 +16,5 @@
   (flycheck-add-next-checker `python-pylint '(warning . python-flake8))
 
   (setq  flycheck-python-flake8-executable "flake8"))
+(provide '09-flycheck)
+;;; 09-flycheck.el ends here

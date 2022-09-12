@@ -1,3 +1,6 @@
+;;; 10-markdown -- Summary
+;;; Commentary:
+;;; Code:
 (use-package markdown-mode)
 
 
@@ -23,3 +26,5 @@ If SUBMODE is not provided, use `LANG-mode' by default."
         '("c" "cpp" "css" "html" "latex" "lisp" "makefile"
           "markdown" "python" "r" "xml"))
   (global-set-key (kbd "C-c m") 'mmm-parse-buffer))
+(provide '10-markdown)
+;;; 10-markdown.el ends here

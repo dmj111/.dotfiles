@@ -1,3 +1,6 @@
+;;; 01-start -- Summary
+;;; Commentary:
+;;; Code:
 
 ;; define this ahead of time so the local init can update it
 (defvar dmj-org-capture-templates
@@ -15,3 +18,6 @@ Added: %U")
      "* TODO %^{Description} %^g
  %?
 Added: %U")))
+
+(provide '01-start)
+;;; 01-start.el ends here

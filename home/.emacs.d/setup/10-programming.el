@@ -1,3 +1,6 @@
+;;; 10-programming -- Summary
+;;; Commentary:
+;;; Code:
 
 ;;;; programming mode
 ;; TODO: flyspell on mac!!
@@ -24,3 +27,5 @@
 ;; (add-hook 'prog-mode-hook
 ;;           (lambda () (add-hook 'before-save-hook
 ;;                                'whitespace-cleanup nil t)))
+(provide '10-programming)
+;;; 10-programming.el ends here

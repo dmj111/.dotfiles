@@ -1,3 +1,6 @@
+;;; 03-ui -- Summary
+;;; Commentary:
+;;; Code:
 ;; make yes/no shorter, and a frequent alias.
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'qrr 'query-replace-regexp)
@@ -139,3 +142,5 @@ file of a buffer in an external program."
 
 
 (eval-after-load 'apropos '(setq apropos-sort-by-scores t))
+(provide '03-ui)
+;;; 03-ui.el ends here

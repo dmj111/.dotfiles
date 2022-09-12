@@ -1,3 +1,6 @@
+;;; 10-python -- Summary
+;;; Commentary:
+;;; Code:
 ;;;; python
 (use-package python
   :init
@@ -21,3 +24,5 @@
   ;;   (setq jedi:setup-keys t)
   ;;   (setq jedi:complete-on-dot t))
   )
+(provide '10-python)
+;;; 10-python.el ends here

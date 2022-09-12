@@ -1,3 +1,6 @@
+;;; 10-lsp-mode -- Summary
+;;; Commentary:
+;;; Code:
 ;;; Note:
 ;;; not using this right now.
 
@@ -82,3 +85,5 @@
   (global-company-mode 1))
 
 ; (add-to-list 'lsp-enabled-clients 'eslint)
+(provide '10-lsp-mode)
+;;; 10-lsp-mode.el ends here

@@ -1,3 +1,6 @@
+;;; 10-magit -- Summary
+;;; Commentary:
+;;; Code:
 (use-package magit
   :bind (("\C-xg" . magit-status))
   :config
@@ -12,3 +15,5 @@
     (window-configuration-to-register :magit-fullscreen)
     ad-do-it
     (delete-other-windows)))
+(provide '10-magit)
+;;; 10-magit.el ends here

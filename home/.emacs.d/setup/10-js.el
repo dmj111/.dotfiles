@@ -1,3 +1,6 @@
+;;; 10-js -- Summary
+;;; Commentary:
+;;; Code:
 ;;;; js2
 
 (use-package js2-mode
@@ -9,3 +12,5 @@
 
 (use-package ac-js2
   :hook js2-mode-hook)
+(provide '10-js)
+;;; 10-js.el ends here

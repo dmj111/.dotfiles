@@ -1,3 +1,6 @@
+;;; 10-cpp -- Summary
+;;; Commentary:
+;;; Code:
 ;; http://syamajala.github.io/c-ide.html
 
 (use-package c++-mode
@@ -38,3 +41,5 @@
 ;; // tab-width: 4
 ;; // whitespace-mode: t
 ;; // End:
+(provide '10-cpp)
+;;; 10-cpp.el ends here

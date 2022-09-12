@@ -1,3 +1,6 @@
+;;; 10-yasnippet -- Summary
+;;; Commentary:
+;;; Code:
 (defun add-to-list-if-file-exists (list path)
   (when (file-exists-p path) (add-to-list list path)))
 
@@ -24,3 +27,5 @@
           yas-dropdown-prompt
           yas-completing-prompt
           yas-no-prompt)))
+(provide '10-yasnippet)
+;;; 10-yasnippet.el ends here

@@ -1,3 +1,6 @@
+;;; 10-org -- Summary
+;;; Commentary:
+;;; Code:
 
 (defvar my-org-font-heading
   (cond
@@ -137,3 +140,5 @@ Will work on both org-mode and any mode that accepts plain html."
 ;; (use-package org-drill
 ;;   :config
 ;;   (setq org-drill-add-random-noise-to-intervals-p t))
+(provide '10-org)
+;;; 10-org.el ends here

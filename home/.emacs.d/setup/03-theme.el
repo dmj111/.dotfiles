@@ -1,3 +1,6 @@
+;;; 03-theme -- Summary
+;;; Commentary:
+;;; Code:
 ;; (use-package zenburn-theme)
 
 
@@ -17,3 +20,5 @@
      (when my-default-theme
        (message "loading the theme...")
        (load-theme my-default-theme t))))
+(provide '03-theme)
+;;; 03-theme.el ends here
