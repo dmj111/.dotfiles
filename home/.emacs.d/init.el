@@ -33,6 +33,8 @@
 ;; Debug if there is an error
 ;; (setq debug-on-error t)
 
+;;; TODO:
+;;; Initial setup
 
 ;; Don't limit the print out of a variable
 (setq eval-expression-print-length nil)
@@ -44,6 +46,142 @@
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
+;; make yes/no shorter, and a frequent alias.
+(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'qrr 'query-replace-regexp)
+
+
+(setq-default indent-tabs-mode nil)
+(column-number-mode 1)
+(show-paren-mode 1)
+
+;; enable narrowing commands
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disabled nil)
+
+;;;; enable features
+
+;; enabled change region case commands
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
+(global-set-key (quote [M-down])  'scroll-up-line)
+(global-set-key (quote [M-up])  'scroll-down-line)
+
+
+
+;;;; Keybindings
+
+(global-set-key [(f5)] 'call-last-kbd-macro)
+(global-set-key "\C-x\C-n" 'next-error)
+(global-set-key (quote [S-M-down])  'next-error)
+(global-set-key (quote [S-M-up])  'prev-error)
+
+(global-set-key "\M-?" 'help)
+(global-set-key "\C-cx" 'compile)
+(global-set-key [(f9)] 'recompile)
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+;; Hmm... isearch.  and regexp.
+;; (global-set-key "\M-s" 'isearch-forward-regexp)
+;; (global-set-key "\M-r" 'isearch-backward-regexp)
+
+;; backward-kill-word is a fast way to delete
+(global-set-key "\C-w"     'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+
+;; Sometimes M-x is just too hard to type.
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-xm" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+;; TODO - detect electric indent, and don't bother if it exists
+(define-key global-map (kbd "RET") 'newline-and-indent)
+
+
+;; backward-kill-word is a fast way to delete
+(global-set-key "\C-w"     'backward-kill-word)
+(global-set-key "\C-x\C-k" 'kill-region)
+(global-set-key "\C-c\C-k" 'kill-region)
+
+
+
+
+(defconst my-is-mac (eq system-type 'darwin))
+
+;; This is for when alt is not meta.   I need my meta.
+;; (setq x-alt-keysym 'meta)
+(when my-is-mac
+  (setq mac-command-modifier 'meta))
+
+(setq uniquify-buffer-name-style 'forward)
+
+
+;;;; winner
+(winner-mode t)
+
+
+(define-coding-system-alias 'UTF-8 'utf-8)
+
+
+(defun clear-kill-ring ()
+  "Clear all entries from the kill ring."
+  (interactive)
+  (setq kill-ring nil)
+  (garbage-collect))
+
+(defalias 'list-buffers 'ibuffer)
+
+;;; Fonts for windowed emacs
+
+
+(defvar my-frame-fonts
+  '(
+    "input mono-14"
+    "fira code-14"
+    "source code pro-14"
+    )
+  "A list of fonts to try.
+Add to this list in init-local and the font will be set after
+init is loaded.")
+
+
+(defun try-set-frame-font (fonts)
+  "Try setting frame-font using first good value of FONTS."
+  (if (null fonts)
+      (message "no more fonts to try")
+    (let ((font (cl-first fonts))
+          (rest (cl-rest fonts)))
+      (if (ignore-errors (set-frame-font font) t)
+          (message "set font to : %s" font)
+        (message "failed to set font: %s" font)
+        (try-set-frame-font rest)))))
+
+(when (display-graphic-p)
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (try-set-frame-font my-frame-fonts))))
+
+
+;;; theme
+
+(defvar my-default-theme 'ef-night
+  "Default theme to load at startup.")
+
+(add-hook 'emacs-startup-hook
+            (lambda ()
+              (when my-default-theme
+                (message "loading the theme...")
+                (load-theme my-default-theme t))))
+
+
+;;; configuration settings
+;; (error "error")
 
 ;; Give names to some config directories.
 (defconst my-config-dir (file-name-directory load-file-name)
@@ -59,10 +197,7 @@
 (setq custom-file (expand-file-name "custom.el" my-local-dir))
 
 
-(defconst my-is-mac (eq system-type 'darwin))
 
-
-(message my-config-setup)
 
 (require 'cl-lib)
 
@@ -195,8 +330,18 @@
 ;; (provide 'init-local)
 
 
-;;https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
+
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 
 (provide 'init)
 ;;; init.el ends here
 
+
+;; Local Variables:
+;; eval: (outline-minor-mode 1)
+;; eval: (while (re-search-forward outline-regexp nil t) (outline-hide-subtree))
+;; outline-regexp: "^;;; "
+;; End:
