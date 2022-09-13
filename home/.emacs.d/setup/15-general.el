@@ -1,16 +1,7 @@
-
-
-
-
-
-
 ;;; 15-general -- Summary
 ;;; Commentary:
 ;;; Code:
 (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)
-
-(add-hook 'after-save-hook
-          'executable-make-buffer-file-executable-if-script-p)
 
 
 (use-package wgrep)
