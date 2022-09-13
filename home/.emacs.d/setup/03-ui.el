@@ -24,7 +24,7 @@
 (global-set-key (quote [M-down])  'scroll-up-line)
 (global-set-key (quote [M-up])  'scroll-down-line)
 
-(require 'cl)
+(require 'cl-lib)
 
 ;; http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/
 ;; unset C- and M- digit keys
@@ -86,7 +86,7 @@
 (global-set-key "\C-c\C-k" 'kill-region)
 
 ;; This is for when alt is not meta.   I need my meta.
-(setq x-alt-keysym 'meta)
+;; (setq x-alt-keysym 'meta)
 
 (when my-is-mac
   (setq mac-command-modifier 'meta))
@@ -141,6 +141,11 @@ file of a buffer in an external program."
 (defalias 'list-buffers 'ibuffer)
 
 
-(eval-after-load 'apropos '(setq apropos-sort-by-scores t))
+(use-package apropos
+  :disabled t
+  :config
+  (apropos-sort-by-scores t)
+  )
+
 (provide '03-ui)
 ;;; 03-ui.el ends here

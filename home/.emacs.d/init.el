@@ -34,8 +34,6 @@
 ;; (setq debug-on-error t)
 
 
-
-
 ;; Don't limit the print out of a variable
 (setq eval-expression-print-length nil)
 (setq inhibit-startup-screen t)

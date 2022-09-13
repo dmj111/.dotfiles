@@ -12,7 +12,7 @@
 ;;   "Default theme to use at startup.")
 
 (defvar my-default-theme 'ef-spring
-  "*default theme to load at startup")
+  "Default theme to load at startup.")
 
 ;; After init.el is loaded, set the theme.
 (eval-after-load 'init
