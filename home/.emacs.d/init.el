@@ -281,6 +281,7 @@ init is loaded.")
     smex
     swiper
     undo-tree
+    use-package
     wgrep
     yasnippet
     )
@@ -304,13 +305,20 @@ init is loaded.")
 ;; (package-refresh-contents)
 (unless package-archive-contents  (package-refresh-contents))
 
-(dolist (pkg my-packages)
-  (unless (package-installed-p pkg)
-    (package-install pkg)))
+(defun my-load-packages (packages &optional refreshed)
+  (when (not (null packages))
+    (let ((pkg (car packages))
+          (rest (cdr packages)))
+      (if (package-installed-p pkg)
+          (my-load-packages rest refreshed)
+        (when (not refreshed)
+          (message "refreshing package contents")
+          (package-refresh-contents))
+        (message "Installing ~a" pkg)
+        (package-install pkg)
+        (my-load-packages rest t)))))
 
-;; make sure use-package is loaded
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
+(my-load-packages my-packages)
 
 (require 'use-package)
 
