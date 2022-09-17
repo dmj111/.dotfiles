@@ -214,6 +214,11 @@ init is loaded.")
 (setq custom-file (expand-file-name "custom.el" my-local-dir))
 
 
+(when (file-exists-p custom-file)
+  (add-hook 'after-init-hook
+            (lambda ()
+              (load custom-file))))
+
 
 
 (require 'cl-lib)
@@ -830,9 +835,6 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
-
-(when (file-exists-p custom-file)
-  (load custom-file))
 
 
 (provide 'init)
