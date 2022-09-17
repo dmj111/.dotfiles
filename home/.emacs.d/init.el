@@ -718,9 +718,12 @@ Added: %U")))
     "Colorize compiler output."
     (ansi-color-apply-on-region compilation-filter-start (point))))
 
+(use-package company
+  :config
+  (global-company-mode 1))
+
+
 ;;; cpp
-
-
 (use-package c++-mode
   :mode "\\.h\\'")
 
