@@ -1,4 +1,8 @@
+*.egg-info/
 /home/.emacs.d/.cache/
+/home/.emacs.d/elpy/
+/home/.emacs.d/projects
 /home/.emacs.d/request/
-/local/
 /home/.vscode/extensions/
+/local/
+build/
