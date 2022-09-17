@@ -265,10 +265,6 @@ init is loaded.")
     hydra
     ivy
     js2-mode
-    lsp-ivy
-    lsp-jedi
-    lsp-mode
-    lsp-ui
     magit
     markdown-mode
     mmm-mode
@@ -696,6 +692,7 @@ Added: %U")))
 
 
 ;;; programming
+
 
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
