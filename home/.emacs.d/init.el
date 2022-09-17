@@ -258,6 +258,7 @@ init is loaded.")
     dash
     diminish
     ef-themes
+    elpy
     flycheck
     flycheck-clang-tidy
     google-c-style
@@ -276,6 +277,7 @@ init is loaded.")
     paredit
     projectile
     python
+    pyvenv
     rainbow-mode
     recentf
     smex
@@ -787,6 +789,24 @@ Added: %U")))
   ;;   (setq jedi:setup-keys t)
   ;;   (setq jedi:complete-on-dot t))
   )
+
+
+(use-package pyvenv
+  :config
+  ;; Set in init-local if in a different location
+  (setenv "WORKON_HOME"   (expand-file-name "~/miniconda3/envs")))
+
+(use-package elpy
+  :defer t
+  ;; use pyvenv-workon manually to switch projects.  it might be nice
+  ;; to auto-switch, but at the cost of doing more work when switching
+  ;; buffers.
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  :config
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
 
 ;;; js
 (use-package js2-mode
