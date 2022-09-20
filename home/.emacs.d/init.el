@@ -550,6 +550,7 @@ init is loaded.")
        `(variable-pitch ((t (:height 180 :weight thin ,@my-org-font-variable))))
        `(fixed-pitch ((t (:height 160 ,@my-org-font-fixed))))
        '(org-block ((t (:inherit fixed-pitch))))
+       '(org-table ((t (:inherit fixed-pitch))))
        '(org-code ((t (:inherit (shadow fixed-pitch)))))
        ;; '(org-document-info ((t (:foreground "dark orange"))))
        '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))
@@ -579,6 +580,54 @@ Will work on both org-mode and any mode that accepts plain html."
       (forward-char (if is-org-mode -8 -6)))))
 
 
+(use-package org
+  :defer t
+  :bind (([f6] . org-capture))
+  :custom
+  (org-hide-emphasis-markers t)
+  (org-src-fontify-natively t)
+  (org-directory "~/code/private")
+  (org-log-done t)
+  (org-default-notes-file "log.org")
+
+  :config
+  (message "first use-package-org")
+
+  ;; note - C-c C-, instead of <s for newer org
+
+  (add-hook 'org-mode-hook (lambda ()
+                             (auto-fill-mode 1)))
+
+
+  (define-key org-mode-map "\C-ck" #'endless/insert-key)
+  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+  (define-key global-map "\C-cc" 'org-capture)
+
+  ;; active Babel languages
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '(;; (sh . t)
+     (emacs-lisp . t)
+     (python . t)
+     ))
+
+  ;; Make it look nicer
+  ;; https://zzamboni.org/post/beautifying-org-mode-in-emacs/
+  ;;
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+
+  (my-org-fonts-setup))
+
+;; (use-package ox-html
+;;   :custom
+;; (org-html-htmlize-output-type 'css)
+;; )
+
 ;; define this ahead of time so the local init can update it
 (defvar dmj-org-capture-templates
   '(("r" "Reference" entry (file "reference.org")
@@ -596,63 +645,24 @@ Added: %U")
  %?
 Added: %U")))
 
+(use-package org-capture
+  :defer t
+  :custom
+  (org-capture-templates dmj-org-capture-templates))
 
-
-(use-package org
-  :bind (([f6] . org-capture))
-  :config
-  (message "first use-package-org")
-
-  ;; note - C-c C-, instead of <s for newer org
-
-  (add-hook 'org-mode-hook (lambda ()
-                             (auto-fill-mode 1)))
-
-
-  (define-key org-mode-map "\C-ck" #'endless/insert-key)
-  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-  (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
-  (define-key global-map "\C-cc" 'org-capture)
-
-
-  (setq org-export-htmlize-output-type 'css)
-  (setq org-src-fontify-natively t)
-  (setq org-directory "~/code/private")
-  (setq org-log-done t)
-  (setq org-default-notes-file "log.org")
-
-
-
-  (setq org-capture-templates dmj-org-capture-templates)
+(use-package org-refile
+  :defer t
+  :custom
   ;; http://doc.norang.ca/org-mode.html#Refiling
-  (setq org-refile-use-outline-path t)
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-targets (quote ((nil :maxlevel . 3))))
-
-
-  ;; active Babel languages
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(;; (sh . t)
-     (emacs-lisp . t)
-     (python . t)
-     ))
-
-  ;; Make it look nicer
-  ;; https://zzamboni.org/post/beautifying-org-mode-in-emacs/
-  ;;
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-  (setq org-hide-emphasis-markers t)
-  (my-org-fonts-setup))
-
+  (org-refile-use-outline-path t)
+  (org-outline-path-complete-in-steps nil)
+  (org-refile-targets (quote ((nil :maxlevel . 3)))))
 
 (use-package org-bullets
+  :defer t
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 
 
 ;;; projectile
