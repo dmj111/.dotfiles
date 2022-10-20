@@ -1,7 +1,22 @@
 # Notes:
 
-#   git symbolic-ref refs/aaa refs/remotes/origin/main (or
-#    upstream/develop, or whatever)
+# To avoid checking into main and pushing, or setting main as the
+# upstream to a feature branch, use a branch alias for the remote
+# tracking branch.  Aliases here use `aaa` as that alias.
+#
+#
+# set aaa as an alias to the remote "main" branch:
+# (origin/main, origin/develop, upstream/main, whatever.)
+#
+# $ git symbolic-ref refs/heads/aaa refs/remotes/origin/main
+#
+# Then, `git nb <name>` create a new branch, based on curent `aaa`,
+# without tracking.
+#
+# `git dd` diffs the current branch to `aaa`, etc.
+#
+# `git coa` checks out
+
 
 
 [core]
@@ -105,6 +120,8 @@
 	# Old log message.
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
 
+        # switch to `aaa`, but detached so that `git bvv` still works
+        coa = checkout --detach aaa
         new-branch = switch --no-track aaa -c
         nb = new-branch
 
