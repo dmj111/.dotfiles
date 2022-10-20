@@ -806,6 +806,7 @@ Added: %U")))
   ;; Set in init-local if in a different location
   (setenv "WORKON_HOME"   (expand-file-name "~/miniconda3/envs")))
 
+;; M-x elpy-rpc-reinstall-virtualenv to fix "peculiar error" message
 (use-package elpy
   :defer t
   ;; use pyvenv-workon manually to switch projects.  it might be nice
