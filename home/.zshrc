@@ -178,7 +178,7 @@ alias gd='git diff'
 alias ducmd='du -cmxd 1'
 
 alias tm='tmux new-session -A -s main'
-
+alias sc='screen -d -r || screen'
 
 if type brew &>/dev/null; then
     if [[ -d $(brew --prefix)/share/zsh-completions ]]; then
