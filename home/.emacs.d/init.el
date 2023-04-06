@@ -209,10 +209,7 @@ init is loaded.")
 (defconst my-config-setup (file-name-as-directory (concat my-config-dir "setup"))
   "Root directory for the configuration.")
 
-;; Keep the custom file in local-dir so it can be tracked in the
-;; local config git file if desired.
-(setq custom-file (expand-file-name "custom.el" my-local-dir))
-
+(setq custom-file (expand-file-name "custom.el" my-config-dir))
 
 (when (file-exists-p custom-file)
   (add-hook 'after-init-hook
