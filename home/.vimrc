@@ -1,3 +1,6 @@
+" START LOCAL CUSTOMIZATION
+" END LOCAL CUSTOMIZATION
+
 set nocompatible  " avoid vi compatibility
 
 
@@ -64,3 +67,6 @@ if has("autocmd")
    filetype on
    autocmd FileType python setlocal ts=4 sts=4 sw=4
 endif
+
+" START LOCAL CUSTOMIZATION
+" END LOCAL CUSTOMIZATION

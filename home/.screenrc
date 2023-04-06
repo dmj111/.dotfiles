@@ -1,3 +1,6 @@
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
+
 startup_message off
 
 escape ^oo
@@ -13,3 +16,6 @@ hardstatus alwayslastline
 hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
 # https://www.kilobitspersecond.com/2014/02/10/understanding-gnu-screens-hardstatus-strings/
 # '"%{= KW} %H [%`] %{= Kw}|%{-} %-Lw%{= bW}%n%f %t%{-}%+Lw %=%C%a %Y-%M-%d"'
+
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION

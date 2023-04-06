@@ -289,6 +289,10 @@ init is loaded.")
 ;; my-packages can be modified in init-local-preload.el to add/remove
 ;; packages for a specific deployment.
 
+
+;; START LOCAL CUSTOMIZATION
+;; END LOCAL CUSTOMIZATION
+
 ;; Try to load local settings ahead of time
 (require 'init-local-preload nil t)
 
@@ -860,10 +864,9 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 
 
+
 ;; Load the local file, if it exists.
 (require 'init-local nil t)
-
-
 
 ;; Consider something like this in local:
 ;;;; Example init-local.el
@@ -871,6 +874,10 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 ;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 ;;(setq my-default-theme 'zenburn)
 ;; (provide 'init-local)
+
+;; START LOCAL CUSTOMIZATION
+;; END LOCAL CUSTOMIZATION
+
 
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary

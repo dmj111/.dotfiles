@@ -1,3 +1,6 @@
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
+
 case "$TERM" in
     "dumb")
         # For emacs tramp mode
@@ -34,6 +37,8 @@ function load_if_exists() {
 
 load_if_exists ~/.dotfiles/local/.bashrc-pre
 
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
 
 export HISTSIZE=10000
 export HISTFILESIZE=100000
@@ -50,6 +55,9 @@ export EDITOR=vim
 # export INFOPATH=$HOME/lib/emacs-site-lisp/org-mode/doc:$INFOPATH
 # export INFOPATH=$HOME/lib/emacs-site-lisp/dvc/BUILD/texinfo:$INFOPATH
 # export LANG=ASCII
+
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
 
 
 
@@ -141,3 +149,6 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
 fi
 
 load_if_exists ~/.dotfiles/local/.bashrc-post
+
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION

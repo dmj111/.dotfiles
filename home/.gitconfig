@@ -17,6 +17,8 @@
 #
 # `git coa` checks out
 
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
 
 
 [core]
@@ -208,6 +210,13 @@
 	xfuncname = "^\\*+ .*$"
 
 
+[pull]
+        ff = only
+
+[init]
+	defaultBranch = main
+
+
 # In local gitconfig:
 # ----
 # [user]
@@ -217,8 +226,7 @@
 # [github]
 #   user =
 
-[pull]
-        ff = only
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
 
-[init]
-	defaultBranch = main
+

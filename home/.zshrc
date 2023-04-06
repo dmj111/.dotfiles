@@ -1,6 +1,8 @@
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
+
 # Uncomment for profiling (and go to end of file)
 # zmodload zsh/zprof
-
 # echo "in ${0:a}"
 
 # Add to this in local.zsh if desired.
@@ -12,6 +14,10 @@ load_if_exists() {
 }
 
 load_if_exists $HOME/.dotfiles/local/pre.zsh
+
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
+
 
 # For example:
 #
@@ -409,9 +415,17 @@ ii() {
 
 load_if_exists $HOME/.dotfiles/local/post.zsh
 
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
+
+
 promptinit
 prompt ${ZSH_USE_PROMPT:-mine}
 
 typeset -U path
 
+
 # pip zsh completion end
+
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
