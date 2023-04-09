@@ -226,6 +226,10 @@
 # [github]
 #   user =
 
+# To simplify local development of the main branch,
+# put the user name/email config in .git/config of the
+# .dotfiles repo
+
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
 
