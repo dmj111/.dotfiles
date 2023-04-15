@@ -427,5 +427,7 @@ typeset -U path
 
 # pip zsh completion end
 
+export HOMEBREW_BUNDLE_FILE=$HOME/.dotfiles/Brewfile
+
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
