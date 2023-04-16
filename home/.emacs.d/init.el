@@ -870,6 +870,9 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 ;;(add-to-list 'exec-path "/usr/local/bin" t)
 ;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 ;;(setq my-default-theme 'zenburn)
+;; modus
+;; ef-themes
+
 ;; (provide 'init-local)
 
 ;; START LOCAL CUSTOMIZATION
