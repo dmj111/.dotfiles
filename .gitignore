@@ -6,3 +6,4 @@
 /home/.vscode/extensions/
 /local/
 build/
+Brewfile.lock.json
