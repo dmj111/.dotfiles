@@ -23,10 +23,11 @@ fi
 # detach and commit.  This will show up in the reflog.
 message=$(date +'GITTRASH: %Y/%m/%d %H:%M:%S')
 git checkout --detach --quiet
-git commit --no-verify --quiet -m "$message" 2>&1 >/dev/null
+git commit --all --no-verify --quiet -m "$message" 2>&1 >/dev/null
 
 if [ $? -eq 0 ] ; then
-    echo "commited"
+    h=$(git rev-parse --short --verify HEAD)
+    echo "saved commit: ${h}"
 else
     echo "nothing to commit"
 fi
