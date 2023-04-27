@@ -583,16 +583,15 @@ Will work on both org-mode and any mode that accepts plain html."
 
 (use-package org
   :defer t
-  :bind (([f6] . org-capture))
   :custom
   (org-hide-emphasis-markers t)
   (org-src-fontify-natively t)
+  ;; this can be modified in local config
   (org-directory "~/code/private")
   (org-log-done t)
   (org-default-notes-file "log.org")
 
   :config
-  (message "first use-package-org")
 
   ;; note - C-c C-, instead of <s for newer org
 
@@ -604,7 +603,6 @@ Will work on both org-mode and any mode that accepts plain html."
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
-  (define-key global-map "\C-cc" 'org-capture)
 
   ;; active Babel languages
   (org-babel-do-load-languages
@@ -629,9 +627,14 @@ Will work on both org-mode and any mode that accepts plain html."
 ;; (org-html-htmlize-output-type 'css)
 ;; )
 
-;; define this ahead of time so the local init can update it
-(defvar dmj-org-capture-templates
-  '(("r" "Reference" entry (file "reference.org")
+
+;; define additional use-package sections in local config
+(use-package org-capture
+  :defer t
+  :bind (([f6] . org-capture)
+         ("\C-cc" . org-capture))
+  :custom
+  (org-capture-templates   '(("r" "Reference" entry (file "reference.org")
      "* %? %^g" :prepend t)
     ;; ("t" "Todo Inbox" entry (file+headline "" "Todos")
     ;;  "* TODO %?\n  Added %u\n  %i" :prepend t)
@@ -641,15 +644,10 @@ Will work on both org-mode and any mode that accepts plain html."
     ("n" "Notes inbox" entry (file+headline "log.org" "Inbox")
      "* %^{Description} %^g %?
 Added: %U")
-    ("t" "make a task" entry (file+datetree "log.org")
+    ("t" "make a task" entry (file+olp+datetree "log.org")
      "* TODO %^{Description} %^g
  %?
-Added: %U")))
-
-(use-package org-capture
-  :defer t
-  :custom
-  (org-capture-templates dmj-org-capture-templates))
+Added: %U"))))
 
 (use-package org-refile
   :defer t
