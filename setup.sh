@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 
-set -e
+# Create links in $HOME from files/folders in the local home/
+# directory. This script tries to avoid overwriting existing files if
+# they have different content, but it isn't fool proof.
+#
+# The end result is the config files in $HOME are symlinked to the
+# files in this folder.
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-
-# Consider:
-# zsh/local/locals.zsh
-#     fpath=(<brew_location>/share/zsh-completions $fpath)
-#     path=(<brew_location>/bin $path)
-
-#!/usr/bin/env bash
 
 safeln() {
     local src dst
@@ -22,27 +19,24 @@ safeln() {
 
     # Full paths work, or relative paths to the dst if you are in the dst's directory
     if [ ! -e "${src}" ]; then
-        echo "src does not exist"
+        echo "${src} does not exist"
     elif [ "${src}" -ef "${dst}" -a -h "${dst}" ]; then
-        echo "they are the same"
+        : # Already linked
     else
-        if [ -e "${dst}" -o -h "${dst}" ]; then
-            local f
-            # Move original out of the way
-            f=$(date "+${dst}.%Y%m%d_%H%M%S")
-            echo "Copying ${dst} to ${f}"
-            mv -n ${dst} ${f}
+        echo "comparing ..."
+        diff ${src} ${dst}
+        if [ $? -eq 0 ]; then
+            echo "files are equal, linking..."
+            ln -sf ${src} ${dst}
+        else
+            echo "*** files are different, not updating"
         fi
-        ln -s ${src} ${dst}
     fi
 }
 
-
-pushd $DIR/home
+cd $DIR/home
 for f in $(ls -A); do
     src=${DIR}/home/${f}
     dst=${HOME}/${f}
     safeln "${src}" "${dst}"
 done
-
-unset -f safeln

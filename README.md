@@ -1,5 +1,11 @@
 # Dotfiles
 
+
+## Setup
+
+These commands will link the config files from this repository into
+`$HOME`.
+
     cd $HOME
     git clone https://github.com/dmj111/.dotfiles.git
     cd .dotfiles
