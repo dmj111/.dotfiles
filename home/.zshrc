@@ -1,19 +1,12 @@
-# START LOCAL CUSTOMIZATION
-# END LOCAL CUSTOMIZATION
-
 # Uncomment for profiling (and go to end of file)
 # zmodload zsh/zprof
 # echo "in ${0:a}"
 
-# Add to this in local.zsh if desired.
+# Add local customizations in these sections to avoid merge conflicts.
+# START LOCAL CUSTOMIZATION
+# END LOCAL CUSTOMIZATION
+
 post_init_hook=()
-
-
-load_if_exists() {
-    [[ -f $1 ]] && builtin source $1
-}
-
-load_if_exists $HOME/.dotfiles/local/pre.zsh
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
@@ -412,8 +405,6 @@ ii() {
     fi
 }
 
-
-load_if_exists $HOME/.dotfiles/local/post.zsh
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
