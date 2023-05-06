@@ -1,3 +1,6 @@
+# This file was from old Bash days.  not sure if it used by anything
+# anymore.
+
 # history search
 "\ep": history-search-backward
 "\en": history-search-forward
