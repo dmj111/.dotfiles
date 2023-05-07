@@ -62,23 +62,16 @@
 	# One line log with graph and iso time
 	lgld = !git lgl --date=iso
 
-
-	# One line log, limit to 20
+	# One line log, limit to 20 commits
 	lg = !git lgl -n 20
 
-	# One line log, --all
+	# One line log, all refs
 	lgla = !git lgl --all
 
-
-        # log --graph --pretty=format:'%Cred%h%Creset \
-	# -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
-	# --abbrev-commit --date=relative \
-	# -n 20
 
 	# http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
 	# one line log with stats
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-
 
 	ci = commit --verbose
 	pick = cherry-pick --sign-off
