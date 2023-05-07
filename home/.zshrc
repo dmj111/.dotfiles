@@ -8,19 +8,6 @@ export DOTFILES_DIR=$HOME/.dotfiles
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
 
-post_init_hook=()
-
-# START LOCAL CUSTOMIZATION
-# END LOCAL CUSTOMIZATION
-
-
-# For example:
-#
-# function local_post () {
-#     fpath=($fpath /usr/local/share/zsh-completions)
-# }
-# post_init_hook+=local_post
-
 #### Notes
 # TODO:
 # - hash -d to hash directory shortcuts
@@ -365,13 +352,6 @@ fi
 # git co o/d/c
 # fpath=(~/.dotfiles/zsh/ $fpath)
 # autoload -- ~/.dotfiles/zsh/[^_]*(:t)
-
-
-
-for f in $post_init_hook; do
-    $f
-done
-
 
 zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
 fpath=($HOME/.zsh $fpath)
