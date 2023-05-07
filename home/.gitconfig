@@ -1,21 +1,5 @@
 # Notes:
 
-# To avoid checking into main and pushing, or setting main as the
-# upstream to a feature branch, use a branch alias for the remote
-# tracking branch.  Aliases here use `aaa` as that alias.
-#
-#
-# set aaa as an alias to the remote "main" branch:
-# (origin/main, origin/develop, upstream/main, whatever.)
-#
-# $ git symbolic-ref refs/heads/aaa refs/remotes/origin/main
-#
-# Then, `git nb <name>` create a new branch, based on curent `aaa`,
-# without tracking.
-#
-# `git dd` diffs the current branch to `aaa`, etc.
-#
-# `git coa` checks out
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
@@ -51,8 +35,15 @@
     changed = green
     untracked = cyan
 
+# One advantage of (simple) aliases is the zsh completion is aware of
+# them and can complete based on the expansion.
 [alias]
-	a = add
+        ## informational aliases
+        ##
+        st = status --short --branch
+
+	# One line log, limit to 20 commits
+	lg = !git lgl -n 20
 
 	# One line log with graph and relative time
 	lgl = log --graph \
@@ -62,21 +53,84 @@
 	# One line log with graph and iso time
 	lgld = !git lgl --date=iso
 
-	# One line log, limit to 20 commits
-	lg = !git lgl -n 20
-
 	# One line log, all refs
 	lgla = !git lgl --all
-
 
 	# http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
 	# one line log with stats
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 
-	ci = commit --verbose
-	pick = cherry-pick --sign-off
+	# show branch information, sorted by date (or reversed)
+	bvv=branch -vv --sort=committerdate
+	rbvv=branch -vv --sort=-committerdate
 
-	st = status --short --branch
+	# Show the most recent commit.
+	last =  !git log -n 1 HEAD
+
+
+        ## shortcuts
+        ##
+	co = checkout
+	a = add
+	ci = commit --verbose
+
+        # Amend commit with current index
+	commend = commit --amend --no-edit
+
+	# checkout `ours`  during merge conflict.
+        ours = "!f() { git checkout --ours $@; git add $@; } ; f "
+
+	# checkout `theirs` during merge conflict.
+        theirs = "!f() { git checkout --theirs $@; git add $@; } ; f "
+
+        ## Commands for working with the main branch
+        ##
+
+        # To avoid checking into main and pushing, or setting main as
+        # the upstream to a feature branch, use a branch alias for the
+        # remote tracking branch.  Aliases here use `aaa` as that
+        # alias.
+
+        # Use this to set `aaa` to point at the main remote, i.e.:
+        # git set-aaa refs/remotes/origin/main
+        set-aaa = symbolic-ref refs/aaa
+
+        # Checkout `aaa` detached to:
+        # - avoid making commits on it directly
+        # - not need to pull/merge/rebase to see the latest version
+        #
+        # `--detach` keeps `git branch ...` working ok.
+        coa = checkout --detach aaa
+
+        # Create a new-branch based on `aaa`, but without a tracking
+        # relationship so we dont' push to it.
+        new-branch = switch --no-track aaa -c
+        nb = new-branch
+
+        # See the diff of what this branch would do to the main branch:
+        dd = diff aaa...
+
+	# See differences with `aaa`.  Commits that are incoming or outgoing.
+        # incm -> incoming main, outm -> outgoing main
+	incm=log ..aaa --decorate
+	outm=log aaa.. --decorate
+
+        # Rebase off of `aaa`
+        rbm = rebase aaa
+
+        ## Safety aliases
+        ##
+
+        # `git please...` is slightly safer than `git push -f`.
+	please = push --force-with-lease
+
+	# Unstage current changes. The -- prevents adding extra
+	# options, specifically `--hard`.
+	unstage = reset HEAD --
+
+        ## Extra
+        ##
+	pick = cherry-pick --sign-off
 
 	# kick off a server
 	serve = daemon --reuseaddr --base-path=. --export-all --verbose
@@ -89,16 +143,6 @@
 	# Prune all remote references
 	prune-all = !git remote | xargs -n 1 git remote prune
 
-	co = checkout
-	cb = checkout -b
-	ci = commit
-
-	# How to unstage.  The -- prevents further args, like... --hard.
-	unstage = reset HEAD --
-
-	# Last commit
-	last =  !git --no-pager log -1 HEAD --
-
 	# Another log version
 	l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset \
 	%s %C(white) %an, %ar%Creset'
@@ -109,47 +153,19 @@
 	# Old log message.
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
 
-        # switch to `aaa`, but detached so that `git bvv` still works
-        coa = checkout --detach aaa
-        new-branch = switch --no-track aaa -c
-        nb = new-branch
-
-        # Compare with what we would take to the main branch:
-        dd = diff aaa...
-
-	# show the merge merge result between two branches without
-	# actually doing the merge.
+	# show the merge result between two branches without actually
+	# doing the merge.
 	obdiff="!f() { git merge-tree `git merge-base ${1} ${2}` ${1} ${2} ; } ; f "
 
 	# Different from upstream
 	inc=log ..@{u} --decorate
 	out=log @{u}.. --decorate
 
-	# Different from main branch
-	incm=log ..aaa --decorate
-	outm=log aaa.. --decorate
-
-        # Rebase off of main
-        rbm = rebase aaa
-
-	# Save all changes to working dir to a commit, and then pop that commit.
-	# Branch -vv shows the status of a branch (and against its upstream)
-	bvv=branch -vv --sort=committerdate
-	rbvv=branch -vv --sort=-committerdate
-
 	# hasm - current branch has the main branch in its history
 	hasm="!git merge-base --is-ancestor aaa HEAD && echo 'contains main' || echo 'does not contain main'"
 	# inm - current branch is in main branch history
 	inm="!git merge-base --is-ancestor HEAD aaa && echo 'contained' || echo 'not contained'"
 
-	# checkout ours during merge conflict.
-        ours = "!f() { git checkout --ours $@; git add $@; } ; f "
-
-	# checkout theirs during merge conflict.
-        theirs = "!f() { git checkout --theirs $@; git add $@; } ; f "
-
-	please = push --force-with-lease
-	commend = commit --amend --no-edit
 	# only unstaged
 	stsh = stash --keep-index
 
@@ -161,7 +177,7 @@
 
 [push]
     # only push branches that are tracking a remote.
-    default=current
+    default=simple
 
 [credential]
     helper = osxkeychain
@@ -177,11 +193,12 @@
 [rebase]
   autosquash = true
 
-# Match org headers
+# Make nicer diffs for org.
 # Set `pat diff=org` in .gitattributes to use.
 [diff "org"]
 	xfuncname = "^\\*+ .*$"
 
+# Make nicer diffs for ledger.
 # Match start of entries
 [diff "ledger"]
 	xfuncname = "^[[:digit:]].*"
@@ -215,5 +232,3 @@
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
-
-
