@@ -1,6 +1,8 @@
 # Uncomment for profiling (and go to end of file)
 # zmodload zsh/zprof
-# echo "in ${0:a}"
+
+# Override below if needed.
+export DOTFILES_DIR=$HOME/.dotfiles
 
 # Add local customizations in these sections to avoid merge conflicts.
 # START LOCAL CUSTOMIZATION
@@ -374,11 +376,8 @@ done
 zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
 fpath=($HOME/.zsh $fpath)
 
-path=($path $HOME/.dotfiles/bin)
+path=($path $DOTFILES_DIR/bin)
 
-
-# Uncomment for profiling
-# zprof
 
 # Generated with : pip completion --zsh
 # pip zsh completion start
@@ -405,20 +404,18 @@ ii() {
     fi
 }
 
-
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
-
 
 promptinit
 prompt ${ZSH_USE_PROMPT:-mine}
 
 typeset -U path
 
-
-# pip zsh completion end
-
-export HOMEBREW_BUNDLE_FILE=$HOME/.dotfiles/Brewfile
+export HOMEBREW_BUNDLE_FILE=$DOTFILES_DIR/Brewfile
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
+
+# Uncomment for profiling
+# zprof

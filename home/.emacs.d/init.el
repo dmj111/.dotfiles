@@ -1,6 +1,9 @@
 ;;; init.el --- Emacs configuration file
 ;;; Commentary:
 
+;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
+
+
 ;; stuff to practice:
 ;; - C-/ to undo
 ;; M-0 (to 9) instead of C-u 8
@@ -203,8 +206,6 @@ init is loaded.")
 ;; Give names to some config directories.
 (defconst my-config-dir (file-name-directory load-file-name)
   "Root directory for the configuration.")
-(defconst my-local-dir (expand-file-name "~/.dotfiles/local/.emacs.d")
-  "Root directory for local configuation.")
 
 (defconst my-config-setup (file-name-as-directory (concat my-config-dir "setup"))
   "Root directory for the configuration.")
@@ -238,9 +239,6 @@ init is loaded.")
 ;; (mapc 'load (file-expand-wildcards my-config-dir))
 
 
-
-;; Add a local lisp directory to the load path.
-(add-to-list 'load-path my-local-dir)
 
 (defvar my-packages
   '(
@@ -289,9 +287,6 @@ init is loaded.")
 
 ;; START LOCAL CUSTOMIZATION
 ;; END LOCAL CUSTOMIZATION
-
-;; Try to load local settings ahead of time
-(require 'init-local-preload nil t)
 
 
 (require 'package)
@@ -802,7 +797,7 @@ Added: %U"))))
 
 (use-package pyvenv
   :config
-  ;; Set in init-local if in a different location
+  ;; Set this configuration in local customizations if needed
   (setenv "WORKON_HOME"   (expand-file-name "~/miniconda3/envs")))
 
 ;; M-x elpy-rpc-reinstall-virtualenv to fix "peculiar error" message
@@ -857,28 +852,16 @@ If SUBMODE is not provided, use `LANG-mode' by default."
           "markdown" "python" "r" "xml")))
 
 
-
-
-
-;; Load the local file, if it exists.
-(require 'init-local nil t)
-
 ;; Consider something like this in local:
-;;;; Example init-local.el
 ;;(add-to-list 'exec-path "/usr/local/bin" t)
 ;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 ;;(setq my-default-theme 'zenburn)
 ;; modus
 ;; ef-themes
 
-;; (provide 'init-local)
-
 ;; START LOCAL CUSTOMIZATION
 ;; END LOCAL CUSTOMIZATION
 
-
-
-;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
 
 
 (provide 'init)
@@ -886,7 +869,6 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 
 ;;  (outline-hide-subtree))
-
 ;; Local Variables:
 ;; eval: (outline-minor-mode 1)
 ;; eval: (while (re-search-forward outline-regexp nil t)  (outline-hide-subtree)))

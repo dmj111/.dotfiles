@@ -9,12 +9,14 @@ case "$TERM" in
         ;;
 esac
 
-# Try to run zshrc if NO_SWITCH is not set
 function run_zsh {
     zsh_exe=$1
     [ -f ${zsh_exe} ] && exec ${zsh_exe} -l
 }
 
+# This is for systems that default to bash but I want to use zsh.
+# Sometimes I need bash for a specific task on those systems, so
+# `NO_SWITCH=1 bash` is supposed to skip starting zsh
 if [ -z $NO_SWITCH ]; then
     case "$-" in
         *i*)
@@ -26,8 +28,6 @@ if [ -z $NO_SWITCH ]; then
 fi
 
 
-
-
 function load_if_exists() {
     if [ -r $1 ]; then
         echo "loading $1"
@@ -35,7 +35,6 @@ function load_if_exists() {
     fi
 }
 
-load_if_exists ~/.dotfiles/local/.bashrc-pre
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
@@ -59,14 +58,9 @@ export EDITOR=vim
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
 
-
-
-
-
 function restart {
     NO_SWITCH=1 exec bash -l
 }
-
 
 
 PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -131,7 +125,6 @@ PROMPT_COMMAND='history -a'
 shopt -s histappend
 
 
-load_if_exists ~/.dotfiles/local/.bashrc
 
 prompt_func
 
@@ -148,7 +141,8 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
     export PS1='\w$(__git_ps1 " (%s)")\$ '
 fi
 
-load_if_exists ~/.dotfiles/local/.bashrc-post
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
+
+unset -f load_if_exists

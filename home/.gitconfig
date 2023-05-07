@@ -20,7 +20,6 @@
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
 
-
 [core]
     excludesfile = ~/.gitexcludes
     pager = less -F -X -R
@@ -199,16 +198,15 @@
 [diff "ledger"]
 	xfuncname = "^[[:digit:]].*"
 
-[include]
-	path = ~/.dotfiles/local/.gitconfig
+# How to include another file:
+# [include]
+# 	path = ~/.dotfiles/local/.gitconfig
 
 
 # Use this to mark org headings as "functions" in get diff.
 # Need "*.org diff=org" in gitattributes somewhere.
-
 [diff "org"]
 	xfuncname = "^\\*+ .*$"
-
 
 [pull]
         ff = only
@@ -216,19 +214,16 @@
 [init]
 	defaultBranch = main
 
+# To simplify local development of the dotfiles main branch, put the
+# user name/email config in .git/config of the repo
 
 # In local gitconfig:
 # ----
 # [user]
 #   name =
 #   email =
-
 # [github]
 #   user =
-
-# To simplify local development of the main branch,
-# put the user name/email config in .git/config of the
-# .dotfiles repo
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
