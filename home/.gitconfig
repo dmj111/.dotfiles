@@ -54,18 +54,13 @@
 [alias]
 	a = add
 
-	# One line log,
-	lgl = log --graph --pretty=format:'%Cred%h%Creset \
-	-%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' \
+	# One line log with graph and relative time
+	lgl = log --graph \
+        --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd)%Creset' \
 	--abbrev-commit --date=relative
 
-
-	lgld = log --graph --date=iso \
-        --pretty=format:'%Cred%h%Creset %C(yellow)%ad%Creset %s %Cgreen(%cr)%Creset' \
-	--abbrev-commit
-
-#Format:'%Y-%m-%d'
-
+	# One line log with graph and iso time
+	lgld = !git lgl --date=iso
 
 
 	# One line log, limit to 20
