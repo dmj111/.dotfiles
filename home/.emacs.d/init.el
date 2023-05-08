@@ -344,13 +344,13 @@ init is loaded.")
   (global-unset-key (kbd (format "C-%d" (+ 1 n))))
   (global-unset-key (kbd (format "M-%d" (+ 1 n)))))
 
-(defvar dmj-map nil "Hold user key map.")
-(define-prefix-command 'dmj-map)
-(global-set-key (kbd "C-1") 'dmj-map)
+(defvar my-map nil "Hold user key map.")
+(define-prefix-command 'my-map)
+(global-set-key (kbd "C-1") 'my-map)
 
-(define-key dmj-map (kbd "r") 'recompile)
-(define-key dmj-map (kbd "l") 'delete-trailing-whitespace)
-(define-key dmj-map (kbd "w") 'whitespace-mode)
+(define-key my-map (kbd "r") 'recompile)
+(define-key my-map (kbd "l") 'delete-trailing-whitespace)
+(define-key my-map (kbd "w") 'whitespace-mode)
 
 
 
@@ -359,7 +359,7 @@ init is loaded.")
 (use-package avy
   :bind (
          ("C-:" . avy-goto-char)
-         :map dmj-map
+         :map my-map
          ("w" . avy-goto-word-1)
          ("1" . avy-goto-char-timer)))
 
