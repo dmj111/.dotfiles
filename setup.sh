@@ -20,18 +20,22 @@ safeln() {
     # Full paths work, or relative paths to the dst if you are in the dst's directory
     if [ ! -e "${src}" ]; then
         echo "${src} does not exist"
+        return
     elif [ "${src}" -ef "${dst}" -a -h "${dst}" ]; then
-        : # Already linked
-    else
-        echo "comparing ..."
+        echo "already linked"
+        return
+    elif [ -e "${dst}" ]; then
         diff ${src} ${dst}
-        if [ $? -eq 0 ]; then
-            echo "files are equal, linking..."
-            ln -sf ${src} ${dst}
+        if [ $? -ne 0 ]; then
+            echo "*** files are different, not linking"
+            return
         else
-            echo "*** files are different, not updating"
+            echo "files are equal, linking..."
         fi
+    else
+        echo "${dst} does not exist, linking..."
     fi
+    # ln -sf ${src} ${dst}
 }
 
 cd $DIR/home
