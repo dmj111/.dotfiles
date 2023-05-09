@@ -390,6 +390,10 @@ ii() {
 promptinit
 prompt ${ZSH_USE_PROMPT:-mine}
 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
 typeset -U path
 
 export HOMEBREW_BUNDLE_FILE=$DOTFILES_DIR/Brewfile
