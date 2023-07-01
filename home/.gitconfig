@@ -177,7 +177,7 @@
 
 [push]
     # only push branches that are tracking a remote.
-    default=simple
+    default=current
 
 [credential]
     helper = osxkeychain
