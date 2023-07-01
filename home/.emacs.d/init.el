@@ -376,9 +376,8 @@ init is loaded.")
 
 ;;; move-text
 (use-package move-text
-  :config
-  (global-set-key [\M-\S-up] 'move-text-up)
-  (global-set-key [\M-\S-down] 'move-text-down))
+  :bind (("M-S-<up>" . move-text-up)
+         ("M-S-<down>" . move-text-down)))
 
 
 ;;; crux
