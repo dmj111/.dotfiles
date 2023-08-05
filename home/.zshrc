@@ -353,6 +353,8 @@ fi
 # fpath=(~/.dotfiles/zsh/ $fpath)
 # autoload -- ~/.dotfiles/zsh/[^_]*(:t)
 
+# If git completion starts complaining, check if this file exists, and
+# cleanup any ~/.zcompcache|dump dirs and restart the shell.
 zstyle ':completion:*:*:git:*' script $HOME/.zsh/git-completion.bash
 fpath=($HOME/.zsh $fpath)
 
