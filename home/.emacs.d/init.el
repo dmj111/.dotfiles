@@ -862,6 +862,8 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 ;; END LOCAL CUSTOMIZATION
 
 
+;; Make epg work with newer gpgs
+(fset 'epg-wait-for-status 'ignore)
 
 (provide 'init)
 ;;; init.el ends here
