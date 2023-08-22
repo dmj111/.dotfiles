@@ -175,8 +175,11 @@ if type brew &>/dev/null; then
 fi
 
 #### Completion
-autoload -U compinit
+autoload -Uz compinit bashcompinit
 compinit -i -D
+bashcompinit
+
+
 zmodload zsh/complist
 
 
@@ -404,4 +407,5 @@ export HOMEBREW_BUNDLE_FILE=$DOTFILES_DIR/Brewfile
 # END LOCAL CUSTOMIZATION
 
 # Uncomment for profiling
+# time  zsh -i -c exit
 # zprof
