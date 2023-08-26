@@ -17,6 +17,7 @@ import git
 @click.option("-v", "--verbose", is_flag=True, default=False)
 @click.argument("repopath", default=".", type=click.Path(exists=True))
 def cli(force, repopath, verbose):
+    """Remove branches that are deleted from the remote."""
     repo = git.Repo(repopath, search_parent_directories=True)
 
     branches = list_gone_branches(repo, verbose)
@@ -32,6 +33,7 @@ def cli(force, repopath, verbose):
         click.echo("deleting!!")
         for b in branches:
             # Delete even if not merged into the current branch
+            # Print the sha to make it easier to recover
             click.echo(f"{b.name}  {b.commit.hexsha[:10]}")
             b.delete(repo, b.name, force=True)
 

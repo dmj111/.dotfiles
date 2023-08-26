@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dmj-tools"
+version = "0.9"
+authors = [
+    {name = "Dave Jones"},
+]
+description = "Shell tools to reuse across machines"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+]
+dependencies = [
+             "click ~= 8.1",
+             "gitpython ~= 3.1",
+]
+
+[project.scripts]
+git-clean-gone = "git_clean_gone:cli"
