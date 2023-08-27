@@ -14,27 +14,14 @@ These commands will link the config files from this repository into
 
 ## Directories
 
-- bin -- scripts
+- bin -- bash scripts
 - dmj-tools -- python package with user tools
 - home/ -- files/folder to link into ~/
 
 
 ## Using pipx/pre-commit/flake8
 
-- installing pipx:
-  - system python / brew python sometimes get updated out from
-    underneath you
-  - can create a conda environment to work from
-    - conda create -n pipx-env python=3.11
-    - conda activate pipx-env
-    - python -m pip install pipx
-    - ln -s $(which pipx) ~/.local/bin/pipx
-    - then pipx can be run without being in the environment, and it
-      won't get altered unless you alter the conda env.
-
-- add ~/.local/bin to path in the local config
 - install some libraries
-
         python3 -m pip install --user --force pip
         pip install --user pipx
         pipx install pre-commit
