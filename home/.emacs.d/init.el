@@ -858,6 +858,14 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 ;; modus
 ;; ef-themes
 
+(use-package epg
+  :defer t
+  :config
+  ;; ?? 
+  (setq epg-pinentry-mode 'loopback)
+  ;; make saving work better in org mode
+  (fset 'epg-wait-for-status 'ignore))
+
 ;; START LOCAL CUSTOMIZATION
 ;; END LOCAL CUSTOMIZATION
 
