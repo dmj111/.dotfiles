@@ -601,7 +601,7 @@ Will work on both org-mode and any mode that accepts plain html."
   ;; active Babel languages
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '(;; (sh . t)
+   '((shell . t)
      (emacs-lisp . t)
      (python . t)
      ))
