@@ -168,20 +168,6 @@ alias ducmd='du -cmxd 1'
 alias tm='tmux new-session -A -s main'
 alias sc='screen -d -r || screen'
 
-if type brew &>/dev/null; then
-    function() {
-        local brew_dir=$(brew --prefix)
-        if [[ -d ${brew_dir}/share/zsh-completions ]]; then
-            fpath=(${brew_dir}/share/zsh-completions $fpath)
-        fi
-        # Avoid using the wrong git completions
-        f=${brew_dir}/share/zsh/site-functions/git-completion.bash
-        [ -e $f ] && rm $f
-        f=${brew_dir}/share/zsh/site-functions/_git
-        [ -e $f ] && rm $f
-    }
-fi
-
 #### Completion
 autoload -Uz compinit bashcompinit
 compinit -i -D
