@@ -210,6 +210,8 @@ init is loaded.")
 (defconst my-config-setup (file-name-as-directory (concat my-config-dir "setup"))
   "Root directory for the configuration.")
 
+(add-to-list 'load-path (concat my-config-dir "lisp"))
+
 (setq custom-file (expand-file-name "custom.el" my-config-dir))
 
 (when (file-exists-p custom-file)
@@ -284,6 +286,8 @@ init is loaded.")
 ;; my-packages can be modified in init-local-preload.el to add/remove
 ;; packages for a specific deployment.
 
+
+(require 'init-local-preload nil t)
 
 ;; START LOCAL CUSTOMIZATION
 ;; END LOCAL CUSTOMIZATION
@@ -866,6 +870,7 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   ;; make saving work better in org mode
   (fset 'epg-wait-for-status 'ignore))
 
+(require 'init-local nil t)
 ;; START LOCAL CUSTOMIZATION
 ;; END LOCAL CUSTOMIZATION
 
