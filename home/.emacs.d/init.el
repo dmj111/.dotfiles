@@ -287,9 +287,8 @@ init is loaded.")
 ;; packages for a specific deployment.
 
 
-(require 'init-local-preload nil t)
-
 ;; START LOCAL CUSTOMIZATION
+(require 'init-local-preload nil t)
 ;; END LOCAL CUSTOMIZATION
 
 
@@ -870,8 +869,8 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   ;; make saving work better in org mode
   (fset 'epg-wait-for-status 'ignore))
 
-(require 'init-local nil t)
 ;; START LOCAL CUSTOMIZATION
+(require 'init-local nil t)
 ;; END LOCAL CUSTOMIZATION
 
 

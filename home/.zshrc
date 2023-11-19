@@ -5,8 +5,8 @@
 export DOTFILES_DIR=$HOME/.dotfiles
 
 # Add local customizations in these sections to avoid merge conflicts.
-[ -f $HOME/.zsh/local-pre.zsh ] && source $HOME/.zsh/local-pre.zsh
 # START LOCAL CUSTOMIZATION
+[ -f $HOME/.zsh/local-pre.zsh ] && source $HOME/.zsh/local-pre.zsh
 # END LOCAL CUSTOMIZATION
 
 #### Notes
@@ -383,22 +383,22 @@ ii() {
     fi
 }
 
-[ -f $HOME/.zsh/local.zsh ] && source $HOME/.zsh/local.zsh
+
 # START LOCAL CUSTOMIZATION
+[ -f $HOME/.zsh/local.zsh ] && source $HOME/.zsh/local.zsh
 # END LOCAL CUSTOMIZATION
 
 promptinit
 prompt ${ZSH_USE_PROMPT:-mine}
 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 typeset -U path
 
 export HOMEBREW_BUNDLE_FILE=$DOTFILES_DIR/Brewfile
 
-[ -f $HOME/.zsh/local-post.zsh ] && source $HOME/.zsh/local-post.zsh
+
 # START LOCAL CUSTOMIZATION
+[ -f $HOME/.zsh/local-post.zsh ] && source $HOME/.zsh/local-post.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # END LOCAL CUSTOMIZATION
 
 # Uncomment for profiling
