@@ -1,4 +1,5 @@
 # START LOCAL CUSTOMIZATION
+# source .screenrc-local-pre
 # END LOCAL CUSTOMIZATION
 
 startup_message off
@@ -18,4 +19,5 @@ hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= 
 # '"%{= KW} %H [%`] %{= Kw}|%{-} %-Lw%{= bW}%n%f %t%{-}%+Lw %=%C%a %Y-%M-%d"'
 
 # START LOCAL CUSTOMIZATION
+# source .screenrc-local-post
 # END LOCAL CUSTOMIZATION

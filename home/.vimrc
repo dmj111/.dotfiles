@@ -1,4 +1,5 @@
 " START LOCAL CUSTOMIZATION
+" source .vimrc.local.pre
 " END LOCAL CUSTOMIZATION
 
 set nocompatible  " avoid vi compatibility
@@ -69,4 +70,5 @@ if has("autocmd")
 endif
 
 " START LOCAL CUSTOMIZATION
+" source .vimrc.local.post
 " END LOCAL CUSTOMIZATION
