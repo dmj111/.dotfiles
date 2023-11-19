@@ -231,4 +231,6 @@
 #   user =
 
 # START LOCAL CUSTOMIZATION
+[include]
+   path = ~/.dotfiles/home/.local.gitconfig
 # END LOCAL CUSTOMIZATION
