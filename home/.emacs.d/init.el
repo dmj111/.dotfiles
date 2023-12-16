@@ -683,6 +683,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 ;;; ledger
 (use-package ledger-mode
+  :defer t
   :mode "\\.ledger$")
 
 
