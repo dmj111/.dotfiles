@@ -35,7 +35,7 @@ safeln() {
     else
         echo "${dst} does not exist, linking..."
     fi
-    # ln -sf ${src} ${dst}
+    ln -sf ${src} ${dst}
 }
 
 cd $DIR/home

@@ -666,7 +666,7 @@ Will work on both org-mode and any mode that accepts plain html."
   :after ivy
   :diminish projectile-mode
   :bind-keymap
-  ("C-x p" . projectile-command-map)
+  ("C-c p" . projectile-command-map)
   :config
   (setq
    projectile-completion-system 'ivy
@@ -675,6 +675,9 @@ Will work on both org-mode and any mode that accepts plain html."
    )
   (projectile-mode t))
 
+(use-package
+  counsel-projectile
+  :ensure t)
 
 ;;; Mode specific
 
