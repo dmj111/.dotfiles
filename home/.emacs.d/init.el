@@ -678,7 +678,10 @@ Will work on both org-mode and any mode that accepts plain html."
    projectile-enable-caching t
    ;; projectile-project-search-path '("~/code" "~/.dotfiles")
    )
-  (projectile-mode t))
+  (projectile-mode t)
+  (add-hook 'projectile-after-switch-project-hook
+            (lambda () (message "switching projects %s" (projectile-project-root))))
+  )
 
 (use-package
   counsel-projectile
