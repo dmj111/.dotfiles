@@ -822,7 +822,8 @@ Will work on both org-mode and any mode that accepts plain html."
 ;;; js
 (use-package js2-mode
   :mode (("\\.json\\'" . js-mode)
-         ("\\.js\\'" . js2-mode))
+         ("\\.js\\'" . js2-mode)
+         ("\\.mjs\\'" . js2-mode))
   :init
   (add-hook 'js-mode-hook 'js2-minor-mode)
   :custom
