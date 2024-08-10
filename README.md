@@ -12,6 +12,17 @@ These commands will link the config files from this repository into
     ./setup.sh
 
 
+### Setting local settings for email/user
+
+This is mostly for working on main.  A local branch should put this
+info in .local.gitconfig
+
+
+    git config --local user.name <name>
+    git config --local user.email <email>
+
+
+
 ## Directories
 
 - bin -- bash scripts
