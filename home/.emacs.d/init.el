@@ -683,9 +683,9 @@ Will work on both org-mode and any mode that accepts plain html."
             (lambda () (message "switching projects %s" (projectile-project-root))))
   )
 
-(use-package
-  counsel-projectile
-  :ensure t)
+;; (use-package
+;;   counsel-projectile
+;;   :ensure t)
 
 ;;; Mode specific
 
