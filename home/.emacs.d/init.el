@@ -502,6 +502,11 @@ init is loaded.")
 
 ;;; org-mode
 
+
+;; To keep the date timestamps fixed with
+;; '(org-date ((t (:inherit fixed-pitch :foreground "#4fb0cf"))))
+
+
 (defvar my-org-font-heading
   (cond
    ((not (display-graphic-p)) nil)
