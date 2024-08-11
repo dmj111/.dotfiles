@@ -232,5 +232,5 @@
 
 # START LOCAL CUSTOMIZATION
 [include]
-   path = ~/.dotfiles/home/.local.gitconfig
+   path = ~/.dotfiles/.local.gitconfig
 # END LOCAL CUSTOMIZATION
