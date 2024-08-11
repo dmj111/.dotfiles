@@ -383,6 +383,8 @@ ii() {
     fi
 }
 
+alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
+
 
 # START LOCAL CUSTOMIZATION
 [ -f $HOME/.zsh/local.zsh ] && source $HOME/.zsh/local.zsh
