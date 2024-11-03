@@ -8,7 +8,7 @@ These commands will link the config files from this repository into
 
     cd $HOME
     git init --separate-git-dir=.dotfiles.git
-    git remote add upstream git@github.com:dmj111/.dotfiles.git
+    git remote add upstream https://github.com/dmj111/.dotfiles.git
     git fetch
     git checkout -b keep-changes
     git reset upstream/main
