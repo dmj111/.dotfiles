@@ -3,6 +3,18 @@
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
 
+;; DEBUGGING
+;; - write out the dribble file here
+;; - pkill -SIGUSR2 Emacs when stuck
+;; - package-activated-list to see what is active
+
+
+;;;; Debugging settings.
+
+;; Debug if there is an error
+(setq debug-on-error nil)
+(setq debug-on-quit nil)
+
 
 ;; stuff to practice:
 ;; - C-/ to undo
@@ -31,10 +43,6 @@
 
 ;;; Code:
 
-;;;; Debugging settings.
-
-;; Debug if there is an error
-;; (setq debug-on-error t)
 
 ;;; TODO:
 ;;; Initial setup
@@ -54,7 +62,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'qrr 'query-replace-regexp)
 
-
+;; Some defaults i want everywhere
 (setq-default indent-tabs-mode nil)
 (column-number-mode 1)
 (show-paren-mode 1)
@@ -190,14 +198,19 @@ init is loaded.")
 
 ;;; theme
 
-(defvar my-default-theme 'ef-night
-  "Default theme to load at startup.")
+(defcustom my-default-theme nil
+  "Default theme to load at startup."
+  :type 'symbol
+  )
+
+;; (setq my-default-theme nil)
 
 (add-hook 'emacs-startup-hook
             (lambda ()
               (when my-default-theme
                 (message "loading the theme...")
-                (load-theme my-default-theme t))))
+                (load-theme my-default-theme t))
+                (toggle-frame-maximized)))
 
 
 ;;; configuration settings
@@ -214,77 +227,14 @@ init is loaded.")
 
 (setq custom-file (expand-file-name "custom.el" my-config-dir))
 
+;; load custom file in after-init-hook so it happens before the
+;; startup hook.
 (when (file-exists-p custom-file)
   (add-hook 'after-init-hook
             (lambda ()
               (load custom-file))))
 
-
-
 (require 'cl-lib)
-
-;; (defun my-el-files (dir)
-;;   "Return list of el files in DIR, except auto-saves and custom.el."
-;;   (cl-delete-if
-;;    (lambda (f) nil
-;;      (or  (string-match-p "/custom.el\\'" f)
-;;           (string-match-p "~\\|#" f))
-;;      )
-;;    (file-expand-wildcards (file-name-concat  dir "*.el")))
-;;   )
-
-;; (defun my-load-el-files (dir)
-;;   "Load .el files in DIR, except auto-saves and custom.el."
-;;   (mapc 'load (my-el-files dir)))
-
-;; (mapc 'load (file-expand-wildcards (concat  my-local-dir "*.el")))
-;; (mapc 'load (file-expand-wildcards my-config-dir))
-
-
-
-(defvar my-packages
-  '(
-    ansi-color
-    avy
-    clang-format
-    company
-    conda
-    counsel
-    cpputils-cmake
-    crux
-    dash
-    diminish
-    ef-themes
-    elpy
-    flycheck
-    flycheck-clang-tidy
-    google-c-style
-    hydra
-    ivy
-    js2-mode
-    magit
-    markdown-mode
-    mmm-mode
-    move-text
-    org-bullets
-    paredit
-    projectile
-    python
-    pyvenv
-    rainbow-mode
-    recentf
-    smex
-    swiper
-    undo-tree
-    use-package
-    wgrep
-    yasnippet
-    )
-  "Packages to install."
-  )
-
-;; my-packages can be modified in init-local-preload.el to add/remove
-;; packages for a specific deployment.
 
 
 ;; START LOCAL CUSTOMIZATION
@@ -302,29 +252,7 @@ init is loaded.")
 ;; (package-refresh-contents)
 (unless package-archive-contents  (package-refresh-contents))
 
-(defun my-load-packages (packages &optional refreshed)
-  (when (not (null packages))
-    (let ((pkg (car packages))
-          (rest (cdr packages)))
-      (if (package-installed-p pkg)
-          (my-load-packages rest refreshed)
-        (when (not refreshed)
-          (message "refreshing package contents")
-          (package-refresh-contents))
-        (message "Installing ~a" pkg)
-        (package-install pkg)
-        (my-load-packages rest t)))))
-
-(my-load-packages my-packages)
-
 (require 'use-package)
-
-(use-package does-not-exist
-  :disabled)
-
-(use-package dash)
-(use-package diminish)
-
 ;; use-package quick notes:
 ;; :init  - before load
 ;; :config - after load
@@ -338,11 +266,25 @@ init is loaded.")
 
 ;; Load local settings files
 
+;; (use-package does-not-exist
+;;   :disabled)
+
+(use-package dash)
+(use-package diminish
+  :ensure t)
+
+
+(use-package ef-themes
+  :custom
+  (my-default-theme 'ef-night))
+
+
 ;; (my-load-el-files my-config-setup)
 
 ;;; ui setup
 ;; http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/
 ;; unset C- and M- digit keys
+
 (dotimes (n 9)
   (global-unset-key (kbd (format "C-%d" (+ 1 n))))
   (global-unset-key (kbd (format "M-%d" (+ 1 n)))))
@@ -358,17 +300,18 @@ init is loaded.")
 
 
 
-;;; avy
-(use-package avy
-  :bind (
-         ("C-:" . avy-goto-char)
-         :map my-map
-         ("w" . avy-goto-word-1)
-         ("1" . avy-goto-char-timer)))
+;; ;;; avy
+;; (use-package avy   :disabled
+;;   :bind (
+;;          ("C-:" . avy-goto-char)
+;;          :map my-map
+;;          ("w" . avy-goto-word-1)
+;;          ("1" . avy-goto-char-timer)))
 
 
 ;;;; undo-tree
 (use-package undo-tree
+  :ensure t
   :config
   (global-undo-tree-mode t)
   :custom
@@ -377,15 +320,15 @@ init is loaded.")
   (undo-tree-visualizer-timestamps t)
   )
 
-;;; move-text
-(use-package move-text
-  :bind (("M-S-<up>" . move-text-up)
-         ("M-S-<down>" . move-text-down)))
+;; ;;; move-text
+;; (use-package move-text   :disabled
+;;   :bind (("M-S-<up>" . move-text-up)
+;;          ("M-S-<down>" . move-text-down)))
 
 
-;;; crux
-(use-package crux
-  :bind (("C-c o" . crux-open-with)))
+;; ;;; crux
+;; (use-package crux   :disabled
+;;   :bind (("C-c o" . crux-open-with)))
 
 ;;; ivy
 ;; interesting for later:
@@ -395,7 +338,7 @@ init is loaded.")
 
 ;; https://sam217pa.github.io/2016/09/11/nuclear-power-editing-via-ivy-and-ag/
 (use-package ivy
-  :defer 0.1
+  :defer 1
   :diminish ivy-mode
   :bind (("C-c C-r" . ivy-resume)
          ("C-x b" . ivy-switch-buffer)
@@ -418,30 +361,38 @@ init is loaded.")
   ;; configure regexp engine.
   (setq ivy-re-builders-alist
         ;; allow input not in order
-        '((t   . ivy--regex-ignore-order))))
+        '((t . ivy--regex-ignore-order))))
 
 ;;; counsel
 ;; install smex for counsel-M-x
 (use-package counsel
+  ;; :disabled still locked up without counsel
+  :disabled t
   :after ivy
+  ;; :defer
   :bind
   (
    ("C-x C-r" . counsel-recentf)
-   ("<f1> f" . counsel-describe-function)
-   ("<f1> v" . counsel-describe-variable)
-   ("<f1> l" . counsel-load-library)
-   ("<f2> i" . counsel-info-lookup-symbol)
-   ("<f2> u" . counsel-unicode-char)
-   ("C-c g" . counsel-git)
-   ("C-c j" . counsel-git-grep)
-   ("C-c k" . counsel-ag)
-   ("C-x l" . counsel-locate))
-  :config (counsel-mode))
+   ;; ("<f1> f" . counsel-describe-function)
+   ;; ("<f1> v" . counsel-describe-variable)
+   ;; ("<f1> l" . counsel-load-library)
+   ;; ("<f2> i" . counsel-info-lookup-symbol)
+   ;; ("<f2> u" . counsel-unicode-char)
+   ;; ("C-c g" . counsel-git)
+   ;; ("C-c j" . counsel-git-grep)
+   ;; ("C-c k" . counsel-ag)
+   ;; ("C-x l" . counsel-locate))
+   )
+  :config
+  (counsel-mode 1))
 
 
-;;; swiper
+;; swiper
 ;; https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
+
 (use-package swiper
+  ;; :disabled t
+  ;; :defer t
   ;; C-j to select current
   ;; C-M-j to select current value (creat new file)
   ;; M-j to select word at point.
@@ -452,20 +403,23 @@ init is loaded.")
          ;; ("C-r" . swiper-backward)
          ))
 
-;;; recentf
-(use-package recentf
-  :config
-  (recentf-mode 1)
-  :custom
-  (recentf-max-saved-items 200)
-  (recentf-max-menu-items 15))
+
+;; ;; recentf
+;; (use-package recentf
+;;   :config
+;;   (recentf-mode 1)
+;;   :custom
+;;   (recentf-max-saved-items 50)
+;;   (recentf-max-menu-items 15)
+;;   )
 
 
 ;;; magit
 (use-package magit
+  :ensure t
+  ;; :defer t
   :bind (("\C-xg" . magit-status))
   :config
-
   ;; (eval-after-load 'swiper
   ;;   (setq magit-completing-read-function 'ivy-completing-read))
 
@@ -477,13 +431,17 @@ init is loaded.")
     ad-do-it
     (delete-other-windows)))
 
+
 ;;; paredit
 (use-package paredit
   :init
+  :defer t
+  :config
   (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode))))
 
 
 (use-package flycheck
+  :defer t
   :config
   ;; TODO [ ] https://github.com/abo-abo/hydra/wiki/Flycheck
   ;; Force flycheck to always use c++11 support. We use
@@ -496,8 +454,7 @@ init is loaded.")
 
   ;; Requires pylint and flake8 to be installed.
   ;; (flycheck-add-next-checker `python-pylint '(warning . python-flake8))
-  (setq  flycheck-python-flake8-executable "flake8")
-  )
+  (setq  flycheck-python-flake8-executable "flake8"))
 
 
 ;;; org-mode
@@ -507,6 +464,7 @@ init is loaded.")
 ;; '(org-date ((t (:inherit fixed-pitch :foreground "#4fb0cf"))))
 
 
+;; TODO: defcustom
 (defvar my-org-font-heading
   (cond
    ((not (display-graphic-p)) nil)
@@ -553,6 +511,7 @@ init is loaded.")
        `(variable-pitch ((t (:height 180 :weight thin ,@my-org-font-variable))))
        `(fixed-pitch ((t (:height 160 ,@my-org-font-fixed))))
        '(org-block ((t (:inherit fixed-pitch))))
+       '(org-date ((t (:inherit fixed-pitch :foreground "#4fb0cf"))))
        '(org-table ((t (:inherit fixed-pitch))))
        '(org-code ((t (:inherit (shadow fixed-pitch)))))
        ;; '(org-document-info ((t (:foreground "dark orange"))))
@@ -565,23 +524,6 @@ init is loaded.")
        ;;   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
        '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
        '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))))
-
-;; http://endlessparentheses.com/inserting-the-kbd-tag-in-org-mode.html?source=rss
-(defun endless/insert-key (key)
-  "Ask for a key then insert its description.
-Will work on both org-mode and any mode that accepts plain html."
-  (interactive "kType key sequence: ")
-  (let* ((is-org-mode (derived-mode-p 'org-mode))
-         (tag (if is-org-mode
-                  "@@html:<kbd>%s</kbd>@@"
-                "<kbd>%s</kbd>")))
-    (if (null (equal key "
-"))
-        (insert
-         (format tag (help-key-description key nil)))
-      (insert (format tag ""))
-      (forward-char (if is-org-mode -8 -6)))))
-
 
 (use-package org
   :defer t
@@ -633,8 +575,9 @@ Will work on both org-mode and any mode that accepts plain html."
 ;; define additional use-package sections in local config
 (use-package org-capture
   :defer t
-  :bind (([f6] . org-capture)
-         ("\C-cc" . org-capture))
+  :bind
+  (([f6] . org-capture)
+   ("\C-cc" . org-capture))
   :custom
   (org-capture-templates
    '(("r" "Reference" entry (file "reference.org")
@@ -660,10 +603,11 @@ Will work on both org-mode and any mode that accepts plain html."
   (org-refile-targets (quote ((nil :maxlevel . 3)))))
 
 (use-package org-bullets
+  :ensure t
+  :after org
   :defer t
-  :init
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
+  :hook org-mode
+  )
 
 
 ;;; projectile
@@ -726,6 +670,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 ;; http://stackoverflow.com/a/13408008
 (use-package ansi-color
+  :defer t
   :commands ansi-color-apply-on-region
   :init
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
@@ -734,6 +679,7 @@ Will work on both org-mode and any mode that accepts plain html."
     (ansi-color-apply-on-region compilation-filter-start (point))))
 
 (use-package company
+  :defer t
   :config
   (global-company-mode 1))
 
@@ -743,15 +689,19 @@ Will work on both org-mode and any mode that accepts plain html."
   :mode "\\.h\\'")
 
 (use-package google-c-style
+  :defer t
+  :commands google-set-c-style
   :init
   (add-hook 'c-mode-common-hook 'google-set-c-style))
 
 ;; http://syamajala.github.io/c-ide.html
 ;; cpputils-cmake
-(use-package cpputils-cmake)
+(use-package cpputils-cmake
+  :defer t)
 
 ;; Make sure clang-tidy is on exec path
 (use-package flycheck-clang-tidy
+  :defer t
   :after flycheck
   :init
   (add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
@@ -768,10 +718,13 @@ Will work on both org-mode and any mode that accepts plain html."
             nil t))
 
 (use-package clang-format
-  :commands clang-format-region
+  :defer t
+  :ensure t
+  :commands clang-format-region clang-format-buffer
   :bind  (([C-M-tab] . clang-format-region))
-  :config
-  (add-hook 'c++-mode  #'my-add-clang-format-hook))
+  :init
+  (add-hook 'c++-mode-hook  #'my-add-clang-format-hook)
+)
 
 ;; To get tabs in c++ code
 ;; // L o c a l Variables:
@@ -794,32 +747,37 @@ Will work on both org-mode and any mode that accepts plain html."
   (message "ran my-python-mode-hook"))
 
 (use-package python
+  :defer t
   :init
-  (add-hook 'python-mode-hook 'my-python-mode-hook)
-
-  ;; (use-package flymake-python-pyflakes-autoloads
-  ;;   :init
-  ;;   (add-hook 'python-mode-hook 'flymake-python-pyflakes-load))
-
-  ;; (use-package jedi-autoloads
-  ;;   :init
-  ;;   (add-hook 'python-mode-hook 'jedi:setup)
-  ;;   (setq jedi:setup-keys t)
-  ;;   (setq jedi:complete-on-dot t))
-  )
+  (add-hook 'python-mode-hook 'my-python-mode-hook))
 
 
-(use-package pyvenv
-  :config
-  ;; Set this configuration in local customizations if needed
-  (setenv "WORKON_HOME"   (expand-file-name "~/miniconda3/envs")))
+(use-package jedi-autoloads
+  :if (package-installed-p 'jedi-autoloads)
+  :after python
+  :init
+  (message "jedi autoloads load")
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:setup-keys t)
+  (setq jedi:complete-on-dot t))
+
+(use-package flymake-python-pyflakes-autoloads
+  :defer
+  :after python
+  :init
+  (add-hook 'python-mode-hook 'flymake-python-pyflakes-load))
+
+
+
 
 ;; M-x elpy-rpc-reinstall-virtualenv to fix "peculiar error" message
 (use-package elpy
+  :if (package-installed-p 'elpy)
   :defer t
   ;; use pyvenv-workon manually to switch projects.  it might be nice
   ;; to auto-switch, but at the cost of doing more work when switching
   ;; buffers.
+  :commands elpy-enable
   :init
   (advice-add 'python-mode :before 'elpy-enable)
   :config
@@ -829,6 +787,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 ;;; js
 (use-package js2-mode
+  :defer t
   :mode (("\\.json\\'" . js-mode)
          ("\\.js\\'" . js2-mode)
          ("\\.mjs\\'" . js2-mode))
@@ -848,6 +807,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 
 (use-package mmm-mode
+  :defer t
   :bind (("C-c m" . mmm-parse-buffer))
   :config
   (setq mmm-global-mode 'maybe)
@@ -889,6 +849,9 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 ;; Make epg work with newer gpgs
 (fset 'epg-wait-for-status 'ignore)
+(defun my-icomplete-styles ()
+  (setq-local completion-styles '(initials flex)))
+(add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-styles)
 
 (provide 'init)
 ;;; init.el ends here
