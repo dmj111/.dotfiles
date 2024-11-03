@@ -144,5 +144,7 @@ fi
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
+load_if_exists $HOME/.dotfiles/local.bashrc
+
 
 unset -f load_if_exists
