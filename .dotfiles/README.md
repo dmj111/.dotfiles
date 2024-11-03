@@ -7,9 +7,16 @@ These commands will link the config files from this repository into
 `$HOME`.
 
     cd $HOME
-    git clone https://github.com/dmj111/.dotfiles.git
-    cd .dotfiles
-    ./setup.sh
+    git init --separate-git-dir=.dotfiles.git
+    git remote add upstream git@github.com:dmj111/.dotfiles.git
+    git fetch
+    git checkout -b keep-changes
+    git reset upstream/main
+    git add -u
+    git commit -m "Keep changes"
+    mv .git .gitdir
+    alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
+
 
 
 ### Setting local settings for email/user
