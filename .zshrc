@@ -4,10 +4,17 @@
 # Override below if needed.
 export DOTFILES_DIR=$HOME/.dotfiles
 
+
+function load_if_exists() {
+    if [ -r $1 ]; then
+        # echo "loading $1"
+        builtin source $1
+    fi
+}
+
 # Add local customizations in these sections to avoid merge conflicts.
-# START LOCAL CUSTOMIZATION
-[ -f $HOME/.zsh/local-pre.zsh ] && source $HOME/.zsh/local-pre.zsh
-# END LOCAL CUSTOMIZATION
+load_if_exists $HOME/.zsh/local-pre.zsh
+
 
 #### Notes
 # TODO:
@@ -386,9 +393,8 @@ ii() {
 alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
 
 
-# START LOCAL CUSTOMIZATION
-[ -f $HOME/.zsh/local.zsh ] && source $HOME/.zsh/local.zsh
-# END LOCAL CUSTOMIZATION
+load_if_exists $HOME/.zsh/local.zsh
+
 
 promptinit
 prompt ${ZSH_USE_PROMPT:-mine}
@@ -398,10 +404,8 @@ typeset -U path
 export HOMEBREW_BUNDLE_FILE=$DOTFILES_DIR/Brewfile
 
 
-# START LOCAL CUSTOMIZATION
-[ -f $HOME/.zsh/local-post.zsh ] && source $HOME/.zsh/local-post.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# END LOCAL CUSTOMIZATION
+load_if_exists $HOME/.zsh/local-post.zsh
+load_if_exists $HOME/.fzf.zsh
 
 # Uncomment for profiling
 # time  zsh -i -c exit
