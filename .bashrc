@@ -141,10 +141,11 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
     export PS1='\w$(__git_ps1 " (%s)")\$ '
 fi
 
+load_if_exists $HOME/.cargo/env
+load_if_exists $HOME/.fzf.bash
+load_if_exists $HOME/.dotfiles/local.bashrc
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
-load_if_exists $HOME/.dotfiles/local.bashrc
-
 
 unset -f load_if_exists

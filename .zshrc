@@ -403,10 +403,10 @@ typeset -U path
 
 export HOMEBREW_BUNDLE_FILE=$DOTFILES_DIR/Brewfile
 
-
 load_if_exists $HOME/.zsh/local-post.zsh
 load_if_exists $HOME/.fzf.zsh
 
+unset -f load_if_exists
 # Uncomment for profiling
 # time  zsh -i -c exit
 # zprof
