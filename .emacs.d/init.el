@@ -1,6 +1,12 @@
 ;;; init.el --- Emacs configuration file
 ;;; Commentary:
 
+;; https://www.reddit.com/r/emacs/comments/k7cku8/when_emacs_hangs_what_do_you_do/
+;; - run in gdb
+;; - ESC ESC ESC instead of ctrl-g
+;; - sample process with system monitory
+;; - use profiler-start to see what code is running
+
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Startup-Summary.html#Startup-Summary
 
 ;; DEBUGGING
@@ -8,13 +14,15 @@
 ;; - pkill -SIGUSR2 Emacs when stuck
 ;; - package-activated-list to see what is active
 
-
 ;;;; Debugging settings.
-
 ;; Debug if there is an error
 (setq debug-on-error nil)
-(setq debug-on-quit nil)
+;; (setq debug-on-quit t)
 
+
+;;https://emacspal.com/when-emacs-wont-quit-techniques-to-break-out-of-hangs-and-loops/https://emacspal.com/when-emacs-wont-quit-techniques-to-break-out-of-hangs-and-loops/
+(setq lisp-timeout-failure-warning t)
+(setq lisp-timeout-failure-warning-milliseconds 500)
 
 ;; stuff to practice:
 ;; - C-/ to undo
@@ -93,7 +101,7 @@
 (global-set-key "\M-?" 'help)
 (global-set-key "\C-cx" 'compile)
 (global-set-key [(f9)] 'recompile)
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-x k") 'kill-current-buffer)
 ;; Hmm... isearch.  and regexp.
 ;; (global-set-key "\M-s" 'isearch-forward-regexp)
 ;; (global-set-key "\M-r" 'isearch-backward-regexp)
@@ -120,9 +128,6 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
-
-
-
 (defconst my-is-mac (eq system-type 'darwin))
 
 ;; This is for when alt is not meta.   I need my meta.
@@ -131,8 +136,6 @@
   (setq mac-command-modifier 'meta))
 
 (setq uniquify-buffer-name-style 'forward)
-
-
 
 ;;; hippie-expand
 ;; From emacs-prelude
@@ -195,9 +198,8 @@ init is loaded.")
             (lambda ()
               (try-set-frame-font my-frame-fonts))))
 
-
 ;;; theme
-
+;; 'modus-vivendi
 (defcustom my-default-theme nil
   "Default theme to load at startup."
   :type 'symbol
@@ -242,11 +244,14 @@ init is loaded.")
 ;; END LOCAL CUSTOMIZATION
 
 
+;; load init-extra here
 (require 'package)
 (package-initialize)
 (message "loading package stuff")
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
+
+
 
 ;; Force this call for errors like use-package- not found
 ;; (package-refresh-contents)
@@ -266,15 +271,20 @@ init is loaded.")
 
 ;; Load local settings files
 
-;; (use-package does-not-exist
-;;   :disabled)
+(use-package does-not-exist
+  :defer t)
 
-(use-package dash)
+(use-package dash
+  :disabled
+  )
+
 (use-package diminish
-  :ensure t)
-
+  :ensure t
+)
 
 (use-package ef-themes
+  :ensure t
+  :defer t
   :custom
   (my-default-theme 'ef-night))
 
@@ -298,8 +308,6 @@ init is loaded.")
 (define-key my-map (kbd "w") 'whitespace-mode)
 
 
-
-
 ;; ;;; avy
 ;; (use-package avy   :disabled
 ;;   :bind (
@@ -311,7 +319,6 @@ init is loaded.")
 
 ;;;; undo-tree
 (use-package undo-tree
-  :ensure t
   :config
   (global-undo-tree-mode t)
   :custom
@@ -346,6 +353,7 @@ init is loaded.")
          ("C-'" . ivy-avy))
   :config
   (ivy-mode 1)
+  (message "IVY LOADED")
   ;; add ‘recentf-mode’ and bookmarks to ‘ivy-switch-buffer’.
   (setq ivy-use-virtual-buffers t)
   ;; number of result lines to display
@@ -366,10 +374,9 @@ init is loaded.")
 ;;; counsel
 ;; install smex for counsel-M-x
 (use-package counsel
-  ;; :disabled still locked up without counsel
-  :disabled t
+  :ensure t
   :after ivy
-  ;; :defer
+  :defer 5
   :bind
   (
    ("C-x C-r" . counsel-recentf)
@@ -391,8 +398,8 @@ init is loaded.")
 ;; https://sam217pa.github.io/2016/09/13/from-helm-to-ivy/
 
 (use-package swiper
-  ;; :disabled t
-  ;; :defer t
+  :defer t
+  :ensure t
   ;; C-j to select current
   ;; C-M-j to select current value (creat new file)
   ;; M-j to select word at point.
@@ -404,20 +411,19 @@ init is loaded.")
          ))
 
 
-;; ;; recentf
-;; (use-package recentf
-;;   :config
-;;   (recentf-mode 1)
-;;   :custom
-;;   (recentf-max-saved-items 50)
-;;   (recentf-max-menu-items 15)
-;;   )
-
+;; recentf
+(use-package recentf
+  :config
+  (recentf-mode 1)
+  :custom
+  (recentf-max-saved-items 50)
+  (recentf-max-menu-items 15)
+  )
 
 ;;; magit
 (use-package magit
   :ensure t
-  ;; :defer t
+  :defer t
   :bind (("\C-xg" . magit-status))
   :config
   ;; (eval-after-load 'swiper
@@ -434,13 +440,15 @@ init is loaded.")
 
 ;;; paredit
 (use-package paredit
-  :init
+  :ensure t
   :defer t
+  :init
   :config
   (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode))))
 
 
 (use-package flycheck
+  :ensure t
   :defer t
   :config
   ;; TODO [ ] https://github.com/abo-abo/hydra/wiki/Flycheck
@@ -448,7 +456,7 @@ init is loaded.")
   ;; the clang language backend so this is set to clang
   ;; Turn flycheck on everywhere
   (global-flycheck-mode 1)
-
+  (message "loaded flycheck")
   (add-hook 'c++-mode-hook
             (lambda () (setq flycheck-clang-language-standard "c++14")))
 
@@ -526,6 +534,7 @@ init is loaded.")
        '(org-verbatim ((t (:inherit (shadow fixed-pitch)))))))))
 
 (use-package org
+  :ensure t
   :defer t
   :custom
   (org-hide-emphasis-markers t)
@@ -566,6 +575,7 @@ init is loaded.")
 
   (my-org-fonts-setup))
 
+
 ;; (use-package ox-html
 ;;   :custom
 ;; (org-html-htmlize-output-type 'css)
@@ -595,6 +605,7 @@ init is loaded.")
       "* TODO %^{Description} %^g\n\n:PROPERTIES:\n:CREATED: %U\n:END:\n"))))
 
 (use-package org-refile
+  :disabled
   :defer t
   :custom
   ;; http://doc.norang.ca/org-mode.html#Refiling
@@ -612,6 +623,7 @@ init is loaded.")
 
 ;;; projectile
 (use-package projectile
+  :disabled
   :after ivy
   :diminish projectile-mode
   :bind-keymap
@@ -668,11 +680,13 @@ init is loaded.")
 
 (add-hook 'prog-mode-hook 'show-trailing-ws)
 
+
 ;; http://stackoverflow.com/a/13408008
 (use-package ansi-color
   :defer t
   :commands ansi-color-apply-on-region
   :init
+
   (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
   (defun colorize-compilation-buffer ()
     "Colorize compiler output."
@@ -718,8 +732,9 @@ init is loaded.")
             nil t))
 
 (use-package clang-format
+  :disabled
   :defer t
-  :ensure t
+  ;; :ensure t
   :commands clang-format-region clang-format-buffer
   :bind  (([C-M-tab] . clang-format-region))
   :init
@@ -753,6 +768,7 @@ init is loaded.")
 
 
 (use-package jedi-autoloads
+  :disabled
   :if (package-installed-p 'jedi-autoloads)
   :after python
   :init
@@ -761,17 +777,17 @@ init is loaded.")
   (setq jedi:setup-keys t)
   (setq jedi:complete-on-dot t))
 
-(use-package flymake-python-pyflakes-autoloads
-  :defer
-  :after python
-  :init
-  (add-hook 'python-mode-hook 'flymake-python-pyflakes-load))
-
+;; (use-package flymake-python-pyflakes-autoloads
+;;   :ensure t
+;;   :after python
+;;   :init
+;;   (add-hook 'python-mode-hook 'flymake-python-pyflakes-load))
 
 
 
 ;; M-x elpy-rpc-reinstall-virtualenv to fix "peculiar error" message
 (use-package elpy
+  :disabled
   :if (package-installed-p 'elpy)
   :defer t
   ;; use pyvenv-workon manually to switch projects.  it might be nice
@@ -784,6 +800,10 @@ init is loaded.")
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
 
+
+(use-package rust-mode
+  :defer t
+  )
 
 ;;; js
 (use-package js2-mode
@@ -801,12 +821,15 @@ init is loaded.")
 
 
 ;;; markdown
-(use-package markdown-mode)
+(use-package markdown-mode
+  :ensure t
+)
 
 ;; http://jblevins.org/log/mmm
 
 
 (use-package mmm-mode
+  :disabled
   :defer t
   :bind (("C-c m" . mmm-parse-buffer))
   :config
@@ -835,9 +858,10 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 ;; ef-themes
 
 (use-package epg
+
   :defer t
   :config
-  ;; ?? 
+  ;; ??
   (setq epg-pinentry-mode 'loopback)
   ;; make saving work better in org mode
   (fset 'epg-wait-for-status 'ignore))
@@ -849,17 +873,22 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 ;; Make epg work with newer gpgs
 (fset 'epg-wait-for-status 'ignore)
+
 (defun my-icomplete-styles ()
   (setq-local completion-styles '(initials flex)))
+
 (add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-styles)
 
-(provide 'init)
-;;; init.el ends here
 
+;; (outline-hide-subtree))
 
-;;  (outline-hide-subtree))
-;; Local Variables:
 ;; eval: (outline-minor-mode 1)
 ;; eval: (while (re-search-forward outline-regexp nil t)  (outline-hide-subtree)))
 ;; outline-regexp: "^;;; "
+;; move local variables to front to evaluate
+;; Local Variables:
 ;; End:
+
+
+(provide 'init)
+;;; init.el ends here
