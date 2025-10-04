@@ -17,6 +17,17 @@ These commands will link the config files from this repository into
     mv .git .gitdir
     alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
 
+## temporarily change workdir
+
+   #!/usr/bin/env bash
+   set -ex
+   echo "gitdir: $HOME/.dotfiles.git" > $HOME/.git
+
+
+   #!/usr/bin/env bash
+   set -ex
+   rm $HOME/.git
+
 
 
 ### Setting local settings for email/user
