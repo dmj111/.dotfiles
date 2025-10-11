@@ -113,12 +113,12 @@ prompt_func () {
         *) B=""; b="";;
     esac
 
-    PS1="bash $B[\D{%H:%M}] \w [\u@\h"$screenw"]$b\n$B--\! \$ $b"
+    PS1="\s $B[\A] \w [\u@\h"$screenw"]$b\n$B--\! \$ $b"
 }
 
 
 simple_prompt () {
-    PS1="[\$(date +%H:%M)] \w [\u@\h"$screenw"]\n--\! \$ "
+    PS1="[\A] \w [\u@\h"$screenw"]\n--\! \$ "
 }
 
 PROMPT_COMMAND='history -a'
