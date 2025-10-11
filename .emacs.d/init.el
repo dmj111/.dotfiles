@@ -616,8 +616,7 @@ init is loaded.")
 (use-package org-bullets
   :ensure t
   :after org
-  :defer t
-  :hook org-mode
+  :hook (org-mode . org-bullets-mode)
   )
 
 
