@@ -113,7 +113,7 @@ prompt_func () {
         *) B=""; b="";;
     esac
 
-    PS1="bash $B[\$(date +%H:%M)] \w [\u@\h"$screenw"]$b\n$B--\! \$ $b"
+    PS1="bash $B[\D{%H:%M}] \w [\u@\h"$screenw"]$b\n$B--\! \$ $b"
 }
 
 
@@ -144,6 +144,9 @@ fi
 load_if_exists $HOME/.cargo/env
 load_if_exists $HOME/.fzf.bash
 load_if_exists $HOME/.dotfiles/local.bashrc
+
+
+alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
 
 # START LOCAL CUSTOMIZATION
 # END LOCAL CUSTOMIZATION
