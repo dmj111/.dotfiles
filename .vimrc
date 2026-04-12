@@ -2,7 +2,11 @@
 " source .vimrc.local.pre
 " END LOCAL CUSTOMIZATION
 
-set nocompatible  " avoid vi compatibility
+" Set up vim to use plugin based features
+" Add local plugins to ~/.vim/pack/<pluginfoldername>/start/
+
+set nocompatible
+filetype plugin on
 
 
 if has('filetype')
@@ -10,18 +14,21 @@ if has('filetype')
 endif
 
 " Reload with :source ~/.vimrc
+
 " use jk as escape
 inoremap jk <ESC>
 
-let mapleader = "'"
+let mapleader = " "
 
-syntax on " highlight syntax
-set number " show line numbers
-set noswapfile " disable the swapfile
-set hlsearch " highlight all results
-set smartcase " ignore case search, unless a cap is used
-" set ignorecase " ignore case in search
-set incsearch " show search results as you type
+syntax on        " highlight syntax
+set number       " show line numbers
+set noswapfile   " disable the swapfile
+set hlsearch     " highlight all results
+set smartcase    " ignore case search, unless a cap is used
+set ignorecase   " ignore case in search
+set incsearch    " show search results as you type
+
+
 
 set cursorline
 
