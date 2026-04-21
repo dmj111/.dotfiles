@@ -1,9 +1,11 @@
 /*
 !/.dotfiles/
 !/.emacs.d/
-!/.zsh/
 !/.vscode/
+!/.zsh/
 
+/.dotfiles/local/
+/.emacs.d/custom.el
 /.emacs.d/elpy
 /.zsh/_git
 /.zsh/git-completion.bash
