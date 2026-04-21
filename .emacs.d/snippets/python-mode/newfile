@@ -2,7 +2,7 @@
 # name: newfile
 # key: newfile
 # binding: direct-keybinding
-# expand-env: ((yas-indent-line 'fixed)) 
+# expand-env: ((yas-indent-line 'fixed))
 # --
 import argparse
 import sys
@@ -20,4 +20,3 @@ def main(argv):
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
-    

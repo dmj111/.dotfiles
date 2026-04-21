@@ -4,17 +4,17 @@
 
   The easiest way to use this config is to clone this repo to your
   =$HOME/.emacs.d= directory.
-  
+
   #+BEGIN_EXAMPLE
   git clone https://github.com/dmj111/emacs.d ~/.emacs.d
   #+END_EXAMPLE
 
-  
+
 ** Customizing
 
    You can customize this startup without changing any of the files
-   from this repository.  
-   
+   from this repository.
+
    To do so, create a =.emacs.d/local= directory.  In that directory,
    optionally create =init-local.el= and =init-local-preload.el=.
    =init-local-preload.el= is loaded early in the setup, and
@@ -41,6 +41,3 @@
 * References
   - [[https://github.com/bbatsov/prelude][Emacs Prelude]]
   - [[https://github.com/purcell/emacs.d][Steve Purcell's startup]]
-
-   
-

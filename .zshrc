@@ -13,7 +13,7 @@ function load_if_exists() {
 }
 
 # Add local customizations in these sections to avoid merge conflicts.
-load_if_exists $HOME/.zsh/local-pre.zsh
+load_if_exists $DOTFILES_DIR/local/pre.zsh
 
 
 #### Notes
@@ -364,6 +364,10 @@ fpath=($HOME/.zsh $fpath)
 
 path=($path $DOTFILES_DIR/bin)
 
+if [ -d $DOTFILES_DIR/local/bin ]; then
+    path=($path $DOTFILES_DIR/local/bin)
+fi
+
 
 # Generated with : pip completion --zsh
 # pip zsh completion start
@@ -393,7 +397,7 @@ ii() {
 alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
 
 
-load_if_exists $HOME/.zsh/local.zsh
+load_if_exists $DOTFILES_DIR/local/local.zsh
 
 
 promptinit
@@ -401,9 +405,8 @@ prompt ${ZSH_USE_PROMPT:-mine}
 
 typeset -U path
 
-export HOMEBREW_BUNDLE_FILE=$DOTFILES_DIR/Brewfile
 
-load_if_exists $HOME/.zsh/local-post.zsh
+load_if_exists $DOTFILES_DIR/local/post.zsh
 load_if_exists $HOME/.fzf.zsh
 
 unset -f load_if_exists

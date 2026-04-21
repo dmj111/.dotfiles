@@ -7,4 +7,3 @@ computers.
 
 Use pipx.  `pipx install /<path-to/dmj-tools` to make the tools
 available.
-

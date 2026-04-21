@@ -10,7 +10,3 @@
 var ${2:exports} = (function () {
     $0
 }());
-
-
-
-
