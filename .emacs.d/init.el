@@ -219,13 +219,16 @@ init is loaded.")
 ;; (error "error")
 
 ;; Give names to some config directories.
-(defconst my-config-dir (file-name-directory load-file-name)
+(defconst my-config-dir
+  ;(file-name-directory load-file-name)
+  (expand-file-name "~/.dotfiles/local/emacs")
   "Root directory for the configuration.")
 
 (defconst my-config-setup (file-name-as-directory (concat my-config-dir "setup"))
   "Root directory for the configuration.")
 
-(add-to-list 'load-path (concat my-config-dir "lisp"))
+(add-to-list 'load-path my-config-dir)
+
 
 (setq custom-file (expand-file-name "custom.el" my-config-dir))
 
@@ -239,9 +242,7 @@ init is loaded.")
 (require 'cl-lib)
 
 
-;; START LOCAL CUSTOMIZATION
 (require 'init-local-preload nil t)
-;; END LOCAL CUSTOMIZATION
 
 
 ;; load init-extra here
@@ -865,10 +866,7 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   ;; make saving work better in org mode
   (fset 'epg-wait-for-status 'ignore))
 
-;; START LOCAL CUSTOMIZATION
 (require 'init-local nil t)
-;; END LOCAL CUSTOMIZATION
-
 
 ;; Make epg work with newer gpgs
 (fset 'epg-wait-for-status 'ignore)

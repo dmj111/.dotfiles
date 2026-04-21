@@ -1,8 +1,6 @@
 # Notes:
 
 
-# START LOCAL CUSTOMIZATION
-# END LOCAL CUSTOMIZATION
 
 [core]
     excludesfile = ~/.gitexcludes
@@ -230,7 +228,7 @@
 # [github]
 #   user =
 
-# START LOCAL CUSTOMIZATION
+
 [include]
-   path = ~/.dotfiles/.local.gitconfig
-# END LOCAL CUSTOMIZATION
+   path = ~/.dotfiles/local/gitconfig
+

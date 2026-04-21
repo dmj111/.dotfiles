@@ -1,5 +1,13 @@
-# START LOCAL CUSTOMIZATION
-# END LOCAL CUSTOMIZATION
+
+function load_if_exists() {
+    if [ -r $1 ]; then
+        echo "loading $1"
+        builtin source $1
+    fi
+}
+
+
+load_if_exists $HOME/.dotfiles/local/pre.bash
 
 case "$TERM" in
     "dumb")
@@ -28,17 +36,6 @@ if [ -z $NO_SWITCH ]; then
 fi
 
 
-function load_if_exists() {
-    if [ -r $1 ]; then
-        echo "loading $1"
-        builtin source $1
-    fi
-}
-
-
-# START LOCAL CUSTOMIZATION
-# END LOCAL CUSTOMIZATION
-
 export HISTSIZE=10000
 export HISTFILESIZE=100000
 export HISTIGNORE="&:ls:exit:h:l"
@@ -55,8 +52,6 @@ export EDITOR=vim
 # export INFOPATH=$HOME/lib/emacs-site-lisp/dvc/BUILD/texinfo:$INFOPATH
 # export LANG=ASCII
 
-# START LOCAL CUSTOMIZATION
-# END LOCAL CUSTOMIZATION
 
 function restart {
     NO_SWITCH=1 exec bash -l
@@ -141,14 +136,9 @@ if [ -f $BASH_DIR/git-prompt.sh ]; then
     export PS1='\w$(__git_ps1 " (%s)")\$ '
 fi
 
-load_if_exists $HOME/.cargo/env
-load_if_exists $HOME/.fzf.bash
-load_if_exists $HOME/.dotfiles/local.bashrc
-
-
 alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
 
-# START LOCAL CUSTOMIZATION
-# END LOCAL CUSTOMIZATION
+
+load_if_exists $HOME/.dotfiles/local/post.bash
 
 unset -f load_if_exists
