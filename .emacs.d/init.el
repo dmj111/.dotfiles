@@ -858,7 +858,6 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 ;; ef-themes
 
 (use-package epg
-
   :defer t
   :config
   ;; ??
@@ -868,8 +867,6 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 (require 'init-local nil t)
 
-;; Make epg work with newer gpgs
-(fset 'epg-wait-for-status 'ignore)
 
 (defun my-icomplete-styles ()
   (setq-local completion-styles '(initials flex)))
