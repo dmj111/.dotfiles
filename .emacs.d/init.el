@@ -763,8 +763,18 @@ init is loaded.")
 
 (use-package python
   :defer t
-  :init
-  (add-hook 'python-mode-hook 'my-python-mode-hook))
+  :custom
+  ;; Recent versions of python (2026) are emitting deprecation
+  ;; warnings with the inferior python, messing up the
+  ;; parsing/completion capbilities.
+  (python-shell-interpreter-args "-i -W ignore")
+
+  ;; :hook
+  ;; my-python-mode-hook
+  :config
+  (add-hook 'python-mode-hook 'my-python-mode-hook)
+
+)
 
 
 (use-package jedi-autoloads
