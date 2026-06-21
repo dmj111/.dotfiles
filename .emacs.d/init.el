@@ -444,8 +444,8 @@ init is loaded.")
   :ensure t
   :defer t
   :init
-  :config
   (add-hook 'emacs-lisp-mode-hook (lambda () (paredit-mode))))
+
 
 
 (use-package flycheck
