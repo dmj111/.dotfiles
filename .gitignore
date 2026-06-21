@@ -6,6 +6,7 @@
 
 /.dotfiles/local/
 /.emacs.d/custom.el
+/.emacs.d/eln-cache
 /.emacs.d/elpy
 /.zsh/_git
 /.zsh/git-completion.bash
