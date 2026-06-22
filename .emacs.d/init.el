@@ -693,7 +693,8 @@ init is loaded.")
     (ansi-color-apply-on-region compilation-filter-start (point))))
 
 (use-package company
-  :defer t
+  :ensure t
+  :defer 10
   :config
   (global-company-mode 1))
 
