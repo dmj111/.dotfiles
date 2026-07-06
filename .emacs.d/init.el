@@ -200,6 +200,9 @@ init is loaded.")
 
 ;;; theme
 ;; 'modus-vivendi
+;; (ef-maris-dark)
+
+
 (defcustom my-default-theme nil
   "Default theme to load at startup."
   :type 'symbol
@@ -212,7 +215,7 @@ init is loaded.")
               (when my-default-theme
                 (message "loading the theme...")
                 (load-theme my-default-theme t))
-                (toggle-frame-maximized)))
+              (toggle-frame-maximized)))
 
 
 ;;; configuration settings
