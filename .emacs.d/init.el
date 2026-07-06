@@ -719,8 +719,9 @@ init is loaded.")
 (use-package flycheck-clang-tidy
   :defer t
   :after flycheck
-  :init
+  :config
   (add-hook 'flycheck-mode-hook #'flycheck-clang-tidy-setup))
+
 
 
 
