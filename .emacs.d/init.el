@@ -309,13 +309,14 @@ init is loaded.")
 (define-key my-map (kbd "w") 'whitespace-mode)
 
 
-;; ;;; avy
-;; (use-package avy   :disabled
-;;   :bind (
-;;          ("C-:" . avy-goto-char)
-;;          :map my-map
-;;          ("w" . avy-goto-word-1)
-;;          ("1" . avy-goto-char-timer)))
+;;; avy
+(use-package avy
+  :ensure t
+  :bind (
+         ("C-:" . avy-goto-char)
+         :map my-map
+         ("w" . avy-goto-word-1)
+         ("1" . avy-goto-char-timer)))
 
 
 ;;;; undo-tree
