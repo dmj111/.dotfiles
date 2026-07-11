@@ -425,6 +425,7 @@ init is loaded.")
   )
 
 ;;; magit
+;;; note - $ not defined error -> install a newer version of the `transient` package
 (use-package magit
   :ensure t
   :defer t
