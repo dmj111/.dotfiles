@@ -889,7 +889,10 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 
 (add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-styles)
 
-(setopt project-vc-extra-root-markers '(".dir-locals.el"))
+(setopt project-vc-extra-root-markers '(".dir-locals.el"
+                                        "pyproject.toml"
+                                        "Cargo.toml"
+                                        ))
 
 
 ;; (outline-hide-subtree))
