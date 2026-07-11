@@ -288,7 +288,6 @@ init is loaded.")
 
 (use-package ef-themes
   :ensure t
-  :defer t
   :custom
   (my-default-theme 'ef-night))
 
