@@ -10,3 +10,7 @@
 /.emacs.d/elpy
 /.zsh/_git
 /.zsh/git-completion.bash
+
+venv/
+.venv/
+miniconda3/

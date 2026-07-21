@@ -178,7 +178,18 @@ alias sc='screen -d -r || screen'
 
 #### Completion
 autoload -Uz compinit bashcompinit
-compinit -i -D
+
+# compinit -i -D
+autoload -Uz compinit
+
+if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
+    rm -f ~/.zcompdump
+    compinit
+else
+    compinit -C
+fi
+
+# compinit -i
 bashcompinit
 
 zmodload zsh/complist
@@ -397,6 +408,13 @@ ii() {
 
 alias dgit="git --git-dir $HOME/.dotfiles.git --work-tree=$HOME"
 
+set_tmux_pane_title() {
+    if [ "$TERM_PROGRAM"  = tmux ]; then
+        printf '\033]2;%s\033' "$1"
+    fi
+}
+
+
 
 load_if_exists $DOTFILES_DIR/local/local.zsh
 
@@ -411,6 +429,7 @@ load_if_exists $DOTFILES_DIR/local/post.zsh
 load_if_exists $HOME/.fzf.zsh
 
 unset -f load_if_exists
+
 # Uncomment for profiling
 # time  zsh -i -c exit
 # zprof
