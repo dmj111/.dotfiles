@@ -414,6 +414,20 @@ set_tmux_pane_title() {
     fi
 }
 
+switch_conda_env() {
+    if [[ $# -eq 0 ]]; then
+        echo "no arguments to switch_conda_env"
+        return 1
+    fi
+    local name=$1
+    if [[ $CONDA_DEFAULT_ENV = "$name" ]]; then
+        echo "already activated"
+    else
+        conda activate "$name"
+    fi
+}
+
+
 
 
 load_if_exists $DOTFILES_DIR/local/local.zsh
